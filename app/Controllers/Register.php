@@ -129,6 +129,7 @@ class Register extends BaseController
       return redirect()->to('Register')->with('success', 'User Registration Successful');
      
     }
+    //testing
   }
 
 }
