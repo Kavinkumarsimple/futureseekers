@@ -16,7 +16,7 @@
       }
       .pagepanel {
         width: 70%;
-        height: 550px;
+        height: 650px;
         margin: auto;
         margin-top: 20px;
         background-color:  #C7EAD5;
@@ -89,27 +89,60 @@
         <div id="GroupName1Div" style="display:none;">
             <h3>Employer Details</h3>
             <form action="<?php echo site_url('/Register/createEmployer') ?>" method="POST">
-              <input type="text" required="yes" placeholder="Full Name" name="name" id="name"><br>
-              <input type="tel" required="yes" placeholder="Contact No" name="contactNo" id="contactNo"><br>
-              <input type="text" required="yes" placeholder="Job Position" name="jobPosition" id="jobPosition"><br>
-              <input type="email" required="yes" placeholder="Email" name="email" id="email"><br>
-              <input type="text" required="yes" placeholder="Company Name" name="cname" id="cname"><br>
-              <input type="text" required="yes" placeholder="Username" name="username" id="username"><br>
-              <input type="password" required="yes" placeholder="Password" name="password" id="password"><br>
+              
+              <input type="text" placeholder="Full Name" name="name" id="name" value="<?= set_value('name'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small><br>
+
+              <input type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?= set_value('contactNo'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small><br>
+              
+              <input type="text" placeholder="Job Position" name="jobPosition" id="jobPosition" value="<?= set_value('jobPosition'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'jobPosition') : '' ?></small><br>
+
+              <input type="email" placeholder="Email" name="email" id="email" value="<?= set_value('email'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small><br>
+
+              <input type="text" placeholder="Company Name" name="cname" id="cname" value="<?= set_value('name'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small><br>
+
+              <input type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br>
+
+              <input type="password" placeholder="Password" name="password" id="password" value="<?= set_value('password'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small><br>
+
               <button type="submit">Register Now</button>
             </form>
         </div>
         <div id="GroupName2Div" style="display:none;">
             <h3>Applicant Details</h3>
             <form action="<?php echo site_url('/Register/createJobSeeker') ?>" method="POST">
-              <input type="text" required="yes" placeholder="Full Name" name="name" id="name"><br>
-              <input type="text" required="yes" placeholder="Address" name="address" id="address"><br>
-              <input type="email" required="yes" placeholder="Email" name="email" id="email"><br>
-              <input type="tel" required="yes" placeholder="Contact No" name="contactNo" id="contactNo"><br>
-              <input type="date" required="yes" placeholder="DOB" name="dob" id="dob"><br>
-              <input type="text" required="yes" placeholder="Current Job Title" name="currentJobTitle" id="currentJobTitle"><br>
-              <input type="text" required="yes" placeholder="Username" name="username" id="username"><br>
-              <input type="password" required="yes" placeholder="Password" name="password" id="password"><br>
+              
+              <input type="text" placeholder="Full Name" name="name" id="name" value="<?= set_value('name'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small><br>
+              
+              <input type="text" placeholder="Address" name="address" id="address" value="<?= set_value('address'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'address') : '' ?></small><br>
+              
+              <input type="email" placeholder="Email" name="email" id="email" value="<?= set_value('email'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small><br>
+              
+              <input type="tel" placeholder="Contact No" name="contactNo" 
+              id="contactNo" value="<?= set_value('contactNo'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small><br>
+              
+              <input type="date" placeholder="DOB" name="dob" id="dob" value="<?= set_value('dob'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'dob') : '' ?></small><br>
+              
+              <input type="text" placeholder="Current Job Title" name="currentJobTitle" id="currentJobTitle" value="<?= set_value('currentJobTitle'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'currentJobTitle') : '' ?></small><br>
+              
+              <input type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br>
+
+              <input type="password" placeholder="Password" name="password" id="password" value="<?= set_value('password'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small><br>
+              
               <button type="submit">Register Now</button>
             </form>
         </div>

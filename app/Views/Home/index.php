@@ -102,14 +102,12 @@
         <form action="<?php echo site_url('/Home/login') ?>" method="POST">
           <div>
             <?php if (!empty(session()->getFlashdata('fail'))) : ?>
-              <div style="margin-top:5px" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
+              <div> <?= session()->getFlashdata('fail'); ?> </div>
             <?php endif ?>
             <i class="fa fa-user icon"></i>
-            <!-- <input type="text" placeholder="username" name="username" id="username" required> -->
             <input id="username" name="username" type="text" placeholder="Enter Username" value="<?= set_value('username'); ?>" />
             <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br><br>
             <i class="fa fa-lock icon"></i>
-            <!-- <input type="password" placeholder="password" name="password" id="password" required> -->
             <input id="password" name="password" type="text" placeholder="Enter Username" value="<?= set_value('password'); ?>" />
             <small><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small><br><br>
             <button id="loginbtn">Login</button><br>
