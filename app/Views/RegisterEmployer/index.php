@@ -102,8 +102,8 @@
               <input type="email" placeholder="Email" name="email" id="email" value="<?= set_value('email'); ?>"><br>
               <small><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small><br>
 
-              <input type="text" placeholder="Company Name" name="cname" id="cname" value="<?= set_value('name'); ?>"><br>
-              <small><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small><br>
+              <input type="text" placeholder="Company Name" name="cname" id="cname" value="<?= set_value('cname'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'cname') : '' ?></small><br>
 
               <input type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username'); ?>"><br>
               <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br>

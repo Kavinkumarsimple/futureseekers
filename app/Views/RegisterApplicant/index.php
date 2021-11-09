@@ -107,8 +107,8 @@
               <input type="date" placeholder="DOB" name="dob" id="dob" value="<?= set_value('dob'); ?>"><br>
               <small><?= isset($validation) ? show_validation_error($validation, 'dob') : '' ?></small><br>
               
-              <input type="text" placeholder="Current Job Title" name="jobPostion" id="jobPostion" value="<?= set_value('jobPostion'); ?>"><br>
-              <small><?= isset($validation) ? show_validation_error($validation, 'jobPostion') : '' ?></small><br>
+              <input type="text" placeholder="Current Job Title" name="currentJobTitle" id="currentJobTitle" value="<?= set_value('currentJobTitle'); ?>"><br>
+              <small><?= isset($validation) ? show_validation_error($validation, 'currentJobTitle') : '' ?></small><br>
               
               <input type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username'); ?>"><br>
               <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br>
