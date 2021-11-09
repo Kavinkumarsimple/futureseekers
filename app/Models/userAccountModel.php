@@ -8,7 +8,8 @@ class userAccountModel extends \CodeIgniter\Model {
   protected $allowedFields = [
                               'username',
                               'password',
-                              'status'
+                              'status',
+                              'type'
                             ];
 }
 

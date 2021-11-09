@@ -24,7 +24,8 @@ class Register extends BaseController
     //useraccount table info
     $valuesUser = [
                     'username' => $username,
-                    'password' => $password
+                    'password' => $password,
+                    'type' => "employer"
     ];
     
     $userAccountModel = new \App\Models\userAccountModel();
@@ -77,6 +78,7 @@ class Register extends BaseController
       // return redirect()->to('Register')->with('success', 'User Registration Successful');
     }
   }
+
   public function createJobSeeker() {
 
     //getting values from form
@@ -92,7 +94,8 @@ class Register extends BaseController
     //useraccount table info
     $valuesUser = [
                     'username' => $username,
-                    'password' => $password
+                    'password' => $password,
+                    'type' => "applicant"
     ];
 
     $userAccountModel = new \App\Models\userAccountModel();

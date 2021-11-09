@@ -87,14 +87,20 @@
         </div>
       </div>
       <div class="loginbox">
-        <div>
-          <i class="fa fa-user icon"></i>
-          <input type="text" placeholder="username" name="username" id="username" required><br><br>
-          <i class="fa fa-lock icon"></i>
-          <input type="password" placeholder="password" name="password" id="password" required><br><br>
-          <a href="<?php echo site_url('') ?>"><button id="loginbtn">Login</button><br></a>
-          <a href="<?php echo site_url('Register/Index') ?>"><button id="registerbtn">Register</button></a>
-        </div>
+        <form action="<?php echo site_url('/Home/login') ?>" method="POST">
+          <div>
+            <i class="fa fa-user icon"></i>
+            <input type="text" placeholder="username" name="username" id="username" required>
+            <!-- <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br><br> -->
+            <i class="fa fa-lock icon"></i>
+            <input type="password" placeholder="password" name="password" id="password" required>
+            <!-- <small><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small><br><br> -->
+            <button id="loginbtn">Login</button><br>
+            
+          </div>
+        </form>
+        <a href="<?php echo site_url('Register/Index') ?>"><button id="registerbtn">Register</button></a>
+        
       </div>
     </div>
   </div>
