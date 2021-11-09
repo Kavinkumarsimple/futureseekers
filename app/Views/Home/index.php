@@ -114,8 +114,8 @@
 
           </div>
         </form>
-        <a href="<?php echo site_url('Register/Index') ?>"><button id="registerbtn">Register</button></a>
-
+        <a href="<?php echo site_url('RegisterEmployer/Index') ?>"><button id="registerEmployerbtn">Register As Employer</button></a>
+        <a href="<?php echo site_url('RegisterApplicant/Index') ?>"><button id="registerApplicantbtn">Register As Applicant</button></a>
       </div>
     </div>
   </div>
