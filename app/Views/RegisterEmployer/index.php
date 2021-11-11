@@ -1,81 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" name="This is the register page of FutureSeekers.lk, New users can register themselves to the site, Both employers and applicants can register here">
-    <style>
-      body {
-        font-family: Georgia, serif;
-        background-color: #033417;
-        padding: 0;
-        margin: 0;
-      }
-      #header {
-        padding-left: 225px;
-        color: white;
-      }
-      .pagepanel {
-        width: 70%;
-        height: 650px;
-        margin: auto;
-        margin-top: 20px;
-        background-color:  #C7EAD5;
-        align-content: center;
-        text-align: center;
-        border-radius: 20px;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: 1.5fr 2fr;
-        grid-template-rows: 1fr;
-        grid-column-gap: 0px;
-        grid-row-gap: 0px;
-      }
-      .formpanel {
-        grid-area: 1 / 1 / 2 / 2;
-        text-align: left;
-        align-content: center;
-        margin: 10px;
-        padding: 0px 0px 20px 25px;
-      }
-      input[type=text], input[type=email], input[type=password], input[type=date], input[type=tel] {
-        margin-bottom: 5px;
-        height: 20px;
-        width: 250px;
-        border-radius: 10px;
-      }
-      .note {
-        grid-area: 1 / 2 / 2 / 3;
-        align-content: center;
-        text-align: justify;
-        padding: 0px 20px 0px 20px;
-        margin-top: 135px;
-      }
-      .companynote, .applicantnote {
-        margin-bottom: 20px;
-        padding: 10px;
-        border: solid #033417 2px;
-        border-radius: 5px;
-      }
-      button {
-        background-color: #5FCB8D;
-        color: black;
-        cursor: pointer;
-        border: 3px;
-        padding: 10px;
-        border-radius: 10px;
-        width: 150px;
-        margin-top: 10px;
-        font-weight: bold;
-      }
-      button:hover {
-        background-color: #033417;
-        color: white;
-      }
-    </style>
-    <title>Future Seekers.lk | Register</title>
-  </head>
-  <body>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" name="This is the register page of FutureSeekers.lk, New users can register themselves to the site, Both employers and applicants can register here">
+  <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>" />
+  <link rel="stylesheet" href="<?= base_url('bootstrap/css/register_employerStyles.css') ?>" />
+
+  <title>Future Seekers.lk | Register</title>
+</head>
+
+<body>
+
+
+  <section class="testimonial py-5 regholder" id="testimonial">
+    <div class="container">
+      <div class="row ">
+        <div class="col-md-4 py-5 text-white text-center leftholder">
+          <div class="">
+            <div class="card-body">
+              <!-- <img src="http://www.ansonika.com/mavia/img/registration_bg.svg" style="width:30%"> -->
+              <img src="<?= base_url('Images/fslogo.webp') ?>" style="width:40%; padding-bottom:20px">
+              <h2 class="py-3">Employer Registration</h2>
+              <p class="notepara">
+                After Registration, You're required to pay a fee of Rs 1,000 and send the reciept via email to futureseekers@gamil.com.<br>
+                Our Team will verify your profile within 24 hours and would send you a mail.
+
+              </p>
+              <!-- Go Back to Login BTN -->
+              <div class="form-row">
+              <a class="btn btnlogin2"href="<?php echo site_url('Home/Index/') ?>">Back to Login</a>
+            </div>
+            </div>
+           
+          </div>
+        </div>
+        <div class="col-md-8 py-5 border regformholder">
+          <h4 class="pb-4">Create New Account</h4>
+          <?php if (!empty(session()->getFlashdata('fail'))) : ?>
+            <div style="margin-top:5px" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
+          <?php endif ?>
+
+          <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
+          <?php endif ?>
+          <form  action="<?php echo site_url('/RegisterEmployer/createProfile') ?>" method="POST">
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Full Name</label>
+                <input class="form-control" type="text" placeholder="Eg. Alex Hunter" name="name" id="name" value="<?= set_value('name'); ?>">
+                <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small>
+                <!-- <input id="Full Name" name="Full Name" placeholder="Full Name" class="form-control" type="text"> -->
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Current Job Position</label>
+                <input class="form-control" type="text" placeholder="Eg. HR Executive" name="jobPosition" id="jobPosition" value="<?= set_value('jobPosition'); ?>">
+                <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobPosition') : '' ?></small>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Email</label>
+                <input class="form-control" type="email" placeholder="Eg. alex@gmail.com" name="email" id="email" value="<?= set_value('email'); ?>">
+                <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Contact No</label>
+                <input class="form-control" type="tel" placeholder="Eg. 0777118657" name="contactNo" id="contactNo" value="<?= set_value('contactNo'); ?>">
+                <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Comapany Name</label>
+                <input class="form-control" type="text" placeholder="Eg. Techland Ltd" name="cname" id="cname" value="<?= set_value('cname'); ?>">
+                <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'cname') : '' ?></small>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Username</label>
+                <input class="form-control" type="text" placeholder="Eg. alex143" name="username" id="username" value="<?= set_value('username'); ?>">
+                <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Password</label>
+                <input class="form-control" type="password" placeholder="Enter password" name="password" id="password" value="<?= set_value('password'); ?>">
+                <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small>
+              </div>
+            </div>
+            <!-- <div class="form-row">
+              <div class="form-group">
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                    <label class="form-check-label" for="invalidCheck2">
+                      <small>By clicking Submit, you agree to our Terms & Conditions, Visitor Agreement and Privacy Policy.</small>
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+            </div> -->
+            <br>
+            <div class="form-row">
+              <button type="submit" class="btn btn-primary btnlogin">Register Now</button>     
+              <!-- <button id="loginbtn" class="btn btn-primary btnlogin">Register</button><br> -->
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- 
+
     <h1 id="header">Future Seekers LK</h1>
   <div class="pagepanel">
     <div class="grid">
@@ -128,9 +182,9 @@
   </div>
 
     <?php
-    
-    ?>
 
-  </body>
+    ?> -->
+
+</body>
 
 </html>

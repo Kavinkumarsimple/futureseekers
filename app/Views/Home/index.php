@@ -5,124 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" name="This is the login page of FutureSeekers.lk, Registered user can login here and new users can register themselves to the website by going to the Register page.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-    body {
-      font-family: Georgia, serif;
-      background-color: #033417;
-      padding: 0;
-      margin: 0;
-    }
+  <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>" />
+  <link rel="stylesheet" href="<?= base_url('bootstrap/css/login_styles.css') ?>" />
 
-    .pagepanel {
-      width: 70%;
-      height: 350px;
-      margin: auto;
-      margin-top: 150px;
-      background-color: #C7EAD5;
-      align-content: center;
-      text-align: center;
-      border-radius: 20px;
-    }
-
-    #logo {
-      height: 100px;
-      width: 100px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1.5fr 2fr;
-      grid-template-rows: 1fr;
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
-    }
-
-    .welcomemsg {
-      grid-area: 1 / 1 / 2 / 2;
-      align-content: center;
-      text-align: center;
-      padding: 40px 0px 20px 0px;
-    }
-
-    .loginbox {
-      grid-area: 1 / 2 / 2 / 3;
-      align-content: center;
-      padding: 40px 0px 20px 0px;
-      margin-top: 40px;
-    }
-
-    input {
-      height: 30px;
-      width: 250px;
-      border-radius: 10px;
-    }
-
-    button {
-      background-color: #5FCB8D;
-      color: black;
-      cursor: pointer;
-      border: 3px;
-      padding: 10px;
-      border-radius: 10px;
-      margin: 5px 10px;
-      font-weight: bold;
-    }
-
-    #loginbtn {
-      width: 200px;
-    }
-
-    #registerbtn {
-      width: 150px;
-    }
-
-    button:hover {
-      background-color: #033417;
-      color: white;
-    }
-  </style>
   <title>Future Seekers.lk | login</title>
 </head>
 
 <body>
-  <div class="pagepanel">
-    <div class="grid">
-      <div class="welcomemsg">
-        <div>
-          <img id="logo" src="<?= base_url('Images/Logo.png') ?>" />
-        </div>
-        <div>
-          <h2>Welcome Back!</h2><br>
-          <p>If you are an existing user click and Login<br>
-            Or if you are a new user join us now by<br>
-            clicking on Register</p>
-        </div>
-      </div>
-      <div class="loginbox">
-        <form action="<?php echo site_url('/Home/login') ?>" method="POST">
-          <div>
-            <?php if (!empty(session()->getFlashdata('fail'))) : ?>
-              <div> <?= session()->getFlashdata('fail'); ?> </div>
-            <?php endif ?>
-            <i class="fa fa-user icon"></i>
-            <input id="username" name="username" type="text" placeholder="Enter Username" value="<?= set_value('username'); ?>" />
-            <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br><br>
-            <i class="fa fa-lock icon"></i>
-            <input id="password" name="password" type="text" placeholder="Enter Username" value="<?= set_value('password'); ?>" />
-            <small><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small><br><br>
-            <button id="loginbtn">Login</button><br>
+  <div class="container login-container">
+    <div class="row">
+      <div class="col-md-6 login-form-2">
+        <img src="<?= base_url('Images/fslogo.webp') ?>" class="rounded mx-auto d-block imglogo" alt="Future Seekers LK Logo">
+        <h3 class="display-4 customtitle">FutureSeekers</h3>
+        <h3 class="display-4 custommessage">Welcome Back!</h3>
 
+
+      </div>
+      <div class="col-md-6 login-form-1">
+
+        <form action="<?php echo site_url('/Home/login') ?>" method="POST">
+          <div class="form-group">
+
+            <label class="medium mb-1">Username</label>
+            <input id="username" class="form-control" name="username" type="text" placeholder="Enter Username" value="<?= set_value('username'); ?>" />
+            <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small>
+          </div>
+          <div class="form-group"><label class="medium mb-1">Password</label>
+            <input id="password" class="form-control" name="password" type="password" placeholder="Enter Password" value="<?= set_value('password'); ?>" />
+            <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small>
+          </div>
+          <div class="form-group">
+            <button id="loginbtn" class="btn btn-primary btnlogin">Login</button><br>
+          </div>
+          <?php if (!empty(session()->getFlashdata('fail'))) : ?>
+            <div style="margin-top:5px" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
+          <?php endif ?>
+
+          <?php if (!empty(session()->getFlashdata('success'))) : ?>
+            <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
+          <?php endif ?>
+          <div class="form-group">
+            <div class="mb-2 text-muted">Are you an Employer? <a href="<?php echo site_url('RegisterEmployer/Index/') ?>">Register Now</a> </div>
+            <div class="mb-2 text-muted">Are you an Applicant? <a href="<?php echo site_url('RegisterApplicant/Index') ?>"> Register Now </a> </div>
           </div>
         </form>
-        <a href="<?php echo site_url('RegisterEmployer/Index') ?>"><button id="registerEmployerbtn">Register As Employer</button></a>
-        <a href="<?php echo site_url('RegisterApplicant/Index') ?>"><button id="registerApplicantbtn">Register As Applicant</button></a>
       </div>
     </div>
   </div>
-
-  <?php
-
-  ?>
 </body>
 
 </html>
