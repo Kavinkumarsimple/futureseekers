@@ -19,33 +19,56 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>Address</th>
+          <th>ContactNo</th>
+          <th>JobPosition</th>
           <th>Email</th>
-          <th>Contact No</th>
-          <th>Date of Birth</th>
-          <th>Job Title</th>
           <th>Username</th>
           <th>Password</th>
+          <th>Company ID</th>
+          <th>Company Name</th>
+          <th>Company Contact No</th>
+          <th>Company Email</th>
         </tr>
         <?php
-        $connect = mysqli_connect("localhost", "root", "", "futureseekerslk") or die("Connection Failed");
-        $query = "Select t1.id, t1.name, t1.address, t1.email, t1.contactNo, t1.dob, t1.currentJobTitle, t2.username, t2.password
-           From employer as t1, user_account as t2 
-           Where t1.user_account_id = t2.id and t2.status = 0";
-        $result = mysqli_query($connect, $query);
-        while ($row = mysqli_fetch_assoc($result)) {
+        $Employer = new \App\Models\employerModel();
+        $UserAccount = new \App\Models\userAccountModel();
+        $Company = new \App\Models\companyModel();
+
+        $query = $Employer->query("Select * from employer");
+        foreach ($query->getResult() as $row) {
+          $companyid = $row->company_id;
+          $useraccountid = $row->user_account_id;
+
+          $query_company = $Company->query("Select * from company where id = $companyid");
+          foreach ($query_company->getResult() as $row2) {
+            $companyname = $row2->name;
+            $companycno = $row2->contactNo;
+            $companyemail = $row2->email;
+
+            $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 0");
+            foreach ($query_useraccount->getResult() as $row3) {
+              $username = $row3->username;
+              $password = $row3->password;
         ?>
-          <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['name']; ?></td>
-            <td><?php echo $row['address']; ?></td>
-            <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['contactNo']; ?></td>
-            <td><?php echo $row['dob']; ?></td>
-            <td><?php echo $row['currentJobTitle']; ?></td>
-            <td><?php echo $row['username']; ?></td>
-            <td><?php echo $row['password']; ?></td>
-          </tr>
+              <tr>
+                <td><?php echo $row->id; ?></td>
+                <td><?php echo $row->name; ?></td>
+                <td><?php echo $row->contactNo; ?></td>
+                <td><?php echo $row->jobPosition; ?></td>
+                <td><?php echo $row->email; ?></td>
+                <td><?php echo $username; ?></td>
+                <td><?php echo $password; ?></td>
+                <td><?php echo $companyid; ?></td>
+                <td><?php echo $companyname; ?></td>
+                <td><?php echo $companycno; ?></td>
+                <td><?php echo $companyemail; ?></td>
+              </tr>
+            <?php
+            }
+            ?>
+          <?php
+          }
+          ?>
         <?php
         }
         ?>
@@ -59,33 +82,56 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>Address</th>
+          <th>ContactNo</th>
+          <th>JobPosition</th>
           <th>Email</th>
-          <th>Contact No</th>
-          <th>Date of Birth</th>
-          <th>Job Title</th>
           <th>Username</th>
           <th>Password</th>
+          <th>Company ID</th>
+          <th>Company Name</th>
+          <th>Company Contact No</th>
+          <th>Company Email</th>
         </tr>
         <?php
-        $connect = mysqli_connect("localhost", "root", "", "futureseekerslk") or die("Connection Failed");
-        $query = "Select t1.id, t1.name, t1.address, t1.email, t1.contactNo, t1.dob, t1.currentJobTitle, t2.username, t2.password
-           From job_seeker as t1, user_account as t2 
-           Where t1.user_account_id = t2.id and t2.status = 1";
-        $result = mysqli_query($connect, $query);
-        while ($row = mysqli_fetch_assoc($result)) {
+        $Employer = new \App\Models\employerModel();
+        $UserAccount = new \App\Models\userAccountModel();
+        $Company = new \App\Models\companyModel();
+
+        $query = $Employer->query("Select * from employer");
+        foreach ($query->getResult() as $row) {
+          $companyid = $row->company_id;
+          $useraccountid = $row->user_account_id;
+
+          $query_company = $Company->query("Select * from company where id = $companyid");
+          foreach ($query_company->getResult() as $row2) {
+            $companyname = $row2->name;
+            $companycno = $row2->contactNo;
+            $companyemail = $row2->email;
+
+            $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 1");
+            foreach ($query_useraccount->getResult() as $row3) {
+              $username = $row3->username;
+              $password = $row3->password;
         ?>
-          <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['name']; ?></td>
-            <td><?php echo $row['address']; ?></td>
-            <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['contactNo']; ?></td>
-            <td><?php echo $row['dob']; ?></td>
-            <td><?php echo $row['currentJobTitle']; ?></td>
-            <td><?php echo $row['username']; ?></td>
-            <td><?php echo $row['password']; ?></td>
-          </tr>
+              <tr>
+                <td><?php echo $row->id; ?></td>
+                <td><?php echo $row->name; ?></td>
+                <td><?php echo $row->contactNo; ?></td>
+                <td><?php echo $row->jobPosition; ?></td>
+                <td><?php echo $row->email; ?></td>
+                <td><?php echo $username; ?></td>
+                <td><?php echo $password; ?></td>
+                <td><?php echo $companyid; ?></td>
+                <td><?php echo $companyname; ?></td>
+                <td><?php echo $companycno; ?></td>
+                <td><?php echo $companyemail; ?></td>
+              </tr>
+            <?php
+            }
+            ?>
+          <?php
+          }
+          ?>
         <?php
         }
         ?>
@@ -99,34 +145,56 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>Address</th>
+          <th>ContactNo</th>
+          <th>JobPosition</th>
           <th>Email</th>
-          <th>Contact No</th>
-          <th>Date of Birth</th>
-          <th>Job Title</th>
           <th>Username</th>
           <th>Password</th>
+          <th>Company ID</th>
+          <th>Company Name</th>
+          <th>Company Contact No</th>
+          <th>Company Email</th>
         </tr>
         <?php
-          $connect = mysqli_connect("localhost", "root", "", "futureseekerslk") or die ("Connection Failed");
-          $query = "Select t1.id, t1.name, t1.address, t1.email, t1.contactNo, t1.dob, t1.currentJobTitle, t2.username, t2.password
-           From job_seeker as t1, user_account as t2 
-           Where t1.user_account_id = t2.id and t2.status = 2";
-          $result = mysqli_query($connect, $query);
-          while($row = mysqli_fetch_assoc($result))
-          {
+        $Employer = new \App\Models\employerModel();
+        $UserAccount = new \App\Models\userAccountModel();
+        $Company = new \App\Models\companyModel();
+
+        $query = $Employer->query("Select * from employer");
+        foreach ($query->getResult() as $row) {
+          $companyid = $row->company_id;
+          $useraccountid = $row->user_account_id;
+
+          $query_company = $Company->query("Select * from company where id = $companyid");
+          foreach ($query_company->getResult() as $row2) {
+            $companyname = $row2->name;
+            $companycno = $row2->contactNo;
+            $companyemail = $row2->email;
+
+            $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 2");
+            foreach ($query_useraccount->getResult() as $row3) {
+              $username = $row3->username;
+              $password = $row3->password;
         ?>
-          <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['name']; ?></td>
-            <td><?php echo $row['address']; ?></td>
-            <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['contactNo']; ?></td>
-            <td><?php echo $row['dob']; ?></td>
-            <td><?php echo $row['currentJobTitle']; ?></td>
-            <td><?php echo $row['username']; ?></td>
-            <td><?php echo $row['password']; ?></td>
-          </tr>
+              <tr>
+                <td><?php echo $row->id; ?></td>
+                <td><?php echo $row->name; ?></td>
+                <td><?php echo $row->contactNo; ?></td>
+                <td><?php echo $row->jobPosition; ?></td>
+                <td><?php echo $row->email; ?></td>
+                <td><?php echo $username; ?></td>
+                <td><?php echo $password; ?></td>
+                <td><?php echo $companyid; ?></td>
+                <td><?php echo $companyname; ?></td>
+                <td><?php echo $companycno; ?></td>
+                <td><?php echo $companyemail; ?></td>
+              </tr>
+            <?php
+            }
+            ?>
+          <?php
+          }
+          ?>
         <?php
         }
         ?>
@@ -140,34 +208,56 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>Address</th>
+          <th>ContactNo</th>
+          <th>JobPosition</th>
           <th>Email</th>
-          <th>Contact No</th>
-          <th>Date of Birth</th>
-          <th>Job Title</th>
           <th>Username</th>
           <th>Password</th>
+          <th>Company ID</th>
+          <th>Company Name</th>
+          <th>Company Contact No</th>
+          <th>Company Email</th>
         </tr>
         <?php
-          $connect = mysqli_connect("localhost", "root", "", "futureseekerslk") or die ("Connection Failed");
-          $query = "Select t1.id, t1.name, t1.address, t1.email, t1.contactNo, t1.dob, t1.currentJobTitle, t2.username, t2.password
-           From job_seeker as t1, user_account as t2 
-           Where t1.user_account_id = t2.id and t2.status = 3";
-          $result = mysqli_query($connect, $query);
-          while($row = mysqli_fetch_assoc($result))
-          {
+        $Employer = new \App\Models\employerModel();
+        $UserAccount = new \App\Models\userAccountModel();
+        $Company = new \App\Models\companyModel();
+
+        $query = $Employer->query("Select * from employer");
+        foreach ($query->getResult() as $row) {
+          $companyid = $row->company_id;
+          $useraccountid = $row->user_account_id;
+
+          $query_company = $Company->query("Select * from company where id = $companyid");
+          foreach ($query_company->getResult() as $row2) {
+            $companyname = $row2->name;
+            $companycno = $row2->contactNo;
+            $companyemail = $row2->email;
+
+            $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 3");
+            foreach ($query_useraccount->getResult() as $row3) {
+              $username = $row3->username;
+              $password = $row3->password;
         ?>
-          <tr>
-            <td><?php echo $row['id']; ?></td>
-            <td><?php echo $row['name']; ?></td>
-            <td><?php echo $row['address']; ?></td>
-            <td><?php echo $row['email']; ?></td>
-            <td><?php echo $row['contactNo']; ?></td>
-            <td><?php echo $row['dob']; ?></td>
-            <td><?php echo $row['currentJobTitle']; ?></td>
-            <td><?php echo $row['username']; ?></td>
-            <td><?php echo $row['password']; ?></td>
-          </tr>
+              <tr>
+                <td><?php echo $row->id; ?></td>
+                <td><?php echo $row->name; ?></td>
+                <td><?php echo $row->contactNo; ?></td>
+                <td><?php echo $row->jobPosition; ?></td>
+                <td><?php echo $row->email; ?></td>
+                <td><?php echo $username; ?></td>
+                <td><?php echo $password; ?></td>
+                <td><?php echo $companyid; ?></td>
+                <td><?php echo $companyname; ?></td>
+                <td><?php echo $companycno; ?></td>
+                <td><?php echo $companyemail; ?></td>
+              </tr>
+            <?php
+            }
+            ?>
+          <?php
+          }
+          ?>
         <?php
         }
         ?>

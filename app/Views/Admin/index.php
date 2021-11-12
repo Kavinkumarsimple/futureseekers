@@ -59,7 +59,7 @@
         <input id="username" name="username" type="text" placeholder="Username" value="<?= set_value('username'); ?>" /><br>
         <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br><br>
         <i class="fa fa-lock icon"></i>
-        <input id="password" name="password" type="text" placeholder="Password" value="<?= set_value('password'); ?>" /><br>
+        <input id="password" name="password" type="password" placeholder="Password" value="<?= set_value('password'); ?>" /><br>
         <small><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small><br><br>
         <button id="loginbtn">Login</button><br>
       </div>

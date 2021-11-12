@@ -14,22 +14,22 @@
 <body>
   <div>
     <h3>Dashboards</h3>
-      <li>
-      <ul><a href="<?php echo site_url('') ?>">Show Summary Dashboard</a></ul>
-      </li>
+      <ul>
+        <li><a href="<?php echo site_url('') ?>">Show Summary Dashboard</a></li>
+      </ul>
     <h3>Member Profiles</h3>
-      <li>
-        <ul><a href="<?php echo site_url('AdminEmployerProfiles/index') ?>">Employer Profiles</a></ul>
-        <ul><a href="<?php echo site_url('AdminApplicantProfiles/index') ?>">Applicant Profiles</a></ul>
-      </li>
+      <ul>
+        <li><a href="<?php echo site_url('AdminEmployerProfiles/index') ?>">Employer Profiles</a></li>
+        <li><a href="<?php echo site_url('AdminApplicantProfiles/index') ?>">Applicant Profiles</a></li>
+      </ul>
     <h3>Job Adverts</h3>
-      <li>
-      <ul><a href="<?php echo site_url('') ?>">Show All Job Adverts</a></ul>
-      </li>
+      <ul>
+      <li><a href="<?php echo site_url('') ?>">Show All Job Adverts</a></li>
+      </ul>
     <h3>Manage Admins</h3>
-      <li>
-        <ul><a href="<?php echo site_url('') ?>">Add/Remove Admins</a></ul>
-      </li>
+      <ul>
+        <li><a href="<?php echo site_url('') ?>">Add/Remove Admins</a></li>
+      </ul>
   </div>
   <div><a href="<?php echo site_url('Admin/logout') ?>"><button>Logout</button></a></div>
 </body>

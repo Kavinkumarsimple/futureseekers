@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class AdminApplicantProfiles extends BaseController {
+class AdminEmployerProfiles extends BaseController {
   public function index() {
     return view('AdminEmployerProfiles/index');
   }
