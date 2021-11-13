@@ -44,9 +44,10 @@ class Admin extends BaseController
       $user_info = $userAccountModel->where('username', $username)->first();
 
       if ($user_info != null && $user_info['password'] == $password && $user_info['type'] == "admin") {
-        $session = session();
-        $session->regenerate();
-        $session->set('user_id', $user_info['id']);
+        // $session = session();
+        // $session->regenerate();
+    
+        session()->set('admin_id', $user_info['id']);
 
         return redirect()->to("/AdminHome/index")->with('info', 'Login Successful');
       } else {
@@ -58,8 +59,12 @@ class Admin extends BaseController
   }
   public function logout()
 	{
-		$session = session();
-		$session->destroy();
-		return redirect()->to('Admin/index')->with('fail', 'You are Logged out');
+    if (session()->has('admin_id')) {
+      session()->remove('admin_id');
+      return redirect()->to('/Admin/index')->with('fail','Logged out');
+    }
+		// $session = session();
+		// $session->destroy();
+		// return redirect()->to('Admin/index')->with('fail', 'You are Logged out');
 	}
 }

@@ -67,9 +67,9 @@ class Home extends BaseController
 				$userAccountModel = new \App\Models\userAccountModel();
 				$user_type = $userAccountModel->where('id', $user_id)->first();
 				if ($user_type['type'] == "employer") {
-					return redirect()->to("//MyProfileEmployer/index")->with('info', 'Login Successful');
+					return redirect()->to("//EmployerHome/index")->with('info', 'Login Successful');
 				} elseif ($user_type['type'] == "applicant") {
-					return redirect()->to("//MyProfileApplicant/index")->with('info', 'Login Successful');
+					return redirect()->to("//ApplicantHome/index")->with('info', 'Login Successful');
 				} else {
 					return view('Home/index');
 					session()->setFlashdata('fail', 'Incorrect Password!');

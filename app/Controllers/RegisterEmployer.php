@@ -45,7 +45,7 @@ class RegisterEmployer extends BaseController
       'cname' => [
           'rules' => 'required|is_unique[company.name]',
           'errors' => [
-              'required' => 'Name is Required',
+              'required' => 'Company Name is Required',
               'is_unique' => 'Company Name already Registered'
         ]
       ], 
