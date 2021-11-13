@@ -50,46 +50,47 @@
               foreach ($query_useraccount->getResult() as $row3) {
                 $username = $row3->username;
                 $password = $row3->password;
+                $status = $row3->status;
               }
             }
           }
 
           ?>
 
-          <input type="text" placeholder="Full Name" name="name" id="name" value="<?= set_value('name'); echo $name ?>"><br>
+          <input type="text" placeholder="Full Name" name="name" id="name" value="<?= set_value('name'); echo $name ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small><br>
 
-          <input type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?= set_value('contactNo'); echo $contactNo ?>"><br>
+          <input type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?= set_value('contactNo'); echo $contactNo ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small><br>
 
-          <input type="text" placeholder="Job Position" name="jobPosition" id="jobPosition" value="<?= set_value('jobPosition'); echo $jobPosition ?>"><br>
+          <input type="text" placeholder="Job Position" name="jobPosition" id="jobPosition" value="<?= set_value('jobPosition'); echo $jobPosition ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'jobPosition') : '' ?></small><br>
 
-          <input type="email" placeholder="Email" name="email" id="email" value="<?= set_value('email'); echo $email ?>"><br>
+          <input type="email" placeholder="Email" name="email" id="email" value="<?= set_value('email'); echo $email ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small><br>
 
-          <input type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username');echo $username ?>"><br>
+          <input type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username');echo $username ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br>
 
-          <input type="password" placeholder="Password" name="password" id="password" value="<?= set_value('password');echo $password ?>"><br>
+          <input type="password" placeholder="Password" name="password" id="password" value="<?= set_value('password');echo $password ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small><br>
         </div>
         <div class="col-6">
           <h3>Company Details</h3>
-          <input type="text" placeholder="Company Name" name="cname" id="cname" value="<?= set_value('cname');echo $cname ?>"><br>
+          <input type="text" placeholder="Company Name" name="cname" id="cname" value="<?= set_value('cname');echo $cname ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'cname') : '' ?></small><br>
 
-          <input type="tel" placeholder="Contact No" name="ccontactNo" id="ccontactNo" value="<?= set_value('ccontactNo');echo $cemail ?>"><br>
+          <input type="tel" placeholder="Contact No" name="ccontactNo" id="ccontactNo" value="<?= set_value('ccontactNo');echo $cemail ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'ccontactNo') : '' ?></small><br>
 
-          <input type="email" placeholder="Company Email" name="cemail" id="cemail" value="<?= set_value('cemail');echo $cemail ?>"><br>
+          <input type="email" placeholder="Company Email" name="cemail" id="cemail" value="<?= set_value('cemail');echo $cemail ?>" <?php if ($status == 0){ ?> readonly <?php } ?> ><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'cemail') : '' ?></small><br>
 
           <label for='proimg'>Upload picture</label><br>
-          <input type="file" name='logo' value="<?= set_value('logo'); ?>" /><br>
+          <input type="file" name='logo' value="<?= set_value('logo'); ?>" <?php if ($status == 0){ ?> readonly <?php } ?> /><br>
           <small><?= isset($validation) ? show_validation_error($validation, 'logo') : '' ?></small><br>
         </div>
-        <button type="submit">Make Changes</button>
+        <button type="submit" class="btn btn-primary btnlogin" <?php if ($status == 0){ ?> disabled <?php } ?> >Make Changes</button>
       </form>
     </div>
   </div>
