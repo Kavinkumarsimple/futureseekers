@@ -106,54 +106,55 @@
             <button class="btn btn-danger my-1 rejectbtn_admin" type="submit" id="ruser" name="ruser">Reject</button>
           </div>
           <br>
-          <div class="table-responsive" >
-          <table id="unverified_profile_tbl" class="table table-hover" style="width:100% !important">
+          <div class="table-responsive">
+            <table id="unverified_profile_tbl" class="table table-hover" style="width:100% !important">
 
-            <thead style="background-color:#007BFF;color:#FFFFFF">
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Contact No</th>
-                <th>Dob</th>
-                <th>Job Title</th>
-                <th>Username</th>
-                <th>Password</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $JobSeeker = new \App\Models\jobSeekerModel();
-              $UserAccount = new \App\Models\userAccountModel();
-              $query = $JobSeeker->query("Select * From job_seeker"); // To get all Applicant
-              foreach ($query->getResult() as $row) {
-                $useraccountid = $row->user_account_id;
-                $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 0");
-                foreach ($query_useraccount->getResult() as $row2) {
-                  $username = $row2->username;
-                  $password = $row2->password;
-              ?>
-                  <tr>
-                    <td><?php echo $row->user_account_id; ?></td>
-                    <td><?php echo $row->name; ?></td>
-                    <td><?php echo $row->address; ?></td>
-                    <td><?php echo $row->email; ?></td>
-                    <td><?php echo $row->contactNo; ?></td>
-                    <td><?php echo $row->dob; ?></td>
-                    <td><?php echo $row->currentJobTitle; ?></td>
-                    <td><?php echo $username; ?></td>
-                    <td><?php echo $password; ?></td>
-                  </tr>
+              <thead style="background-color:#007BFF;color:#FFFFFF">
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Email</th>
+                  <th>Contact No</th>
+                  <th>Dob</th>
+                  <th>Job Title</th>
+                  <th>Username</th>
+                  <!-- <th>Password</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $JobSeeker = new \App\Models\jobSeekerModel();
+                $UserAccount = new \App\Models\userAccountModel();
+                $query = $JobSeeker->query("Select * From job_seeker"); // To get all Applicant
+                foreach ($query->getResult() as $row) {
+                  $useraccountid = $row->user_account_id;
+                  $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 0");
+                  foreach ($query_useraccount->getResult() as $row2) {
+                    $username = $row2->username;
+                    $password = $row2->password;
+                ?>
+                    <tr>
+                      <td><?php echo $row->user_account_id; ?></td>
+                      <td><?php echo $row->name; ?></td>
+                      <td><?php echo $row->address; ?></td>
+                      <td><?php echo $row->email; ?></td>
+                      <td><?php echo $row->contactNo; ?></td>
+                      <td><?php echo $row->dob; ?></td>
+                      <td><?php echo $row->currentJobTitle; ?></td>
+                      <td><?php echo $username; ?></td>
+                      <!-- <td><?php // echo $password; 
+                                ?></td> -->
+                    </tr>
+                  <?php
+                  }
+                  ?>
                 <?php
                 }
                 ?>
-              <?php
-              }
-              ?>
-            </tbody>
-          </table>
-            </div>
+              </tbody>
+            </table>
+          </div>
         </form>
       </div>
     </div>
@@ -174,54 +175,55 @@
             <button class="btn btn-danger my-1 rejectbtn_admin" type="submit" id="duser" name="duser">Delete Profile</button>
           </div>
           <br>
-          <div class="table-responsive" >
-          <table id="verified_profile_tbl" class="table table-hover" style="width:100% !important">
+          <div class="table-responsive">
+            <table id="verified_profile_tbl" class="table table-hover" style="width:100% !important">
 
-            <thead style="background-color:#007BFF;color:#FFFFFF">
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Contact No</th>
-                <th>Dob</th>
-                <th>Job Title</th>
-                <th>Username</th>
-                <th>Password</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $JobSeeker = new \App\Models\jobSeekerModel();
-              $UserAccount = new \App\Models\userAccountModel();
-              $query = $JobSeeker->query("Select * From job_seeker"); // To get all Applicant
-              foreach ($query->getResult() as $row) {
-                $useraccountid = $row->user_account_id;
-                $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 1");
-                foreach ($query_useraccount->getResult() as $row2) {
-                  $username = $row2->username;
-                  $password = $row2->password;
-              ?>
-                  <tr>
-                    <td><?php echo $row->user_account_id; ?></td>
-                    <td><?php echo $row->name; ?></td>
-                    <td><?php echo $row->address; ?></td>
-                    <td><?php echo $row->email; ?></td>
-                    <td><?php echo $row->contactNo; ?></td>
-                    <td><?php echo $row->dob; ?></td>
-                    <td><?php echo $row->currentJobTitle; ?></td>
-                    <td><?php echo $username; ?></td>
-                    <td><?php echo $password; ?></td>
-                  </tr>
+              <thead style="background-color:#007BFF;color:#FFFFFF">
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Email</th>
+                  <th>Contact No</th>
+                  <th>Dob</th>
+                  <th>Job Title</th>
+                  <th>Username</th>
+                  <!-- <th>Password</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $JobSeeker = new \App\Models\jobSeekerModel();
+                $UserAccount = new \App\Models\userAccountModel();
+                $query = $JobSeeker->query("Select * From job_seeker"); // To get all Applicant
+                foreach ($query->getResult() as $row) {
+                  $useraccountid = $row->user_account_id;
+                  $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 1");
+                  foreach ($query_useraccount->getResult() as $row2) {
+                    $username = $row2->username;
+                    $password = $row2->password;
+                ?>
+                    <tr>
+                      <td><?php echo $row->user_account_id; ?></td>
+                      <td><?php echo $row->name; ?></td>
+                      <td><?php echo $row->address; ?></td>
+                      <td><?php echo $row->email; ?></td>
+                      <td><?php echo $row->contactNo; ?></td>
+                      <td><?php echo $row->dob; ?></td>
+                      <td><?php echo $row->currentJobTitle; ?></td>
+                      <td><?php echo $username; ?></td>
+                      <!-- <td><?php // echo $password; 
+                                ?></td> -->
+                    </tr>
+                  <?php
+                  }
+                  ?>
                 <?php
                 }
                 ?>
-              <?php
-              }
-              ?>
-            </tbody>
-          </table>
-            </div>
+              </tbody>
+            </table>
+          </div>
         </form>
       </div>
     </div>
@@ -234,8 +236,8 @@
       <div class="card-body">
         <h3 class="card-title">Rejected Profiles</h3>
         <!-- <form action="<?php echo site_url('/AdminApplicantProfiles/verify') ?>" method="POST"> -->
-          <br>
-          <div class="table-responsive" >
+        <br>
+        <div class="table-responsive">
           <table class="table" style="width:100% !important">
 
             <thead style="background-color:#007BFF;color:#FFFFFF">
@@ -248,7 +250,7 @@
                 <th>Dob</th>
                 <th>Job Title</th>
                 <th>Username</th>
-                <th>Password</th>
+                <!-- <th>Password</th> -->
               </tr>
             </thead>
             <tbody>
@@ -272,7 +274,8 @@
                     <td><?php echo $row->dob; ?></td>
                     <td><?php echo $row->currentJobTitle; ?></td>
                     <td><?php echo $username; ?></td>
-                    <td><?php echo $password; ?></td>
+                    <!-- <td><?php // echo $password; 
+                              ?></td> -->
                   </tr>
                 <?php
                 }
@@ -282,7 +285,7 @@
               ?>
             </tbody>
           </table>
-            </div>
+        </div>
       </div>
     </div>
 
@@ -294,8 +297,8 @@
       <div class="card-body">
         <h3 class="card-title">Deleted Profiles</h3>
         <!-- <form action="<?php echo site_url('/AdminApplicantProfiles/verify') ?>" method="POST"> -->
-          <br>
-          <div class="table-responsive" >
+        <br>
+        <div class="table-responsive">
           <table class="table" style="width:100% !important">
 
             <thead style="background-color:#007BFF;color:#FFFFFF">
@@ -308,7 +311,7 @@
                 <th>Dob</th>
                 <th>Job Title</th>
                 <th>Username</th>
-                <th>Password</th>
+                <!-- <th>Password</th> -->
               </tr>
             </thead>
             <tbody>
@@ -332,7 +335,8 @@
                     <td><?php echo $row->dob; ?></td>
                     <td><?php echo $row->currentJobTitle; ?></td>
                     <td><?php echo $username; ?></td>
-                    <td><?php echo $password; ?></td>
+                    <!-- <td><?php // echo $password; 
+                              ?></td> -->
                   </tr>
                 <?php
                 }
@@ -342,7 +346,7 @@
               ?>
             </tbody>
           </table>
-            </div>
+        </div>
       </div>
     </div>
 

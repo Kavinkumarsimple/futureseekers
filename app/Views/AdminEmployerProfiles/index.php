@@ -102,7 +102,7 @@
                 <th>JobPosition</th>
                 <th>Email</th>
                 <th>Username</th>
-                <th>Password</th>
+                <!-- <th>Password</th> -->
                 <th>Company ID</th>
                 <th>Company Name</th>
                 <th>Company Contact No</th>
@@ -138,7 +138,8 @@
                       <td><?php echo $row->jobPosition; ?></td>
                       <td><?php echo $row->email; ?></td>
                       <td><?php echo $username; ?></td>
-                      <td><?php echo $password; ?></td>
+                      <!-- <td><?php // echo $password; 
+                                ?></td> -->
                       <td><?php echo $companyid; ?></td>
                       <td><?php echo $companyname; ?></td>
                       <td><?php echo $companycno; ?></td>
@@ -167,7 +168,7 @@
       <!-- Message comes here -->
     </div>
     <div class="card-body">
-      <h3 class="card-title">Verified Requests</h3>
+      <h3 class="card-title">Verified Profiles</h3>
       <form action="<?php echo site_url('/AdminEmployerProfiles/verify') ?>" method="POST">
         <div class="form-inline">
           <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Selected User ID: </label>
@@ -187,7 +188,7 @@
                 <th>JobPosition</th>
                 <th>Email</th>
                 <th>Username</th>
-                <th>Password</th>
+                <!-- <th>Password</th> -->
                 <th>Company ID</th>
                 <th>Company Name</th>
                 <th>Company Contact No</th>
@@ -223,7 +224,8 @@
                       <td><?php echo $row->jobPosition; ?></td>
                       <td><?php echo $row->email; ?></td>
                       <td><?php echo $username; ?></td>
-                      <td><?php echo $password; ?></td>
+                      <!-- <td><?php // echo $password; 
+                                ?></td> -->
                       <td><?php echo $companyid; ?></td>
                       <td><?php echo $companyname; ?></td>
                       <td><?php echo $companycno; ?></td>
@@ -252,74 +254,75 @@
       <!-- Message comes here -->
     </div>
     <div class="card-body">
-      <h3 class="card-title">Rejected Requests</h3>
-    
-        <br>
-        <div class="table-responsive">
-          <table class="table" style="width:100% !important">
+      <h3 class="card-title">Rejected Profiles</h3>
 
-            <thead style="background-color:#007BFF;color:#FFFFFF">
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>ContactNo</th>
-                <th>JobPosition</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Company ID</th>
-                <th>Company Name</th>
-                <th>Company Contact No</th>
-                <th>Company Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $Employer = new \App\Models\employerModel();
-              $UserAccount = new \App\Models\userAccountModel();
-              $Company = new \App\Models\companyModel();
+      <br>
+      <div class="table-responsive">
+        <table class="table" style="width:100% !important">
 
-              $query = $Employer->query("Select * from employer");
-              foreach ($query->getResult() as $row) {
-                $companyid = $row->company_id;
-                $useraccountid = $row->user_account_id;
+          <thead style="background-color:#007BFF;color:#FFFFFF">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>ContactNo</th>
+              <th>JobPosition</th>
+              <th>Email</th>
+              <th>Username</th>
+              <!-- <th>Password</th> -->
+              <th>Company ID</th>
+              <th>Company Name</th>
+              <th>Company Contact No</th>
+              <th>Company Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $Employer = new \App\Models\employerModel();
+            $UserAccount = new \App\Models\userAccountModel();
+            $Company = new \App\Models\companyModel();
 
-                $query_company = $Company->query("Select * from company where id = $companyid");
-                foreach ($query_company->getResult() as $row2) {
-                  $companyname = $row2->name;
-                  $companycno = $row2->contactNo;
-                  $companyemail = $row2->email;
+            $query = $Employer->query("Select * from employer");
+            foreach ($query->getResult() as $row) {
+              $companyid = $row->company_id;
+              $useraccountid = $row->user_account_id;
 
-                  $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 2");
-                  foreach ($query_useraccount->getResult() as $row3) {
-                    $username = $row3->username;
-                    $password = $row3->password;
-              ?>
-                    <tr>
-                      <td><?php echo $row->user_account_id; ?></td>
-                      <td><?php echo $row->name; ?></td>
-                      <td><?php echo $row->contactNo; ?></td>
-                      <td><?php echo $row->jobPosition; ?></td>
-                      <td><?php echo $row->email; ?></td>
-                      <td><?php echo $username; ?></td>
-                      <td><?php echo $password; ?></td>
-                      <td><?php echo $companyid; ?></td>
-                      <td><?php echo $companyname; ?></td>
-                      <td><?php echo $companycno; ?></td>
-                      <td><?php echo $companyemail; ?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
+              $query_company = $Company->query("Select * from company where id = $companyid");
+              foreach ($query_company->getResult() as $row2) {
+                $companyname = $row2->name;
+                $companycno = $row2->contactNo;
+                $companyemail = $row2->email;
+
+                $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 2");
+                foreach ($query_useraccount->getResult() as $row3) {
+                  $username = $row3->username;
+                  $password = $row3->password;
+            ?>
+                  <tr>
+                    <td><?php echo $row->user_account_id; ?></td>
+                    <td><?php echo $row->name; ?></td>
+                    <td><?php echo $row->contactNo; ?></td>
+                    <td><?php echo $row->jobPosition; ?></td>
+                    <td><?php echo $row->email; ?></td>
+                    <td><?php echo $username; ?></td>
+                    <!-- <td><?php // echo $password; 
+                              ?></td> -->
+                    <td><?php echo $companyid; ?></td>
+                    <td><?php echo $companyname; ?></td>
+                    <td><?php echo $companycno; ?></td>
+                    <td><?php echo $companyemail; ?></td>
+                  </tr>
                 <?php
                 }
                 ?>
               <?php
               }
               ?>
-            </tbody>
-          </table>
-        </div>
+            <?php
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
       </form>
     </div>
   </div>
@@ -327,79 +330,80 @@
 
   <!-- Delete Profile -->
 
-    <div class="card">
+  <div class="card">
     <div class="card-header">
       <!-- Message comes here -->
     </div>
     <div class="card-body">
       <h3 class="card-title">Deleted Profiles</h3>
-     
-        <br>
-        <div class="table-responsive">
-          <table class="table" style="width:100% !important">
 
-            <thead style="background-color:#007BFF;color:#FFFFFF">
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>ContactNo</th>
-                <th>JobPosition</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Company ID</th>
-                <th>Company Name</th>
-                <th>Company Contact No</th>
-                <th>Company Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $Employer = new \App\Models\employerModel();
-              $UserAccount = new \App\Models\userAccountModel();
-              $Company = new \App\Models\companyModel();
+      <br>
+      <div class="table-responsive">
+        <table class="table" style="width:100% !important">
 
-              $query = $Employer->query("Select * from employer");
-              foreach ($query->getResult() as $row) {
-                $companyid = $row->company_id;
-                $useraccountid = $row->user_account_id;
+          <thead style="background-color:#007BFF;color:#FFFFFF">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>ContactNo</th>
+              <th>JobPosition</th>
+              <th>Email</th>
+              <th>Username</th>
+              <!-- <th>Password</th> -->
+              <th>Company ID</th>
+              <th>Company Name</th>
+              <th>Company Contact No</th>
+              <th>Company Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $Employer = new \App\Models\employerModel();
+            $UserAccount = new \App\Models\userAccountModel();
+            $Company = new \App\Models\companyModel();
 
-                $query_company = $Company->query("Select * from company where id = $companyid");
-                foreach ($query_company->getResult() as $row2) {
-                  $companyname = $row2->name;
-                  $companycno = $row2->contactNo;
-                  $companyemail = $row2->email;
+            $query = $Employer->query("Select * from employer");
+            foreach ($query->getResult() as $row) {
+              $companyid = $row->company_id;
+              $useraccountid = $row->user_account_id;
 
-                  $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 3");
-                  foreach ($query_useraccount->getResult() as $row3) {
-                    $username = $row3->username;
-                    $password = $row3->password;
-              ?>
-                    <tr>
-                      <td><?php echo $row->user_account_id; ?></td>
-                      <td><?php echo $row->name; ?></td>
-                      <td><?php echo $row->contactNo; ?></td>
-                      <td><?php echo $row->jobPosition; ?></td>
-                      <td><?php echo $row->email; ?></td>
-                      <td><?php echo $username; ?></td>
-                      <td><?php echo $password; ?></td>
-                      <td><?php echo $companyid; ?></td>
-                      <td><?php echo $companyname; ?></td>
-                      <td><?php echo $companycno; ?></td>
-                      <td><?php echo $companyemail; ?></td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
+              $query_company = $Company->query("Select * from company where id = $companyid");
+              foreach ($query_company->getResult() as $row2) {
+                $companyname = $row2->name;
+                $companycno = $row2->contactNo;
+                $companyemail = $row2->email;
+
+                $query_useraccount = $UserAccount->query("Select * from user_account where id = $useraccountid and status = 3");
+                foreach ($query_useraccount->getResult() as $row3) {
+                  $username = $row3->username;
+                  $password = $row3->password;
+            ?>
+                  <tr>
+                    <td><?php echo $row->user_account_id; ?></td>
+                    <td><?php echo $row->name; ?></td>
+                    <td><?php echo $row->contactNo; ?></td>
+                    <td><?php echo $row->jobPosition; ?></td>
+                    <td><?php echo $row->email; ?></td>
+                    <td><?php echo $username; ?></td>
+                    <!-- <td><?php // echo $password; 
+                              ?></td> -->
+                    <td><?php echo $companyid; ?></td>
+                    <td><?php echo $companyname; ?></td>
+                    <td><?php echo $companycno; ?></td>
+                    <td><?php echo $companyemail; ?></td>
+                  </tr>
                 <?php
                 }
                 ?>
               <?php
               }
               ?>
-            </tbody>
-          </table>
-        </div>
+            <?php
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
       </form>
     </div>
   </div>
@@ -426,20 +430,20 @@
       }
     }
     document.querySelector('#verified_profile_tbl').addEventListener('click', function(e) {
-        var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
-          activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
+      var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
+        activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
 
-        closestCell.classList.add('selected'); // add the "selected" class to the clicked td
-        if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
-      })
+      closestCell.classList.add('selected'); // add the "selected" class to the clicked td
+      if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
+    })
 
-      document.querySelector('#unverified_profile_tbl').addEventListener('click', function(e) {
-        var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
-          activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
+    document.querySelector('#unverified_profile_tbl').addEventListener('click', function(e) {
+      var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
+        activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
 
-        closestCell.classList.add('selected'); // add the "selected" class to the clicked td
-        if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
-      })
+      closestCell.classList.add('selected'); // add the "selected" class to the clicked td
+      if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
+    })
   </script>
 </body>
 
