@@ -35,26 +35,44 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 
 // Route Group to protect Admin from Accessing if not logged in
-$routes ->group('',['filter'=>'AuthCheck'], function($routes) {
-	$routes -> get('/AdminHome/index', 'AdminHome::index');
-	$routes -> get('/AdminHome', 'AdminHome');
-	$routes -> get('/AdminApplicantProfiles/index', 'AdminApplicantProfiles::index');
-	$routes -> get('/AdminApplicantProfiles', 'AdminApplicantProfiles');
-	$routes -> get('/AdminApplicantProfiles/verify', 'AdminApplicantProfiles::verify');
-	$routes -> get('/AdminEmployerProfiles/index', 'AdminEmployerProfiles::index');
-	$routes -> get('/AdminEmployerProfiles', 'AdminEmployerProfiles');
-	$routes -> get('/AdminEmployerProfiles/verify', 'AdminEmployerProfiles::verify');
+// $routes ->group('',['filter'=>'AuthCheck'], function($routes) {
+// 	$routes -> get('/AdminHome/index', 'AdminHome::index');
+// 	$routes -> get('/AdminHome', 'AdminHome::index');
+// 	$routes -> get('/AdminApplicantProfiles/index', 'AdminApplicantProfiles::index');
+// 	$routes -> get('/AdminApplicantProfiles', 'AdminApplicantProfiles');
+// 	$routes -> get('/AdminApplicantProfiles/verify', 'AdminApplicantProfiles::verify');
+// 	$routes -> get('/AdminEmployerProfiles/index', 'AdminEmployerProfiles::index');
+// 	$routes -> get('/AdminEmployerProfiles', 'AdminEmployerProfiles');
+// 	$routes -> get('/AdminEmployerProfiles/verify', 'AdminEmployerProfiles::verify');
 
-	//Add this route to protect the user from accessing login page when already signed in
-	// $routes -> get('/Admin', 'Admin::index');
-});
+// 	//Add this route to protect the user from accessing login page when already signed in
+// 	// $routes -> get('/Admin', 'Admin::index');
+// });
 
-//Route Group to protect the user from going to Login while already logged in
-$routes ->group('',['filter'=>'AdminLoginCheck'], function($routes) {
-	//Add this route to protect the user from accessing login page when already signed in
-	$routes -> get('/Admin/index', 'Admin::index');
-	$routes -> get('/Admin', 'Admin');
-});
+// //Route Group to protect the user from going to Login while already logged in
+// $routes ->group('',['filter'=>'AdminLoginCheck'], function($routes) {
+// 	//Add this route to protect the user from accessing login page when already signed in
+// 	$routes -> get('/Admin/index', 'Admin::index');
+// 	$routes -> get('/Admin', 'Admin');
+// 	$routes -> get('/admin/index', 'admin::index');
+// 	// $routes -> get('/admin', 'admin');
+	
+
+// });
+
+
+//Route Group to protect Applicant/Employer from accessing if not logged in
+// Route Group to protect Admin from Accessing if not logged in
+// $routes ->group('',['filter'=>'LoginCheck'], function($routes) {
+// 	$routes -> get('/ApplicantHome/index', 'ApplicantHome::index');
+// 	$routes -> get('/ApplicantHome', 'ApplicantHome');
+	
+// 	$routes -> get('/MyProfileApplicant/index', 'MyProfileApplicant::index');
+// 	$routes -> get('/MyProfileApplicant', 'MyProfileApplicant');
+
+// 	//Add this route to protect the user from accessing login page when already signed in
+// 	// $routes -> get('/Admin', 'Admin::index');
+// });
 
 /*
  * --------------------------------------------------------------------

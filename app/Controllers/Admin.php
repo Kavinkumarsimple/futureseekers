@@ -13,11 +13,17 @@ class Admin extends BaseController
 
   public function index()
   {
+    if(session()->get('admin_id')!= null){
+      return redirect()->to('AdminHome/index');
+    }
     return view('Admin/index');
   }
 
   public function login()
   {
+    if(session()->get('admin_id')!= null){
+      return redirect()->to('AdminHome/index');
+    }
     $validation = $this->validate([
       'username' => [
         'rules' => 'required|is_not_unique[user_account.username]',

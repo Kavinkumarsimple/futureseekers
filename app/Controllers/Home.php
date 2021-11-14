@@ -12,11 +12,29 @@ class Home extends BaseController
 
 	public function index()
 	{
+		if(session()->get('user_id')!= null){
+			if(session()->get('user_type') == "employer") {
+				return redirect()->to('EmployerHome/index');
+			}
+			else if(session()->get('user_type') == "applicant") {
+				return redirect()->to('ApplicantHome/index');
+			}
+			
+		}
 		return view('Home/index');
 	}
 
 	public function login()
 	{
+		if(session()->get('user_id')!= null){
+			if(session()->get('user_type') == "employer") {
+				return redirect()->to('EmployerHome/index');
+			}
+			else if(session()->get('user_type') == "applicant") {
+				return redirect()->to('ApplicantHome/index');
+			}
+			
+		}
 		$validation = $this->validate([
 			'username' => [
 				'rules' => 'required|is_not_unique[user_account.username]',
@@ -59,9 +77,11 @@ class Home extends BaseController
 			$user_info = $userAccountModel->where('username', $username)->first();
 
 			if ($user_info != null && $user_info['password'] == $password) {
-				$session = session();
-				$session->regenerate();
-				$session->set('user_id', $user_info['id']);
+				// $session = session();
+				// $session->regenerate();
+				session()->set('user_id', $user_info['id']);
+				session()->set('user_type', $user_info['type']);
+			
 
 				$user_id = session()->get('user_id');
 				$userAccountModel = new \App\Models\userAccountModel();
@@ -82,16 +102,21 @@ class Home extends BaseController
 		}
 	}
 
-	public function loginFailed()
-	{
-		$session = session();
-		$session->setFlashdata('fail', 'Incorrect Password!');
-	}
+	// public function loginFailed()
+	// {
+	// 	$session = session();
+	// 	$session->setFlashdata('fail', 'Incorrect Password!');
+	// }
 
 	public function logout()
 	{
-		$session = session();
-		$session->destroy();
-		return redirect()->to('Home/index')->with('fail', 'You are Logged out');
+		if (session()->has('user_id')) {
+			session()->remove('user_id');
+			session()->remove('user_type');
+			return redirect()->to('Home/index')->with('fail', 'You are Logged out');
+		  }
+		// $session = session();
+		// $session->destroy();
+		// return redirect()->to('Home/index')->with('fail', 'You are Logged out');
 	}
 }

@@ -11,10 +11,16 @@ class MyProfileApplicant extends BaseController
   }
   public function index()
   {
+    if(session()->get('user_id')== null || session()->get('user_type') == "employer"){
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
+    }
     return view('MyProfileApplicant/index');
   }
   public function editProfile()
   {
+    if(session()->get('user_id')== null || session()->get('user_type') == "employer"){
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
+    }
     $validation = $this->validate([
       'name' => [
         'rules' => 'required',
@@ -69,7 +75,7 @@ class MyProfileApplicant extends BaseController
 
     if (!$validation) {
       //echo "Validation Error";
-      return view('/MyProfileEmployer/index', ['validation' => $this->validator]);
+      return view('/MyProfileApplicant/index', ['validation' => $this->validator]);
     } else {
       $name = $this->request->getPost('name');
       $address = $this->request->getPost('address');

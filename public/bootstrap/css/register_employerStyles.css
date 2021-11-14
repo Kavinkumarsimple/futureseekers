@@ -10,6 +10,13 @@
     padding-right: 20px;
 }
 
+.editregform {
+    margin-top: 20px !important;
+    background-color: white;
+    width: 50%;
+    margin:auto;
+}
+
 
 .btnlogin{
     /* border-radius: 50px; */

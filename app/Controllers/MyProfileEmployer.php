@@ -9,12 +9,24 @@ class MyProfileEmployer extends BaseController
     helper('form');
     helper(['url', 'Login_helper']);
   }
+  
   public function index()
   {
+    if(session()->get('user_id')== null || session()->get('user_type')== "applicant"){
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
+    }
     return view('MyProfileEmployer/index');
+   
   }
+
+  
   public function editProfile()
   {
+
+    if(session()->get('user_id')== null || session()->get('user_type')== "applicant"){
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
+    }
+
     $validation = $this->validate([
       'name' => [
         'rules' => 'required',
@@ -124,7 +136,7 @@ class MyProfileEmployer extends BaseController
       // // $queryCom = $CompanyM->set($valuesCom)->where('name', $cname);
       $queryCom = $CompanyM->query("Update company
                                     Set name = '$cname',
-                                        contactNo = $ccontactNo,
+                                        contactNo = '$ccontactNo',
                                         email = '$cemail',
                                         logo_dir = '$logo_dir'
                                     Where name = '$cname'");

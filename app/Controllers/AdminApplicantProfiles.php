@@ -6,10 +6,16 @@ class AdminApplicantProfiles extends BaseController
 {
   public function index()
   {
+    if(session()->get('admin_id')== null){
+      return redirect()->to('Admin/index')->with('fail', 'You must be logged in..');;
+    }
     return view('AdminApplicantProfiles/index');
   }
   public function verify()
   {
+    if(session()->get('admin_id')== null){
+      return redirect()->to('Admin/index')->with('fail', 'You must be logged in..');;
+    }
     //To Accept User--Changing Status to 1
     if (isset($_POST['auser'])) {
       $useraccountid = $this->request->getPost('account_id');

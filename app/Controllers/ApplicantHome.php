@@ -11,6 +11,9 @@ class ApplicantHome extends BaseController
   }
   public function index()
   {
+    if(session()->get('user_id')== null || session()->get('user_type') == "employer"){
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
+    }
     $session = session();
     $session->regenerate();
     $user_id = session()->get('user_id');

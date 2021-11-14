@@ -10,10 +10,28 @@ class RegisterEmployer extends BaseController
 }
 
 	public function index() {
+    if(session()->get('user_id')!= null){
+			if(session()->get('user_type') == "employer") {
+				return redirect()->to('EmployerHome/index');
+			}
+			else if(session()->get('user_type') == "applicant") {
+				return redirect()->to('ApplicantHome/index');
+			}
+			
+		}
 		return view('RegisterEmployer/index');
 	}
 
   public function createProfile() {
+    if(session()->get('user_id')!= null){
+			if(session()->get('user_type') == "employer") {
+				return redirect()->to('EmployerHome/index');
+			}
+			else if(session()->get('user_type') == "applicant") {
+				return redirect()->to('ApplicantHome/index');
+			}
+			
+		}
     
      $validation = $this->validate([
       'name' => [

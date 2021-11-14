@@ -9,6 +9,9 @@ class EmployerHome extends BaseController {
     helper(['url', 'Login_helper']);
   }
   public function index() {
+    if(session()->get('user_id')== null || session()->get('user_type')== "applicant"){
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
+    }
     $session = session();
     $session->regenerate();
     $user_id = session()->get('user_id');

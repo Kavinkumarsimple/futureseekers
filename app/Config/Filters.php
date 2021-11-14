@@ -21,6 +21,7 @@ class Filters extends BaseConfig
 		'honeypot' => Honeypot::class,
 		'AuthCheck' => \App\Filters\AuthCheckFilter::class, //Creating Alias for the auth check filter created
 		'AdminLoginCheck' => \App\Filters\AdminLoginCheckFilter::class,
+		'LoginCheck' =>  \App\Filters\UserLoginCheckFilter::class,
 	];
 
 	/**
