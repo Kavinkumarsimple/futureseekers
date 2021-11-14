@@ -115,20 +115,17 @@
         <div class="form-row">
           <div class="form-group col-md-4">
             <label>Full Name</label>
-            <input class="form-control" type="text" placeholder="Full Name" name="name" id="name" value="<?= set_value('name');
-                                                                                                          echo $name ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+            <input class="form-control" type="text" placeholder="Full Name" name="name" id="name" value = "<?php echo $name ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small>
           </div>
           <div class="form-group col-md-4">
             <label>Address</label>
-            <input class="form-control" type="text" placeholder="Address" name="address" id="address" value="<?= set_value('address');
-                                                                                                              echo $address ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+            <input class="form-control" type="text" placeholder="Address" name="address" id="address" value="<?php echo $address ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'address') : '' ?></small>
           </div>
           <div class="form-group col-md-4">
             <label>Email</label>
-            <input class="form-control" type="email" placeholder="Email" name="email" id="email" value="<?= set_value('email');
-                                                                                                        echo $email ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+            <input class="form-control" type="email" placeholder="Email" name="email" id="email" value="<?php echo $email ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small>
           </div>
         </div>
@@ -136,34 +133,29 @@
           
           <div class="form-group col-md-4">
             <label>Dob</label>
-            <input class="form-control" type="date" placeholder="Date of Birth" name="dob" id="dob" value="<?= set_value('dob');
-                                                                                                            echo $dob ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+            <input class="form-control" type="date" placeholder="Date of Birth" name="dob" id="dob" value="<?php echo $dob ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'dob') : '' ?></small>
           </div>
           <div class="form-group col-md-4">
             <label>Contact No</label>
-            <input class="form-control" type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?= set_value('contactNo');
-                                                                                                                    echo $contactNo ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+            <input class="form-control" type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?php echo $contactNo ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small>
           </div>
           <div class="form-group col-md-4">
             <label>Current Job Title</label>
-            <input class="form-control" type="text" placeholder="Current Job Title" name="currentJobTitle" id="currentJobTitle" value="<?= set_value('currentJobTitle');
-                                                                                                                                        echo $currentJobTitle ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+            <input class="form-control" type="text" placeholder="Current Job Title" name="currentJobTitle" id="currentJobTitle" value="<?php echo $currentJobTitle ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'currentJobTitle') : '' ?></small>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>Username</label>
-            <input class="form-control" type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username');
-                                                                                                                echo $username ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+            <input class="form-control" type="text" placeholder="Username" name="username" id="username" value="<?php echo $username ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small>
           </div>
           <div class="form-group col-md-6">
             <label>Password</label>
-            <input class="form-control" type="password" placeholder="Password" name="password" id="password" value="<?= set_value('password');
-                                                                                                                    echo $password ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+            <input class="form-control" type="password" placeholder="Password" name="password" id="password" value="<?php echo $password ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small>
           </div>
           <br>

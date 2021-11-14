@@ -132,41 +132,35 @@ use CodeIgniter\Session\Session;
     <div class="form-row">
             <div class="form-group col-md-4">
               <label>Full Name</label>
-              <input class="form-control" type="text" placeholder="Full Name" name="name" id="name" value="<?= set_value('name');
-                                                                                                            echo $name ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="text" placeholder="Full Name" name="name" id="name" value="<?php echo $name ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small>
             </div>
             <div class="form-group col-md-4">
               <label>Contact No</label>
-              <input class="form-control" type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?= set_value('contactNo');
-                                                                                                                      echo $contactNo ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?php echo $contactNo ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small>
             </div>
             <div class="form-group col-md-4">
               <label>Current Job Position</label>
-              <input class="form-control" type="text" placeholder="Job Position" name="jobPosition" id="jobPosition" value="<?= set_value('jobPosition');
-                                                                                                                            echo $jobPosition ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="text" placeholder="Job Position" name="jobPosition" id="jobPosition" value="<?php echo $jobPosition ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobPosition') : '' ?></small>
             </div>
       </div>
       <div class="form-row">
       <div class="form-group col-md-4">
               <label>Email</label>
-              <input class="form-control" type="email" placeholder="Email" name="email" id="email" value="<?= set_value('email');
-                                                                                                          echo $email ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="email" placeholder="Email" name="email" id="email" value="<?php echo $email ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small>
       </div>
       <div class="form-group col-md-4">
               <label>Username</label>
-              <input class="form-control" type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username');
-                                                                                                                  echo $username ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="text" placeholder="Username" name="username" id="username" value="<?php echo $username ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small>
             </div>
             <div class="form-group col-md-4">
               <label>Password</label>
 
-              <input  class="form-control" type="password" placeholder="Password" name="password" id="password" value="<?= set_value('password');
-                                                                                                  echo $password ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input  class="form-control" type="password" placeholder="Password" name="password" id="password" value="<?php echo $password ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small>
             </div>
       </div>
@@ -175,22 +169,19 @@ use CodeIgniter\Session\Session;
       <div class="form-row">
             <div class="form-group col-md-6">
               <label>Company Name</label>
-              <input class="form-control" type="text" placeholder="Company Name" name="cname" id="cname" value="<?= set_value('cname');
-                                                                                        echo $cname ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="text" placeholder="Company Name" name="cname" id="cname" value="<?php echo $cname ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'cname') : '' ?></small>
             </div>
             <div class="form-group col-md-6">
               <label>Email</label>
-              <input class="form-control" type="email" placeholder="Company Email" name="cemail" id="cemail" value="<?= set_value('cemail');
-                                                                                            echo $cemail ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="email" placeholder="Company Email" name="cemail" id="cemail" value="<?php echo $cemail ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'cemail') : '' ?></small>
             </div>
       </div>
       <div class="form-row">
             <div class="form-group col-md-6">
               <label>Contact No</label>
-              <input class="form-control" type="tel" placeholder="Contact No" name="ccontactNo" id="ccontactNo" value="<?= set_value('ccontactNo');
-                                                                                              echo $cemail ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="tel" placeholder="Contact No" name="ccontactNo" id="ccontactNo" value="<?php echo $cemail ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'ccontactNo') : '' ?></small>
             </div>
       
