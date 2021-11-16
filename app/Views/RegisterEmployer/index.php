@@ -72,7 +72,7 @@
                 <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small>
               </div>
               <div class="form-group col-md-6">
-                <label>Comapany Name</label>
+                <label>Company Name</label>
                 <input class="form-control" type="text" placeholder="Eg. Techland Ltd" name="cname" id="cname" value="<?= set_value('cname'); ?>">
                 <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'cname') : '' ?></small>
               </div>
