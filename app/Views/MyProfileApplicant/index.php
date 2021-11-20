@@ -80,7 +80,7 @@
       <?php if (!empty(session()->getFlashdata('success'))) : ?>
         <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
       <?php endif ?>
-      <h5 class="card-title">Application Details</h5>
+      <h5 class="card-title">Applicant Details</h5>
       <p class="card-text" style="color:#787878">Click on the save changes to update your record</p>
 
       <form action="<?php echo site_url('/MyProfileApplicant/editProfile') ?>" method="POST">
