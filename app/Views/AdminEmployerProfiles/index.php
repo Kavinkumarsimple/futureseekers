@@ -51,7 +51,7 @@
               </div>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Job Postings </a>
+              <a class="nav-link" href="<?php echo site_url('AdminJobPostings/index') ?>">Job Postings </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Manage Admins</a>

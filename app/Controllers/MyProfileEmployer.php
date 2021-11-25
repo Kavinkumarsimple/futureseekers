@@ -66,9 +66,10 @@ class MyProfileEmployer extends BaseController
         ]
       ],
       'cname' => [
-        'rules' => 'required',
+        'rules' => 'required|is_unique[company.name]',
         'errors' => [
-          'required' => 'Company Name is Required'
+          'required' => 'Company Name is Required',
+          'is_unique'=> 'This Company is already registered'
         ]
       ],
       'ccontactNo' => [
@@ -131,20 +132,29 @@ class MyProfileEmployer extends BaseController
       if(!$queryUser) {
         //echo "fail";
       }
-
+      $EmployerM = new \App\Models\employerModel();
       $CompanyM = new \App\Models\companyModel();
+      $query_employer = $EmployerM->query("Select * from employer where user_account_id = $user_id");
+      foreach ($query_employer->getResult() as $row) {
+        $companyid = $row->company_id;
+        
+      }
+      
+
+      
+      
       // // $queryCom = $CompanyM->set($valuesCom)->where('name', $cname);
       $queryCom = $CompanyM->query("Update company
                                     Set name = '$cname',
                                         contactNo = '$ccontactNo',
                                         email = '$cemail',
                                         logo_dir = '$logo_dir'
-                                    Where name = '$cname'");
+                                    Where id = '$companyid'");
       if(!$queryCom){
         //echo "fail";
       }
 
-      $EmployerM = new \App\Models\employerModel();
+     
       // $queryEmp = $EmployerM->set($valuesEmp)->where('user_account_id', $user_id);
       $queryEmp = $EmployerM->query("Update employer
                                       Set name = '$name',
