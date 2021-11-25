@@ -3,7 +3,7 @@
 namespace App\Models;
 
 class jobDetailsModel extends \CodeIgniter\Model {
-  protected $table = 'jobDetails';
+  protected $table = 'job_details';
   protected $primaryKey = 'id';
   protected $allowedFields = [
                               'employer_id',
@@ -14,7 +14,8 @@ class jobDetailsModel extends \CodeIgniter\Model {
                               'typeOfEmployment',
                               'description',
                               'dateTime',
-                              'status'
+                              'status',
+                              'jobtitle'
                             ];
 }
 

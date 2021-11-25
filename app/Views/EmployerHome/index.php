@@ -38,10 +38,10 @@
                             <a class="nav-link" href="">Jobs </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">My Jobs</a>
+                            <a class="nav-link" href="<?php echo site_url('MyJobsEmployer/index') ?>">My Jobs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Post an Advert</a>
+                            <a class="nav-link" href="<?php echo site_url('PostAdvertEmployer/index') ?>">Post an Advert</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('MyProfileEmployer/index') ?>">My Profile</a>

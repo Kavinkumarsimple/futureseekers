@@ -74,13 +74,13 @@ class MyProfileEmployer extends BaseController
       'ccontactNo' => [
         'rules' => 'required',
         'errors' => [
-          'required' => 'Company Name is Required'
+          'required' => 'Company Contact No is Required'
         ]
       ],
       'cemail' => [
         'rules' => 'required',
         'errors' => [
-          'required' => 'Company Name is Required'
+          'required' => 'Company Email is Required'
         ]
       ],
       // 'logo' => [

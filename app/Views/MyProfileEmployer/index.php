@@ -48,10 +48,10 @@ use CodeIgniter\Session\Session;
               <a class="nav-link" href="">Jobs </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">My Jobs</a>
+              <a class="nav-link" href="<?php echo site_url('MyJobsEmployer/index') ?>">My Jobs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Post an Advert</a>
+              <a class="nav-link" href="<?php echo site_url('PostAdvertEmployer/index') ?>">Post an Advert</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo site_url('MyProfileEmployer/index') ?>">My Profile</a>
@@ -181,7 +181,7 @@ use CodeIgniter\Session\Session;
       <div class="form-row">
             <div class="form-group col-md-6">
               <label>Contact No</label>
-              <input class="form-control" type="tel" placeholder="Contact No" name="ccontactNo" id="ccontactNo" value="<?php echo $cemail ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
+              <input class="form-control" type="tel" placeholder="Contact No" name="ccontactNo" id="ccontactNo" value="<?php echo $ccontactNo ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
               <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'ccontactNo') : '' ?></small>
             </div>
       

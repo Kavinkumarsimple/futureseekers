@@ -51,21 +51,7 @@ class Home extends BaseController
 			]
 		]);
 
-		// $username = $this->request->getPost('username');
-		// 	$password = $this->request->getPost('password');
-
-		// 	$userAccountModel = new \App\Models\userAccountModel();
-		// 	$user_info = $userAccountModel->where('username', $username)->first();
-
-		// 	if($user_info != null && $user_info['password'] == $password) {
-		// 		$session=session();
-		// 		$session->regenerate();
-		// 		$session->set('user_id', $user_info['id']);
-
-		// 		return redirect()->to("/Home/loginSuccess")->with('info', 'Login Successful');
-		// 	} else {
-		// 		return redirect()->to("/Home/loginFailed")->with('info', 'Given Name or Password is not correct, try again');
-		// 	}
+		
 
 		if (!$validation) {
 			return view('/Home/index', ['validation' => $this->validator]);
@@ -76,19 +62,23 @@ class Home extends BaseController
 			$userAccountModel = new \App\Models\userAccountModel();
 			$user_info = $userAccountModel->where('username', $username)->first();
 
-			if ($user_info != null && $user_info['password'] == $password) {
+			if ($user_info != null && $user_info['password'] == $password && $user_info['status'] == 0 || $user_info['status'] == 1) {
 				// $session = session();
 				// $session->regenerate();
 				session()->set('user_id', $user_info['id']);
 				session()->set('user_type', $user_info['type']);
+				
 			
 
 				$user_id = session()->get('user_id');
-				$userAccountModel = new \App\Models\userAccountModel();
-				$user_type = $userAccountModel->where('id', $user_id)->first();
-				if ($user_type['type'] == "employer") {
+			//	$userAccountModel = new \App\Models\userAccountModel();
+			//	$user_type = $userAccountModel->where('id', $user_id)->first();
+
+			
+				
+				if ($user_info['type'] == "employer") {
 					return redirect()->to("//EmployerHome/index")->with('info', 'Login Successful');
-				} elseif ($user_type['type'] == "applicant") {
+				} elseif ($user_info['type'] == "applicant") {
 					return redirect()->to("//ApplicantHome/index")->with('info', 'Login Successful');
 				} else {
 					return view('Home/index');
