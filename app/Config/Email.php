@@ -47,14 +47,14 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPHost = 'smtp-mail.outlook.com';
+	public $SMTPHost = 'smtp.gmail.com';
 
 	/**
 	 * SMTP Username
 	 *
 	 * @var string
 	 */
-	public $SMTPUser = 'futureseekersnew@outlook.com';
+	public $SMTPUser = 'futureseekersnew@gmail.com';
 
 	/**
 	 * SMTP Password

@@ -12,22 +12,60 @@ class ApplyForJob extends BaseController
   public function index()
   {
 
-    $to      = 'futureseekersnew@outlook.com';
-    $subject = 'Applied for the job';
-    $message = 'hello i am musharraf';
+    // $to      = 'futureseekersnew@outlook.com';
+    // $subject = 'Applied for the job';
+    // $message = 'hello i am musharraf';
+    // $email = \config\Services::email();
+    // $email->setTo($to);
+    // $email->setFrom('futureseekersnew@outlook.com','futureseekersnew');
+    // $email->setSubject($subject);
+    // $email->setMessage($message);
+    // $email->send();
+    // if($email->send()){
+    //   echo "email sent";
+    // }
+    // else{
+    //   $data = $email->printDebugger(['headers']);
+    //   print_r($data);
+    // }
+
+    $to = 'muchi.azhar2@gmail.com';
+
+    $subject = 'Kavinkumar has applied';
+    
+    $message = '<h1> Hi Kavin </h1>';
+    
+    
+    
     $email = \config\Services::email();
+    
     $email->setTo($to);
-    $email->setFrom('futureseekersnew@outlook.com','futureseekersnew');
+    
+    // $email->setFrom('Info@gophp.in', 'Info');
+    $email->setFrom('futureseekersnew@gmail.com', 'FutureSeekers');
+
     $email->setSubject($subject);
+    
     $email->setMessage($message);
-    $email->send();
-    if($email->send()){
-      echo "email sent";
+    
+    
+    
+    if ($email-> send()) {
+    
+    echo "Email Sent";
+    
     }
-    else{
-      $data = $email->printDebugger(['headers']);
-      print_r($data);
+    
+    else {
+    
+    $error = $email->printDebugger(['headers']);
+    
+    print_r($error);
+    
     }
+
+
+
     // if(session()->get('user_id')== null || session()->get('user_type') == "employer"){
     //     return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
     //   }
