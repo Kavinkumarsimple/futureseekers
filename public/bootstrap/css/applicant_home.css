@@ -1,0 +1,135 @@
+.flex-container {
+
+    /* border: 1px red solid; */
+
+    background-color: white;
+
+    width: 900px;
+
+    display: flex;
+
+    padding-left: 20px;
+
+    align-items: center;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    margin-top: 40px;
+
+}
+
+
+
+.flex-container2 {
+
+    background-color: white;
+
+    display: flex;
+
+    /* align-items: center; */
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+}
+
+
+
+.flex-container>div {
+
+    /* background-color: DodgerBlue;
+
+    color: white;
+
+    margin: 10px;
+
+    text-align: left;
+
+    line-height: 75px;
+
+    font-size: 30px; */
+
+}
+
+
+
+.jobs_img {
+
+    width: 50px;
+
+    /* margin-top: 50%; */
+
+    /* margin-left: 20px; */
+
+    /* height: 50px; */
+
+    border-radius: 50px;
+
+}
+
+
+
+.jobs_img_container {
+
+    text-align: center;
+
+    background-color: white;
+
+}
+
+
+
+.cat_container {
+
+    border-radius: 2px !important;
+
+    padding-left: 10px;
+
+    padding-right: 10px;
+
+    padding-top: 7px;
+
+    padding-bottom: 7px;
+
+    margin-top: 5px !important;
+
+    margin-bottom: 10px !important;
+
+}
+
+
+
+.span_img {
+
+    margin-right: 2px;
+
+    width: 10px;
+
+}
+
+
+
+.flex-container2 div {
+
+    margin-right: 20px;
+
+}
+
+
+
+.job_option_holder {
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-left: 40px;
+
+    margin-right: 40px;
+
+    /* margin-top: 20%; */
+
+}

@@ -66,7 +66,7 @@ class MyProfileEmployer extends BaseController
         ]
       ],
       'cname' => [
-        'rules' => 'required|is_unique[company.name]',
+        'rules' => 'required',
         'errors' => [
           'required' => 'Company Name is Required',
           'is_unique'=> 'This Company is already registered'
@@ -84,12 +84,12 @@ class MyProfileEmployer extends BaseController
           'required' => 'Company Email is Required'
         ]
       ],
-      // 'logo' => [
-      //   'rules' => 'required',
-      //   'errors' => [
-      //     'required' => 'Company Logo is Required'
-      //   ]
-      // ]
+       'logo' => [
+         'rules' => 'uploaded[logo]|max_size[logo, 5000]|ext_in[logo,jpg,png,jpeg]',
+         'errors' => [
+           'required' => 'Company Logo is Required'
+         ]
+      ]
     ]);
 
     if (!$validation) {

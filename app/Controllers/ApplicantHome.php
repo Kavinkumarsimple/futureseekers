@@ -25,6 +25,24 @@ class ApplicantHome extends BaseController
 
     return view('ApplicantHome/index');
   }
+
+  public function downloadPdf($data){
+   // echo $data;
+    
+   header("Content-type: application/pdf");
+   header("Content-Disposition: attachment;filename=$data");
+   header("Content-Transfer-Encoding: binary");
+   header('Pragma: no-cache');
+   header('Expires: 0');
+   set_time_limit(0);
+   ob_clean();
+   flush();
+   readfile('adverts/'.$data);
+
+
+  }
+
+
   public function logout()
 	{
 		$session = session();

@@ -30,11 +30,21 @@ class PostAdvertEmployer extends BaseController
     $user_id = session()->get('user_id');
 
     $EmployerM = new \App\Models\employerModel();
+    $CompanyM = new \App\Models\companyModel();
     $employer_info = $EmployerM->where('user_account_id', $user_id)->first();
 
     $query_employer = $EmployerM->query("Select * from employer where user_account_id = $user_id");
     foreach ($query_employer->getResult() as $row) {
+      $company_id = $row->company_id;
       $emp_id = $row->id;
+      $company_query = $CompanyM->query("Select * from company where id = $company_id");
+        foreach($company_query->getResult() as $row2){
+          $imgname = $row2->logo_dir; 
+          $companyemail = $row2->email;
+          $companyContact = $row2->contactNo;
+          if($imgname == null || $companyemail == null || $companyContact == null){
+          return redirect()->back()->with('fail', 'Please give your contact details before trying to post an advertisement');}
+        }
       }
 
 

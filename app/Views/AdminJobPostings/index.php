@@ -125,7 +125,7 @@
                
                 $query_employer = $Employer->query("Select * from employer where id = $employerId");
                 foreach ($query_employer->getResult() as $row2) {
-                  $companyID = $row2->id;
+                  $companyID = $row2->company_id;
 
                   $query_company = $UserAccount->query("Select * from company where id = $companyID");
                   foreach ($query_company->getResult() as $row3) {
@@ -141,7 +141,7 @@
                       <td><?php echo $row->employer_id; ?></td>
                       <!-- <td><?php // echo $password; 
                                 ?></td> -->
-                      <td><?php echo $row2->id; ?></td>
+                      <td><?php echo $row2->company_id; ?></td>
                       <td><?php echo $row3->name; ?></td>
                       <td><?php echo $row3->email; ?></td>
                       <td><?php echo $row->description ?></td>

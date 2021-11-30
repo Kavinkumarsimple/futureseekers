@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="">Home </a>
+              <a class="nav-link" href="<?php echo site_url('ApplicantHome/index') ?>">Home </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="">My Inbox</a>
