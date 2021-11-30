@@ -6,16 +6,16 @@ class AdminJobPostings extends BaseController
 {
   public function index()
   {
-    if (session()->get('admin_id') == null) {
-      return redirect()->to('Admin/index')->with('fail', 'You must be logged in..');;
+    if (session()->get('user_id') == null) {
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
     }
     return view('AdminJobPostings/index');
   }
 
   public function verify()
   {
-    if (session()->get('admin_id') == null) {
-      return redirect()->to('Admin/index')->with('fail', 'You must be logged in..');;
+    if (session()->get('user_id') == null) {
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
     }
 
     if (isset($_POST['ajob'])) {

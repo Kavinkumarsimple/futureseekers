@@ -58,10 +58,10 @@
             </li>
             <li class="nav-item">
               <!-- For blue button: btn btn-primary -->
-              <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Admin/logout') ?>">Log out</a>
+              <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
             <li class="nav-item mobile_logout">
-              <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Admin/logout') ?>">Log out</a>
+              <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
           </ul>
         </div>

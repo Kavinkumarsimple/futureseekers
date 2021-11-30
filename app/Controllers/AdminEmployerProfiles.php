@@ -6,15 +6,15 @@ class AdminEmployerProfiles extends BaseController
 {
   public function index()
   {
-    if(session()->get('admin_id')== null){
-      return redirect()->to('Admin/index')->with('fail', 'You must be logged in..');;
+    if(session()->get('user_id')== null){
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
     }
     return view('AdminEmployerProfiles/index');
   }
   public function verify()
   {
-    if(session()->get('admin_id')== null){
-      return redirect()->to('Admin/index')->with('fail', 'You must be logged in..');;
+    if(session()->get('user_id')== null){
+      return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
     }
     //To Accept User--Changing Status to 1
     if (isset($_POST['auser'])) {
