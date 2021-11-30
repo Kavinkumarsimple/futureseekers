@@ -33,6 +33,9 @@ class Home extends BaseController
 			else if(session()->get('user_type') == "applicant") {
 				return redirect()->to('ApplicantHome/index');
 			}
+			else if(session()->get('user_type') == "admin") {
+				return redirect()->to('AdminHome/index');
+			}
 			
 		}
 		$validation = $this->validate([
@@ -80,6 +83,8 @@ class Home extends BaseController
 					return redirect()->to("//EmployerHome/index")->with('info', 'Login Successful');
 				} elseif ($user_info['type'] == "applicant") {
 					return redirect()->to("//ApplicantHome/index")->with('info', 'Login Successful');
+				} elseif ($user_info['type'] == "admin") {
+					return redirect()->to("//AdminHome/index")->with('info', 'Login Successful');
 				} else {
 					return view('Home/index');
 					session()->setFlashdata('fail', 'Incorrect Password!');
