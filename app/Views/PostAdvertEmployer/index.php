@@ -95,11 +95,11 @@ use CodeIgniter\Session\Session;
     <div class="card-body">
       <h5 class="card-title">Enter Job Details</h5>
       <?php if (!empty(session()->getFlashdata('fail'))) : ?>
-        <div style="margin-top:5px" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
+        <div style="margin-top:5px" id="failMsgFlash" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
       <?php endif ?>
 
       <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        <div style="margin-top:5px" class="alert alert-success text-muted" id="msgFlash"> <?= session()->getFlashdata('success'); ?> </div>
+        <div style="margin-top:5px" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
       <?php endif ?>
       <form action="<?php echo site_url('/PostAdvertEmployer/PostAdvert') ?>" method="POST" enctype="multipart/form-data">
 
