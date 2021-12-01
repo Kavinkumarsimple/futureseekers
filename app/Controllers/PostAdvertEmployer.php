@@ -43,7 +43,7 @@ class PostAdvertEmployer extends BaseController
           $companyemail = $row2->email;
           $companyContact = $row2->contactNo;
           if($imgname == null || $companyemail == null || $companyContact == null){
-          return redirect()->back()->with('fail', 'Please give your contact details before trying to post an advertisement');}
+          return redirect()->back()->with('fail', 'Please provide your Company Details before posting a Job Advertisement');}
         }
       }
 
