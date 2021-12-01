@@ -7,7 +7,8 @@ class jobSeekerJobDetailsModel extends \CodeIgniter\Model {
   protected $allowedFields = [
                               'job_seeker_id',
                               'job_details_id',
-                              'dateTime'
+                              'dateTime',
+                              'cv_name'
                             ];
 }
 

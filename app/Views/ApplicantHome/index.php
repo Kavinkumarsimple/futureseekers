@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/applicant_home.css') ?>" />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- CSS stylesheet for navigation bar -->
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/navbar.css') ?>" />
 
@@ -25,6 +25,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    
 
 
 
@@ -84,7 +85,7 @@
 
     $query = $JobAdvert->query("Select * from job_details where status = 1");
     foreach ($query->getResult() as $row) {
-
+        
         $jobTitle = $row->jobtitle;
         $jobCategory = $row->jobCategory;
         $pDate = $row->dateTime;
@@ -98,6 +99,7 @@
 
             $query_company = $UserAccount->query("Select * from company where id = $companyID");
             foreach ($query_company->getResult() as $row3) {
+                $jobId = $row->id;
                 $companyName = $row3->name;
                 $companyNo = $row3->contactNo;
                 $companyEmail = $row3->email;
@@ -143,7 +145,7 @@
         
                                 <a href='" . base_url() . "/ApplicantHome/downloadPdf/$pdfname" . "'>
                                 
-                                    <span> <img style=\"width: 12px\" class=\"span_img\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:11px\">Download Advertisement</small> </span>
+                                    <span> <img style=\"width: 12px\" class=\"span_img\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:11px\">Download Advert</small> </span>
         
                                     </a>
         
@@ -189,7 +191,34 @@
         
                     <div class=\"job_option_holder\">
         
-                        <a href='" . base_url() . "/ApplyForJob/index" . "' class=\"btn btn-primary btn-sm\">Apply Now</a>
+                       
+                         <!-- Button trigger modal -->
+                         <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">
+                           Apply for this Job
+                           
+                         </button>
+                         <!-- Modal -->
+                         
+                         <div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">
+                         <div class=\"modal-dialog modal-dialog-centered\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-header\">
+                         <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Apply for this Job</h5>
+                         <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
+                         </div>
+                         <div class=\"modal-body\">
+                         <form action = '" . site_url() . "/ApplyForJob/index/$jobId" . "' class=\"form-container\">
+                         <h4>Upload Your CV</h4>
+ 
+                         <input class=\"form-control\" type=\"file\" id='CV' name='CV' value = '" . set_value("CV") . "'   />
+ 
+                        </div>
+                        <div class=\"modal-footer\">
+                        
+                
+                        
+                        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
+                        <button type=\"submit\" class=\"btn btn-primary\">Apply</button>
+                        </form>
+                        </div></div></div></div>
         
                         <p></p>
         
@@ -216,7 +245,7 @@
 
 
 
-
+<input class="form-control" type="file" id='description' name='description'   />
 
 </body>
 

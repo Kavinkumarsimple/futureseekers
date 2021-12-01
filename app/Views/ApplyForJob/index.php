@@ -33,39 +33,6 @@
             <input class="form-control" type="text" name="jobtitle" value="<?= set_value('jobtitle'); ?>">
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobtitle') : '' ?></small>
           </div>
-          <div class="form-group col-md-4">
-            <label>Job Category</label>
-            <!-- <input class="form-control" type="text" name="jobCategory" value="<?= set_value('jobCategory'); ?>"> -->
-            <select style="width:200px" name="jobCategory" id="getCategory" value="<?= set_value('jobCategory'); ?>">
-              <option value="IT">IT</option>
-              <option value="Management">Management</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Law">Law</option>
-              <option value="Agriculture">Agriculture</option>
-              <option value="Accounting">Accounting</option>
-              <option value="Media">Media</option>
-              <option value="Security">Security</option>
-              <option value="Banking">Banking</option>
-              <option value="Clothing">Clothing</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Tourism">Tourism</option>
-              <option value="HR">HR</option>
-              <option value="Logistics">Logistics</option>
-              <option value="Sports">Sports</option>
-              <option value="Academic">Academic</option>
-            </select>
-            <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobCategory') : '' ?></small>
-          </div>
-          <div class="form-group col-md-4">
-            <label>Salary</label>
-            <input class="form-control" type="number" name="salary" value="<?= set_value('salary'); ?>" placeholder="Optional">
-            <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'salary') : '' ?></small>
-          </div>
-          <div class="form-group col-md-4">
-            <label>Closing date</label>
-            <input class="form-control" type="datetime-local" name="closingDate" max="2023-12-31T00:00" min="2020-12-31T00:00" <?= set_value('closingDate'); ?>">
-            <small class="form-text text-danger"> <?= isset($validation) ? show_validation_error($validation, 'closingDate') : '' ?></small>
-          </div>
 
           <div class="form-group col-md-4">
 
