@@ -10,75 +10,21 @@ class ApplyForJob extends BaseController
     helper(['url', 'Login_helper']);
   }
   public function index()
-  {
+  { 
 
-    // $to      = 'futureseekersnew@outlook.com';
-    // $subject = 'Applied for the job';
-    // $message = 'hello i am musharraf';
-    // $email = \config\Services::email();
-    // $email->setTo($to);
-    // $email->setFrom('futureseekersnew@outlook.com','futureseekersnew');
-    // $email->setSubject($subject);
-    // $email->setMessage($message);
-    // $email->send();
-    // if($email->send()){
-    //   echo "email sent";
-    // }
-    // else{
-    //   $data = $email->printDebugger(['headers']);
-    //   print_r($data);
-    // }
-
-    $to = 'muchi.azhar2@gmail.com';
-
-    $subject = 'Kavinkumar has applied';
-    
-    $message = '<h1> Hi Kavin </h1>';
-    
-    
-    
-    $email = \config\Services::email();
-    
-    $email->setTo($to);
-    
-    // $email->setFrom('Info@gophp.in', 'Info');
-    $email->setFrom('futureseekersnew@gmail.com', 'FutureSeekers');
-
-    $email->setSubject($subject);
-    
-    $email->setMessage($message);
-    
-    
-    
-    if ($email-> send()) {
-    
-    echo "Email Sent";
-    
-    }
-    
-    else {
-    
-    $error = $email->printDebugger(['headers']);
-    
-    print_r($error);
-    
-    }
-
-
-
-    // if(session()->get('user_id')== null || session()->get('user_type') == "employer"){
-    //     return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
-    //   }
-    //   $session = session();
-    //   $session->regenerate();
-    //   $user_id = session()->get('user_id');
-    //   $UserAccount = new \App\Models\userAccountModel();
-    //   $user_info = $UserAccount->where('id', $user_id)->first();
-    //   if ($user_info['status'] == 0) {
-    //     return view('MyProfileApplicant/index');
-    //   }
+    if(session()->get('user_id')== null || session()->get('user_type') == "employer" || session()->get('user_type') == "admin"){
+        return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
+      }
+      $session = session();
+      $session->regenerate();
+      $user_id = session()->get('user_id');
+      $UserAccount = new \App\Models\userAccountModel();
+      $user_info = $UserAccount->where('id', $user_id)->first();
+      if ($user_info['status'] == 0) {
+        return view('MyProfileApplicant/index');
+      }
   
-    //   return view('ApplyForJob/index');
+      return view('ApplyForJob/index');
   }
 
 

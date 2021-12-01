@@ -133,7 +133,7 @@
         
                             <div class=\" mb-1 cat_container badge badge-light badge-pill border border-secondary\">
         
-                                <span> <img style=\"width: 11px\" class=\"span_img\" src=\"<?= base_url('Images/clock_timer.png') ?>\"></span><small style=\"font-size:11px \">$cDate</small>
+                                <span> <img style=\"width: 11px\" class=\"span_img\" src='" . base_url() . "/images/clock_timer.png" . "'></span><small style=\"font-size:11px \">$cDate</small>
         
                             </div>
         
@@ -142,8 +142,8 @@
                                 <div class=\" mb-1 cat_container badge badge-light badge-pill border border-secondary\">
         
                                 <a href='" . base_url() . "/ApplicantHome/downloadPdf/$pdfname" . "'>
-        
-                                    <span> <img style=\"width: 12px\" class=\"span_img\" src=\"<?= base_url('Images/download.png') ?>\"> <small style=\"font-size:11px\">Download Advertisement</small> </span>
+                                
+                                    <span> <img style=\"width: 12px\" class=\"span_img\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:11px\">Download Advertisement</small> </span>
         
                                     </a>
         
@@ -161,13 +161,13 @@
         
                             <div>
         
-                                <span> <img class=\"span_img\" src=\"<?= base_url('Images/contact.png') ?>\"></span><small> 0778277271</small>
+                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small> 0778277271</small>
         
                             </div>
         
                             <div>
         
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src=\"<?= base_url('Images/email.png') ?>\"></span><small> $companyEmail</small>
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.png" . "'></span><small> $companyEmail</small>
         
                             </div>
         

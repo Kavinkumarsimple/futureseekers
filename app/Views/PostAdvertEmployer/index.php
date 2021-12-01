@@ -99,7 +99,7 @@ use CodeIgniter\Session\Session;
       <?php endif ?>
 
       <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
+        <div style="margin-top:5px" class="alert alert-success text-muted" id="msgFlash"> <?= session()->getFlashdata('success'); ?> </div>
       <?php endif ?>
       <form action="<?php echo site_url('/PostAdvertEmployer/PostAdvert') ?>" method="POST" enctype="multipart/form-data">
 
