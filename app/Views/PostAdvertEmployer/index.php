@@ -106,7 +106,7 @@ use CodeIgniter\Session\Session;
         <div class="form-column">
           <div class="form-group col-md-4">
             <label>Job Title</label>
-            <input class="form-control" type="text" name="jobtitle" value="<?= set_value('jobtitle'); ?>">
+            <input class="form-control" type="text" id="jobtitle" name="jobtitle" value="<?= set_value('jobtitle'); ?>">
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobtitle') : '' ?></small>
           </div>
           <div class="form-group col-md-4">
@@ -134,19 +134,19 @@ use CodeIgniter\Session\Session;
           </div>
           <div class="form-group col-md-4">
             <label>Salary</label>
-            <input class="form-control" type="number" name="salary" value="<?= set_value('salary'); ?>" placeholder="Optional">
+            <input class="form-control" type="number" name="salary" id="salary" value="<?= set_value('salary'); ?>" placeholder="Optional">
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'salary') : '' ?></small>
           </div>
           <div class="form-group col-md-4">
             <label>Closing date</label>
-            <input class="form-control" type="datetime-local" name="closingDate" max="2023-12-31T00:00" min="2020-12-31T00:00" <?= set_value('closingDate'); ?>">
+            <input class="form-control" type="datetime-local" name="closingDate" id="closingDate" max="2023-12-31T00:00" min="2020-12-31T00:00" <?= set_value('closingDate'); ?>">
             <small class="form-text text-danger"> <?= isset($validation) ? show_validation_error($validation, 'closingDate') : '' ?></small>
           </div>
 
           <div class="form-group col-md-4">
 
             <label for="experience">Experience in the Field:</label>
-            <select name="experience" class="form-select form-select-lg mb-3"  style = "font-size:15px !important" value="<?= set_value('experience'); ?>">
+            <select name="experience" id="experience" class="form-select form-select-lg mb-3"  style = "font-size:15px !important" value="<?= set_value('experience'); ?>">
 
               <option value="Below 2">Below 2 years</option>
               <option value="2+">2+ years</option>
@@ -160,7 +160,7 @@ use CodeIgniter\Session\Session;
           <div class="form-group col-md-4">
 
             <label for="typeOfEmployment">Type of employment:</label>
-            <select name="typeOfEmployment" class="form-select form-select-lg mb-3"  style = "font-size:15px !important"value="<?= set_value('typeOfEmployment'); ?>">
+            <select name="typeOfEmployment" id="typeOfEmployment" class="form-select form-select-lg mb-3"  style = "font-size:15px !important"value="<?= set_value('typeOfEmployment'); ?>">
 
               <option value="Fulltime">Full-Time</option>
               <option value="Parttime">Part-Time</option>
@@ -170,7 +170,7 @@ use CodeIgniter\Session\Session;
           </div>
           <div class="form-group col-md-6">
             <label>Job Details as a PDF</label>
-            <input class="form-control" type="file" name='description' value="<?= set_value('description'); ?>" />
+            <input class="form-control" type="file" id='description' name='description' value="<?= set_value('description'); ?>" />
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'description') : '' ?></small>
           </div>
 
@@ -181,7 +181,7 @@ use CodeIgniter\Session\Session;
 
         <br>
         <div class="form-row">
-          <button type="submit" class="btn btn-primary btnlogin">Save Changes</button>
+          <button type="submit" id="submitBtn" class="btn btn-primary btnlogin">Save Changes</button>
           <!-- <button id="loginbtn" class="btn btn-primary btnlogin">Register</button><br> -->
         </div>
       </form>
