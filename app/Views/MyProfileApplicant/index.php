@@ -83,7 +83,7 @@
       <h5 class="card-title">Applicant Details</h5>
       <p class="card-text" style="color:#787878">Click on the save changes to update your record</p>
 
-      <form action="<?php echo site_url('/MyProfileApplicant/editProfile') ?>" method="POST">
+      <form action="<?php echo site_url('/MyProfileApplicant/editProfile') ?>" method="POST" enctype="multipart/form-data">
         <?php
         session();
         session()->regenerate();
@@ -129,6 +129,7 @@
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small>
           </div>
         </div>
+
         <div class="form-row">
           
           <div class="form-group col-md-4">
@@ -136,28 +137,42 @@
             <input class="form-control" type="date" placeholder="Date of Birth" name="dob" id="dob" value="<?php echo $dob ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'dob') : '' ?></small>
           </div>
+
           <div class="form-group col-md-4">
             <label>Contact No</label>
             <input class="form-control" type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?php echo $contactNo ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small>
           </div>
+
           <div class="form-group col-md-4">
             <label>Current Job Title</label>
             <input class="form-control" type="text" placeholder="Current Job Title" name="currentJobTitle" id="currentJobTitle" value="<?php echo $currentJobTitle ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'currentJobTitle') : '' ?></small>
           </div>
+
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
+       <div class="form-row">
+
+          <div class="form-group col-md-4">
             <label>Username</label>
             <input class="form-control" type="text" placeholder="Username" name="username" id="username" value="<?php echo $username ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small>
           </div>
-          <div class="form-group col-md-6">
+
+          <div class="form-group col-md-4">
             <label>Password</label>
             <input class="form-control" type="password" placeholder="Password" name="password" id="password" value="<?php echo $password ?>" <?php if ($status == 0) { ?> readonly <?php } ?>>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small>
           </div>
+
+          <div class="form-group col-md-4">
+            <label>Upload your CV</label>
+            <input class="form-control" type="file"  name="CV" id="CV" value="<?= set_value('CV'); ?>" >
+            <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'CV') : '' ?></small>
+         </div>
+
+       </div>
+
           <br>
           <div class="form-row">
             <button type="submit" class="btn btn-primary btnlogin" <?php if ($status == 0) { ?> disabled <?php } ?>>Save Changes</button>

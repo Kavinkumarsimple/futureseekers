@@ -20,11 +20,14 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="<?= base_url('bootstrap/js/modalstuff.js') ?>" ></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    
     
 
 
@@ -76,6 +79,14 @@
     </div>
     <h2 class="card-header">New Job Advertisements</h2>
 
+      <?php if (!empty(session()->getFlashdata('fail'))) : ?>
+        <div style="margin-top:35px; width:1200px; margin-left: auto; margin-right: auto;" id="failMsgFlash" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
+      <?php endif ?>
+
+      <?php if (!empty(session()->getFlashdata('success'))) : ?>
+        <div style="margin-top:35px; width:1200px; margin-left: auto; margin-right: auto;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
+      <?php endif ?>
+
     
     <?php
     $JobAdvert = new \App\Models\jobDetailsModel();
@@ -85,7 +96,7 @@
 
     $query = $JobAdvert->query("Select * from job_details where status = 1");
     foreach ($query->getResult() as $row) {
-        
+        $jobId = $row->id;
         $jobTitle = $row->jobtitle;
         $jobCategory = $row->jobCategory;
         $pDate = $row->dateTime;
@@ -99,14 +110,14 @@
 
             $query_company = $UserAccount->query("Select * from company where id = $companyID");
             foreach ($query_company->getResult() as $row3) {
-                $jobId = $row->id;
+               
                 $companyName = $row3->name;
                 $companyNo = $row3->contactNo;
                 $companyEmail = $row3->email;
                 $logo = $row3->logo_dir;
            
 
-               echo "<div class=\"flex-container\">
+               echo "<div class=\"ratt\" >
                 <div class=\"jobs_img_container\" style=\"flex-grow: 1\">
                     <img class=\"jobs_img\" src='" . base_url() . "/logo/" . $logo . "'>
                 </div>
@@ -192,36 +203,10 @@
                     <div class=\"job_option_holder\">
         
                        
-                         <!-- Button trigger modal -->
-                         <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">
-                           Apply for this Job
-                           
-                         </button>
-                         <!-- Modal -->
-                         
-                         <div class=\"modal fade\" id=\"exampleModalCenter\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">
-                         <div class=\"modal-dialog modal-dialog-centered\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-header\">
-                         <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Apply for this Job</h5>
-                         <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>
-                         </div>
-                         <div class=\"modal-body\">
-                         <form action = '" . site_url() . "/ApplyForJob/index/$jobId" . "' class=\"form-container\">
-                         <h4>Upload Your CV</h4>
- 
-                         <input class=\"form-control\" type=\"file\" id='CV' name='CV' value = '" . set_value("CV") . "'   />
- 
-                        </div>
-                        <div class=\"modal-footer\">
-                        
-                
-                        
-                        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
-                        <button type=\"submit\" class=\"btn btn-primary\">Apply</button>
-                        </form>
-                        </div></div></div></div>
+                        <a href='" . base_url() . "/ApplyForJob/index/$jobId" . "' class=\"btn btn-primary btn-sm\" >Apply Now</a>
         
                         <p></p>
-        
+                        
                         <a href='" . base_url() . "/adverts/$pdfname" . "' target='_blank' class=\"btn btn-secondary btn-sm\">View Advert</a>
         
                         <!-- <p></p>
@@ -245,7 +230,6 @@
 
 
 
-<input class="form-control" type="file" id='description' name='description'   />
 
 </body>
 

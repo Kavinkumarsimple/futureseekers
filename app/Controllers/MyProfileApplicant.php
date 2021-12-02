@@ -69,6 +69,12 @@ class MyProfileApplicant extends BaseController
         'rules' => 'required',
         'errors' => [
           'required' => 'Password is Required'
+        ],
+     'CV' => [
+          'rules' => 'max_size[CV, 5000]|ext_in[CV,pdf]',
+          'errors' => [
+            
+          ]
         ]
       ]
     ]);
@@ -85,6 +91,12 @@ class MyProfileApplicant extends BaseController
       $currentJobTitle = $this->request->getPost('currentJobTitle');
       $username = $this->request->getPost('username');
       $password = $this->request->getPost('password');
+      $cvFile = $this->request->getFile('CV');
+      $cvname = $cvFile->getRandomName();
+
+      if ($cvFile->isValid() && !$cvFile->hasMoved()) {
+              
+        $cvFile->move('cvfiles/', $cvname);}
 
       session();
       session()->regenerate();
@@ -114,7 +126,8 @@ class MyProfileApplicant extends BaseController
                                           email = '$email',
                                           dob = '$dob',
                                           contactNo = $contactNo,
-                                          currentJobTitle = '$currentJobTitle'
+                                          currentJobTitle = '$currentJobTitle',
+                                          cv_file_dir = '$cvname'
                                       Where user_account_id = $user_id");
       if (!$queryJobSeeker) {
         return redirect()->back()->with('fail', 'Please try again later..');
