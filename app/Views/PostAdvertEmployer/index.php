@@ -102,7 +102,7 @@ use CodeIgniter\Session\Session;
         <div style="margin-top:5px" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
       <?php endif ?>
       <form action="<?php echo site_url('/PostAdvertEmployer/PostAdvert') ?>" method="POST" enctype="multipart/form-data">
-
+      
         <div class="form-column">
           <div class="form-group col-md-4">
             <label>Job Title</label>
@@ -132,6 +132,42 @@ use CodeIgniter\Session\Session;
             </select>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobCategory') : '' ?></small>
           </div>
+
+
+          <div class="form-group col-md-4">
+            <label>Job Location</label>
+            <!-- <input class="form-control" type="text" name="jobCategory" value="<?= set_value('jobCategory'); ?>"> -->
+            <select style="width:200px" name="jobLocation" id="getLocation" value="<?= set_value('jobLocation'); ?>">
+              <option value="Jaffna">Jaffna</option>	
+              <option value="Kilinochchi">Kilinochchi</option> 	
+               <option value="Mannar">Mannar</option>	
+               <option value="Mullaitivu">Mullaitivu</option> 
+               <option value="Vavuniya">Vavuniya</option> 
+               <option value="Puttalam">Puttalam</option> 
+               <option value="Kurunegala">Kurunegala</option> 
+               <option value="Gampaha">Gampaha</option> 
+               <option value="Colombo">Colombo</option> 		
+               <option value="Kalutara">Kalutara</option>  
+               <option value="Anuradhapura">Anuradhapura</option>  	
+               <option value="Polonnaruwa">Polonnaruwa</option>   	
+               <option value="Matale">Matale</option> 	
+               <option value="Kandy">Kandy</option>  	
+               <option value=" Nuwara Eliya	"> Nuwara Eliya	</option>  
+               <option value="Kegalle">Kegalle</option>   	
+               <option value="Ratnapura">Ratnapura</option>  	
+               <option value="Trincomalee">Trincomalee</option>   	
+               <option value="Batticaloa">Batticaloa</option> 	
+               <option value="Ampara">Ampara</option>  	 
+               <option value=" Badulla	Uva"> Badulla	Uva</option>  	
+               <option value="Monaragala">Monaragala</option>   	
+               <option value="Hambantota">Hambantota</option>   	
+               <option value="Matara">Matara</option>  	
+               <option value="Galle">Galle</option>   	
+            </select>
+            <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobLocation') : '' ?></small>
+          </div>
+
+
           <div class="form-group col-md-4">
             <label>Salary</label>
             <input class="form-control" type="number" name="salary" id="salary" value="<?= set_value('salary'); ?>" placeholder="Optional">
@@ -148,10 +184,10 @@ use CodeIgniter\Session\Session;
             <label for="experience">Experience in the Field:</label>
             <select name="experience" id="experience" class="form-select form-select-lg mb-3"  style = "font-size:15px !important" value="<?= set_value('experience'); ?>">
 
-              <option value="Below 2">Below 2 years</option>
-              <option value="2+">2+ years</option>
-              <option value="5+">5+ years</option>
-              <option value="10+">10+ years</option>
+              <option value="Below 2 years">Below 2 years</option>
+              <option value="2+ years">2+ years</option>
+              <option value="5+ years">5+ years</option>
+              <option value="10+ years">10+ years</option>
 
             </select>
             <small class="form-text text-danger"> <?= isset($validation) ? show_validation_error($validation, 'experience') : '' ?></small>
@@ -191,6 +227,13 @@ use CodeIgniter\Session\Session;
     <script>
       $(document).ready(function() {
         $("#getCategory").select2({
+          theme: "bootstrap",
+          width: "resolve"
+        });
+      });
+
+      $(document).ready(function() {
+        $("#getLocation").select2({
           theme: "bootstrap",
           width: "resolve"
         });

@@ -82,7 +82,9 @@ class PostAdvertEmployer extends BaseController
       'description' => [
         'rules' => 'uploaded[description]|max_size[description, 5000]|ext_in[description,pdf]',
         'errors' => [
-          'uploaded[description]' => 'a pdf is Required'
+          'uploaded' => 'A pdf is Required',
+          'max_size' => 'File size too large',
+          'ext_in' => 'Invalid file format'
         ]
       ],
      ]);
@@ -102,6 +104,7 @@ class PostAdvertEmployer extends BaseController
       $employer_id = $emp_id;
       $jobTitle = $this->request->getPost('jobtitle');
       $jobCategory = $this->request->getPost('jobCategory');
+      $jobLocation = $this->request->getPost('jobLocation');
       $salary = $this->request->getPost('salary');
       $closingdate = $this->request->getPost('closingDate');
       $experience = $this->request->getPost('experience');
@@ -121,6 +124,7 @@ class PostAdvertEmployer extends BaseController
          'jobtitle' => $jobTitle,
         'employer_id'=> $employer_id,
         'jobCategory'=> $jobCategory,
+        'location' => $jobLocation,
         'salary' => $salary,
         'closingDate'=> $closingdate,
         'experience'=> $experience,

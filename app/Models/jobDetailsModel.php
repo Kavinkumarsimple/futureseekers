@@ -15,7 +15,8 @@ class jobDetailsModel extends \CodeIgniter\Model {
                               'description',
                               'dateTime',
                               'status',
-                              'jobtitle'
+                              'jobtitle',
+                              'location'
                             ];
 }
 

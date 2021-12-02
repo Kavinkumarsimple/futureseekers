@@ -85,9 +85,9 @@ class MyProfileEmployer extends BaseController
         ]
       ],
        'logo' => [
-         'rules' => 'uploaded[logo]|max_size[logo, 5000]|ext_in[logo,jpg,png,jpeg]',
+         'rules' => 'max_size[logo, 5000]|ext_in[logo,jpg,png,jpeg]',
          'errors' => [
-           'required' => 'Company Logo is Required'
+           'ext_in' => 'Invalid File format'
          ]
       ]
     ]);
@@ -113,9 +113,7 @@ class MyProfileEmployer extends BaseController
       $user_id = session()->get('user_id');
       // echo $user_id;
 
-      if (!$imgfile->isValid()) {
-        throw new \RuntimeException($imgfile->getErrorString() . '(' . $imgfile->getError() . ')');
-      }
+     
 
       $logo_dir = $imgfile->getRandomName();
       if ($imgfile->isValid() && !$imgfile->hasMoved()) {

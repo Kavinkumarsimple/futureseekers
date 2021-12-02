@@ -77,17 +77,22 @@
             </nav>
         </div>
     </div>
-    <h2 class="card-header">New Job Advertisements</h2>
+    <br/>
+    <!-- <h2 class="card-header">New Job Advertisements</h2> -->
 
       <?php if (!empty(session()->getFlashdata('fail'))) : ?>
         <div style="margin-top:35px; width:1200px; margin-left: auto; margin-right: auto;" id="failMsgFlash" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
       <?php endif ?>
 
       <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        <div style="margin-top:35px; width:1200px; margin-left: auto; margin-right: auto;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
+        <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
       <?php endif ?>
 
-    
+      <div class="shadow-lg mb-5 bg-white rounded card" style="margin-left:auto;margin-right:auto; width:1200px">
+    <div class="card-header bg-primary" style="color:white">
+      Job Adverts
+    </div>
+    <div class="card-body" style="padding-left: 0px !important; padding-right: 0px; padding-bottom: 5px !important;">
     <?php
     $JobAdvert = new \App\Models\jobDetailsModel();
     $Employer = new \App\Models\employerModel();
@@ -103,6 +108,9 @@
         $cDate = $row->closingDate;
         $employerId = $row->employer_id;
         $pdfname = $row->description;
+        $typeofemployment = $row->typeOfEmployment;
+        $jobtime = $row->experience;
+        $joblocation = $row->location;
 
         $query_employer = $Employer->query("Select * from employer where id = $employerId");
         foreach ($query_employer->getResult() as $row2) {
@@ -117,8 +125,8 @@
                 $logo = $row3->logo_dir;
            
 
-               echo "<div class=\"ratt\" >
-                <div class=\"jobs_img_container\" style=\"flex-grow: 1\">
+               echo "<div class=\"ratt \" >
+                <div class=\"jobs_img_container\" style=\"width: 100px\">
                     <img class=\"jobs_img\" src='" . base_url() . "/logo/" . $logo . "'>
                 </div>
         
@@ -128,37 +136,52 @@
         
                         <div class=\"d-flex w-100 justify-content-between\">
         
-                            <h5 class=\"mb-1\">$jobTitle</h5>
+                            <h5 class=\"mb-1\" >$jobTitle</h5>
         
                             <!-- <small> $cDate </small> -->
         
                         </div>
         
-                        <p class=\"mb-1\">$companyName</p>
+                        <p class=\"mb-1 company_name\">$companyName</p>
         
-                        <div class=\"flex-container2\">
+                        <div class=\"flex-container2\" style=\"margin-top: 10px !important;\">
         
                             <div class=\" mb-1 cat_container badge badge-primary badge-pill\">
         
-                                <small style=\"font-size:12px\">$jobCategory</small>
+                                <small \">$jobCategory</small>
         
                             </div>
+              
+                            <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-primary\">
         
-                            <div class=\" mb-1 cat_container badge badge-light badge-pill border border-secondary\">
+                            <div class=\"img_and_element_holder\">
+                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/typeofemployment.png" . "'></span><small style=\"font-size:13px \">$typeofemployment</small>
+                            </div>
+                            </div>
+                            <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-secondary\">
         
-                                <span> <img style=\"width: 11px\" class=\"span_img\" src='" . base_url() . "/images/clock_timer.png" . "'></span><small style=\"font-size:11px \">$cDate</small>
+                                <div class=\"img_and_element_holder\">
+                                    <span> <img class=\"span_img2\" src='" . base_url() . "/images/clock_timer.png" . "'></span><small style=\"font-size:13px \">$cDate</small>
+                                </div>
+                            </div>
+
+                            <div class=\" mb-1 cat_container2 badge  badge-pill border border-secondary\" style=\"background-color:#c9c8cf !important; color:black !important \">
         
+                            <div class=\"img_and_element_holder\">
+                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/performance.png" . "'></span><small style=\"font-size:13px \">$jobtime</small>
+                            </div>
                             </div>
         
                         
         
-                                <div class=\" mb-1 cat_container badge badge-light badge-pill border border-secondary\">
-        
-                                <a href='" . base_url() . "/ApplicantHome/downloadPdf/$pdfname" . "'>
+                                <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-secondary\">
+                                <div class=\"img_and_element_holder\">
+                                    <a href='" . base_url() . "/ApplicantHome/downloadPdf/$pdfname" . "'>
                                 
-                                    <span> <img style=\"width: 12px\" class=\"span_img\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:11px\">Download Advert</small> </span>
+                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:13px\">Download Advert</small> </span>
         
                                     </a>
+                                    </div>
         
                                 </div>
         
@@ -170,22 +193,27 @@
         
          
         
-                        <div class=\"flex-container2\">
+                        <div class=\"flex-container2\" style=\"margin-top: 10px !important;\">
         
-                            <div>
+                            <div style=\"margin-right:20px !important\">
         
-                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small> $companyNo</small>
-        
-                            </div>
-        
-                            <div>
-        
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.png" . "'></span><small> $companyEmail</small>
+                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small style=\"font-size: 14px\"> $companyNo</small>
         
                             </div>
         
-                            <!-- <small> Closing Date: 2021-06-07 03:55</small> -->
+                            <div style=\"margin-right:20px !important\">
         
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.png" . "'></span><small style=\"font-size: 14px\"> $companyEmail</small>
+        
+                            </div>
+
+                            <div style=\"margin-right:20px !important\">
+        
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/location.png" . "'></span><small style=\"font-size: 14px\"> $joblocation</small>
+        
+                            </div>
+        
+                           
                         </div>
         
          
@@ -196,7 +224,7 @@
         
          
         
-                <div style=\"flex-grow: 2\">
+                <div style=\"width: 200px\">
         
          
         
@@ -219,7 +247,12 @@
         
                 </div>
         
-            </div>";
+            </div>
+
+            <hr class=\"my-4 bg-primary\">
+            ";
+
+            
             }
                
             }
@@ -227,7 +260,8 @@
     
     ?>
 
-
+    </div>
+      </div>
 
 
 

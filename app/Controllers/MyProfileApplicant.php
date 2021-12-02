@@ -69,14 +69,14 @@ class MyProfileApplicant extends BaseController
         'rules' => 'required',
         'errors' => [
           'required' => 'Password is Required'
-        ],
+        ]],
      'CV' => [
           'rules' => 'max_size[CV, 5000]|ext_in[CV,pdf]',
           'errors' => [
-            
+            'ext_in' => 'Invalid File format'
           ]
         ]
-      ]
+      
     ]);
 
     if (!$validation) {
@@ -94,9 +94,7 @@ class MyProfileApplicant extends BaseController
       $cvFile = $this->request->getFile('CV');
       $cvname = $cvFile->getRandomName();
 
-      if ($cvFile->isValid() && !$cvFile->hasMoved()) {
-              
-        $cvFile->move('cvfiles/', $cvname);}
+     
 
       session();
       session()->regenerate();
