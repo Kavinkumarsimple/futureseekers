@@ -24,12 +24,43 @@ class ApplyForJob extends BaseController
     $session->regenerate();
     $user_id = session()->get('user_id');
 
+    
+    $jobdetailM = new \App\Models\jobDetailsModel();
+
+    $query_jdetail = $jobdetailM->query("Select * from job_details where id = $jobid");
+    foreach ($query_jdetail->getResult() as $row4) {
+      $emp_id = $row4->employer_id;
+      $jobtitle = $row4->jobtitle;
+   
+    } 
+
+     $employerM = new \App\Models\employerModel();
+
+     $query_employer = $employerM->query("Select * from employer where id = $emp_id");
+     foreach ($query_employer->getResult() as $row3) {
+       $employer_email = $row3->email;
+     } 
+
+
+    
+
+
+
+
+
+
     $jobseekerM = new \App\Models\jobSeekerModel();
+    
+
+
 
     $query_jobseeker = $jobseekerM->query("Select * from job_seeker where user_account_id = $user_id");
     foreach ($query_jobseeker->getResult() as $row) {
       $jobseeker_id = $row->id;
+      $jobseeker_name = $row->name;
+      $jobseeker_contact = $row->contactNo;
       $jobseeker_cv = $row->cv_file_dir;
+      $jobseeker_email = $row->email;
     }
 
 
@@ -39,6 +70,10 @@ class ApplyForJob extends BaseController
       'job_details_id' => $jobid,
       'cv_name' => $jobseeker_cv
     ];
+
+    if($jobseeker_cv == null){
+      return redirect()->to('ApplicantHome')->with('fail', 'Please update your profile details by providing your CV');
+    }
 
 
     $jobdetailsM = new \App\Models\jobSeekerJobDetailsModel();
@@ -54,12 +89,19 @@ class ApplyForJob extends BaseController
       if ($queryEmp) {
         return redirect()->back()->with('fail', 'Please try again later..');
       } else {
-        $to = 'mkavinkumarnaidu@gmail.com';
+        $to = $employer_email;
 
-        $subject = 'Kavinkumar has applied';
+        $subject = "$jobseeker_name has applied for $jobtitle Posititon";
 
-        $message = '<h1> Hi Kavin </h1>';
-
+        $message = "<p>$jobseeker_name has applied for the $jobtitle Position (Job Reference Number $jobid).</p>
+                    <br>
+                    <P>You can Contact this person by using the following details and their CV is attached with this e-mail</P>
+                    <ul>
+                    <li>Email: $jobseeker_email</li>
+                    <li>Phone number: $jobseeker_contact</li>
+                    </ul>  ";
+        
+        $filepath = "cvfiles/$jobseeker_cv";
 
         $email = \config\Services::email();
 
@@ -71,6 +113,8 @@ class ApplyForJob extends BaseController
         $email->setSubject($subject);
 
         $email->setMessage($message);
+
+        $email->attach($filepath);
 
         if ($email->send()) {
 
@@ -89,9 +133,9 @@ class ApplyForJob extends BaseController
     } else {
       return redirect()->to('ApplicantHome')->with('fail', 'You have already applied for this position');
     }
-    //echo $jobdetailsid;
+    // echo $jobdetailsid;
 
-    //echo "Doesnt exist";
+    // echo "Doesnt exist";
 
 
 

@@ -6,12 +6,12 @@
   /* border-radius: 20px; */
 }
 
-#unverified_profile_tbl tr, #verified_profile_tbl tr {
+#unverified_profile_tbl tr, #verified_profile_tbl tr, #unverified_job_tbl tr {
   cursor: pointer;
   transform: all .25s ease-in-out;
 }
 
-#unverified_profile_tbl tr:hover, #verified_profile_tbl tr:hover {
+#unverified_profile_tbl tr:hover, #verified_profile_tbl tr:hover, #unverified_job_tbl tr:hover {
   /* background-color: #d4edda; */
   /* background-color: #f8d7da; */
 }

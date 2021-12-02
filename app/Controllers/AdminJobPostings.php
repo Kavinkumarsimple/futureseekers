@@ -35,6 +35,14 @@ class AdminJobPostings extends BaseController
       return redirect()->to("//AdminJobPostings/index")->with('info', 'AD rejected');
     }
 
+    if (isset($_POST['djob'])) {
+      $jobid = $this->request->getPost('jobidfield');
+      echo $jobid;
+      $jobdetails = new \App\Models\jobDetailsModel();
+      $query = $jobdetails->query("update job_details set status = 2 where id = $jobid");
+      return redirect()->to("//AdminJobPostings/index")->with('info', 'AD deleted');
+    }
+
     if (isset($_POST['vjob'])) {
       $jobid = $this->request->getPost('jobidfield');
       $jobdetails = new \App\Models\jobDetailsModel();

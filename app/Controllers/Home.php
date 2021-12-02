@@ -65,7 +65,7 @@ class Home extends BaseController
 			$userAccountModel = new \App\Models\userAccountModel();
 			$user_info = $userAccountModel->where('username', $username)->first();
 
-			if ($user_info != null && $user_info['password'] == $password && $user_info['status'] == 0 || $user_info['status'] == 1) {
+			if ($user_info != null && $user_info['password'] == $password && $user_info['status'] != 2 && $user_info['status'] != 3) {
 				// $session = session();
 				// $session->regenerate();
 				session()->set('user_id', $user_info['id']);
@@ -79,9 +79,9 @@ class Home extends BaseController
 
 			
 				
-				if ($user_info['type'] == "employer") {
+				if ($user_info['type'] == "employer"  && $user_info['status'] == 0 || $user_info['status'] == 1) {
 					return redirect()->to("//EmployerHome/index")->with('info', 'Login Successful');
-				} elseif ($user_info['type'] == "applicant") {
+				} elseif ($user_info['type'] == "applicant"  && $user_info['status'] == 0 || $user_info['status'] == 1) {
 					return redirect()->to("//ApplicantHome/index")->with('info', 'Login Successful');
 				} elseif ($user_info['type'] == "admin") {
 					return redirect()->to("//AdminHome/index")->with('info', 'Login Successful');

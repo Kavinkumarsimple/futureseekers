@@ -181,7 +181,7 @@ use CodeIgniter\Session\Session;
 
         <br>
         <div class="form-row">
-          <button type="submit" id="submitBtn" class="btn btn-primary btnlogin">Save Changes</button>
+          <button type="submit" id="submitBtn" class="btn btn-primary btnlogin">Publish Advert</button>
           <!-- <button id="loginbtn" class="btn btn-primary btnlogin">Register</button><br> -->
         </div>
       </form>

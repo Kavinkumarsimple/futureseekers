@@ -174,7 +174,7 @@
         
                             <div>
         
-                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small> 0778277271</small>
+                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small> $companyNo</small>
         
                             </div>
         

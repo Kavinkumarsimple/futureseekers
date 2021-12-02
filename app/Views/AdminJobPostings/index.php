@@ -103,7 +103,6 @@
                 <th>Company ID</th>
                 <th>Company Name</th>
                 <th>Company Email</th>
-                <th>Advertisement PDF</th>
               </tr>
             </thead>
             <tbody>
@@ -144,7 +143,7 @@
                       <td><?php echo $row2->company_id; ?></td>
                       <td><?php echo $row3->name; ?></td>
                       <td><?php echo $row3->email; ?></td>
-                      <td><?php echo $row->description ?></td>
+                      
                     </tr>
                   <?php
                   }
@@ -161,6 +160,189 @@
       </form>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-header">
+      <!-- Message comes here -->
+    </div>
+    <div class="card-body">
+      <h3 class="card-title">Accepted Advertisements</h3>
+      <form action="<?php echo site_url('/AdminJobPostings/verify') ?>" method="POST">
+      <div class="form-inline">
+          <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Selected Advert ID: </label>
+          <input name="jobidfield" id="ajobidfield" type="text" readonly placeholder="Select Row" class="form-control my-1 mr-sm-2" />
+          <button class="btn btn-danger my-1 rejectbtn_admin" type="submit" id="djob" name="djob">Reject</button>
+          <button class="btn btn-info" type="submit" id="vjob" name="vjob">Download PDF</button>
+        </div>
+        <br>
+        <div class="table-responsive">
+          <table id="accepted_job_tbl" class="table table-hover" style="width:100% !important">
+
+            <thead style="background-color:#007BFF;color:#FFFFFF">
+              <tr>
+                <th>ID</th>
+                <th>Job Title</th>
+                <th>Job Category</th>
+                <th>Posted Date and Time</th>
+                <th>Closing Date and Time</th>
+                <th>Employer ID</th>
+                <!-- <th>Password</th> -->
+                <th>Company ID</th>
+                <th>Company Name</th>
+                <th>Company Email</th>
+              </tr>
+            </thead>
+            <tbody>
+            <?php
+              $Employer = new \App\Models\employerModel();
+              $UserAccount = new \App\Models\userAccountModel();
+              $Company = new \App\Models\companyModel();
+              $JobAdvert = new \App\Models\jobDetailsModel();
+
+              $query = $JobAdvert->query("Select * from job_details where status = 1");
+              foreach ($query->getResult() as $row) {
+                $jobid = $row->id;
+                $jobTitle = $row->jobtitle;
+                $jobCategory = $row->jobCategory;
+                $pDate = $row->dateTime;
+                $cDate = $row->closingDate;
+                $employerId = $row->employer_id;
+                $pdfname = $row->description;
+               
+                $query_employer = $Employer->query("Select * from employer where id = $employerId");
+                foreach ($query_employer->getResult() as $row2) {
+                  $companyID = $row2->company_id;
+
+                  $query_company = $UserAccount->query("Select * from company where id = $companyID");
+                  foreach ($query_company->getResult() as $row3) {
+                    $companyName = $row3->name;
+                    $companyEmail = $row3->email;
+              ?>
+                    <tr>
+                      <td><?php echo $row->id; ?></td>
+                      <td><?php echo $row->jobtitle; ?></td>
+                      <td><?php echo $row->jobCategory; ?></td>
+                      <td><?php echo $row->dateTime; ?></td>
+                      <td><?php echo $row->closingDate; ?></td>
+                      <td><?php echo $row->employer_id; ?></td>
+                      <!-- <td><?php // echo $password; 
+                                ?></td> -->
+                      <td><?php echo $row2->company_id; ?></td>
+                      <td><?php echo $row3->name; ?></td>
+                      <td><?php echo $row3->email; ?></td>
+                   
+                    </tr>
+                  <?php
+                  }
+                  ?>
+                <?php
+                }
+                ?>
+              <?php
+              }
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <!-- Message comes here -->
+    </div>
+    <div class="card-body">
+      <h3 class="card-title">Rejected Advertisements</h3>
+      <form action="<?php echo site_url('/AdminJobPostings/verify') ?>" method="POST">
+      <div class="form-inline">
+          <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Selected Advert ID: </label>
+          <input name="jobidfield" id="rjobidfield" type="text" readonly placeholder="Select Row" class="form-control my-1 mr-sm-2" />
+          <button class="btn btn-info" type="submit" id="vjob" name="vjob">Download PDF</button>
+        </div>
+        <br>
+        <div class="table-responsive">
+          <table id="rejected_job_tbl" class="table table-hover" style="width:100% !important">
+
+            <thead style="background-color:#007BFF;color:#FFFFFF">
+              <tr>
+                <th>ID</th>
+                <th>Job Title</th>
+                <th>Job Category</th>
+                <th>Posted Date and Time</th>
+                <th>Closing Date and Time</th>
+                <th>Employer ID</th>
+                <!-- <th>Password</th> -->
+                <th>Company ID</th>
+                <th>Company Name</th>
+                <th>Company Email</th>
+              </tr>
+            </thead>
+            <tbody>
+            <?php
+              $Employer = new \App\Models\employerModel();
+              $UserAccount = new \App\Models\userAccountModel();
+              $Company = new \App\Models\companyModel();
+              $JobAdvert = new \App\Models\jobDetailsModel();
+
+              $query = $JobAdvert->query("Select * from job_details where status = 2");
+              foreach ($query->getResult() as $row) {
+                $jobid = $row->id;
+                $jobTitle = $row->jobtitle;
+                $jobCategory = $row->jobCategory;
+                $pDate = $row->dateTime;
+                $cDate = $row->closingDate;
+                $employerId = $row->employer_id;
+                $pdfname = $row->description;
+               
+                $query_employer = $Employer->query("Select * from employer where id = $employerId");
+                foreach ($query_employer->getResult() as $row2) {
+                  $companyID = $row2->company_id;
+
+                  $query_company = $UserAccount->query("Select * from company where id = $companyID");
+                  foreach ($query_company->getResult() as $row3) {
+                    $companyName = $row3->name;
+                    $companyEmail = $row3->email;
+              ?>
+                    <tr>
+                      <td><?php echo $row->id; ?></td>
+                      <td><?php echo $row->jobtitle; ?></td>
+                      <td><?php echo $row->jobCategory; ?></td>
+                      <td><?php echo $row->dateTime; ?></td>
+                      <td><?php echo $row->closingDate; ?></td>
+                      <td><?php echo $row->employer_id; ?></td>
+                      <!-- <td><?php // echo $password; 
+                                ?></td> -->
+                      <td><?php echo $row2->company_id; ?></td>
+                      <td><?php echo $row3->name; ?></td>
+                      <td><?php echo $row3->email; ?></td>
+                   
+                    </tr>
+                  <?php
+                  }
+                  ?>
+                <?php
+                }
+                ?>
+              <?php
+              }
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
   <script>
     var table = document.getElementById('unverified_job_tbl'),
       rIndex;
@@ -172,16 +354,26 @@
         document.getElementById('jobidfield').value = this.cells[0].innerHTML;
       }
     }
-    // var table = document.getElementById('verified_profile_tbl'),
-    //   rIndex;
-    // for (var i = 1; i < table.rows.length; i++) {
-    //   table.rows[i].onclick = function() {
-    //     //Gets the row index
-    //     rIndex = this.rowIndex;
-    //     // console.log(rIndex);
-    //     document.getElementById('account_id1').value = this.cells[0].innerHTML;
-    //   }
-    // }
+    var table2 = document.getElementById('accepted_job_tbl'),
+      rIndex;
+    for (var i = 1; i < table2.rows.length; i++) {
+      table2.rows[i].onclick = function() {
+        //Gets the row index
+        rIndex = this.rowIndex;
+        // console.log(rIndex);
+        document.getElementById('ajobidfield').value = this.cells[0].innerHTML;
+      }
+     }
+     var table3 = document.getElementById('rejected_job_tbl'),
+      rIndex;
+    for (var i = 1; i < table3.rows.length; i++) {
+      table3.rows[i].onclick = function() {
+        //Gets the row index
+        rIndex = this.rowIndex;
+        // console.log(rIndex);
+        document.getElementById('rjobidfield').value = this.cells[0].innerHTML;
+      }
+     }
     // document.querySelector('#verified_profile_tbl').addEventListener('click', function(e) {
     //   var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
     //     activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
@@ -197,6 +389,22 @@
       closestCell.classList.add('selected'); // add the "selected" class to the clicked td
       if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
     })
+
+    // document.querySelector('#accepted_job_tbl').addEventListener('click', function(e) {
+    //   var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
+    //     activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
+
+    //   closestCell.classList.add('selected'); // add the "selected" class to the clicked td
+    //   if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
+    // })
+
+    // document.querySelector('#rejected_job_tbl').addEventListener('click', function(e) {
+    //   var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
+    //     activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
+
+    //   closestCell.classList.add('selected'); // add the "selected" class to the clicked td
+    //   if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
+    // })
   </script>
 
 </body>
