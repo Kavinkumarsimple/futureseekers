@@ -99,33 +99,37 @@
     $UserAccount = new \App\Models\userAccountModel();
     $Company = new \App\Models\companyModel();
 
-    $query = $JobAdvert->query("Select * from job_details where status = 1");
+    $query = $UserAccount->query("Select * from user_account where status = 1");
     foreach ($query->getResult() as $row) {
-        $jobId = $row->id;
-        $jobTitle = $row->jobtitle;
-        $jobCategory = $row->jobCategory;
-        $pDate = $row->dateTime;
-        $cDate = $row->closingDate;
-        $employerId = $row->employer_id;
-        $pdfname = $row->description;
-        $typeofemployment = $row->typeOfEmployment;
-        $jobtime = $row->experience;
-        $joblocation = $row->location;
+        $userId = $row->id;
+        
+        $query2 = $Employer->query("select * from employer where user_account_id = $userId");
+        foreach ($query2->getResult() as $row2){
+            $companyId = $row2->company_id;
+            $employerId = $row2->id;
+            $employerEmail = $row2->email;
 
-        $query_employer = $Employer->query("Select * from employer where id = $employerId");
-        foreach ($query_employer->getResult() as $row2) {
-            $companyID = $row2->company_id;
-
-            $query_company = $UserAccount->query("Select * from company where id = $companyID");
-            foreach ($query_company->getResult() as $row3) {
-               
+            $query3 = $Company->query("select * from company where id = $companyId");
+            foreach ($query3->getResult() as $row3){
                 $companyName = $row3->name;
                 $companyNo = $row3->contactNo;
                 $companyEmail = $row3->email;
                 $logo = $row3->logo_dir;
-           
 
-               echo "<div class=\"ratt \" >
+                $query4 = $JobAdvert->query("Select * from job_details where status = 1 and employer_id = $employerId");
+                foreach ($query4->getResult() as $row4) {
+                    $jobId = $row4->id;
+                    $jobTitle = $row4->jobtitle;
+                    $jobCategory = $row4->jobCategory;
+                    $pDate = $row4->dateTime;
+                    $cDate = $row4->closingDate;
+                    $employerId = $row4->employer_id;
+                    $pdfname = $row4->description;
+                    $typeofemployment = $row4->typeOfEmployment;
+                    $jobtime = $row4->experience;
+                    $joblocation = $row4->location;
+
+                    echo "<div class=\"ratt \" >
                 <div class=\"jobs_img_container\" style=\"width: 100px\">
                     <img class=\"jobs_img\" src='" . base_url() . "/logo/" . $logo . "'>
                 </div>
@@ -252,12 +256,12 @@
             <hr class=\"my-4 bg-primary\">
             ";
 
-            
-            }
-               
+
+
             }
         }
-    
+    }
+}
     ?>
 
     </div>

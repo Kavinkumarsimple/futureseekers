@@ -28,10 +28,21 @@ class PostAdvertEmployer extends BaseController
     session();
     session()->regenerate();
     $user_id = session()->get('user_id');
-
+    $userM = new \App\Models\userAccountModel();
     $EmployerM = new \App\Models\employerModel();
     $CompanyM = new \App\Models\companyModel();
     $employer_info = $EmployerM->where('user_account_id', $user_id)->first();
+    
+    $query_user = $userM->query("Select * from user_account where id = $user_id");
+    foreach ($query_user->getResult() as $row6) {
+      $user_status = $row6->status;
+          if($user_status == 0 || $user_status == 2 || $user_status == 3){
+          return redirect()->back()->with('fail', 'You profile is still being verified by our team. Try again later.');}
+        
+      }
+
+
+
 
     $query_employer = $EmployerM->query("Select * from employer where user_account_id = $user_id");
     foreach ($query_employer->getResult() as $row) {

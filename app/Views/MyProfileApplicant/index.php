@@ -176,7 +176,7 @@
           <br>
           <div class="form-row">
             <button type="submit" class="btn btn-primary btnlogin" <?php if ($status == 0) { ?> disabled <?php } ?>>Save Changes</button>
-            <button style="margin-left:15px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Delete Profile</button>
+            <button style="margin-left:15px;" type="button" class="btn btn-danger btnlogin" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Delete Profile</button>
             <!-- <button id="loginbtn" class="btn btn-primary btnlogin">Register</button><br> -->
           </div>
    

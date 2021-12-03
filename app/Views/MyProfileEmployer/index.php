@@ -193,14 +193,38 @@ use CodeIgniter\Session\Session;
     </div>
     <div class="form-row">
           <div class="form-row">
-          <button type="submit" class="btn btn-primary btnlogin" <?php if ($status == 0) { ?> disabled <?php } ?>>Make Changes</button>
-
+          <button type="submit" class="btn btn-primary btnlogin" <?php if ($status == 0) { ?> disabled <?php } ?>>Save Changes</button>
+         
             <!-- <button id="loginbtn" class="btn btn-primary btnlogin">Register</button><br> -->
           </div>
+          <button style="margin-left:15px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Delete Profile</button>
     </div>
         </form>
     </div>
   </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?php echo site_url('/MyProfileEmployer/deleteProfile') ?>" method="POST">
+        <p>  Your account and other details such as your advertisements will be deleted permanently. Are you sure you want to continue?</p>
+          <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="submit" class="btn btn-danger">Yes, I'm Sure</button>
+      </div>
+          
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 
   <!-- <div class="container">
