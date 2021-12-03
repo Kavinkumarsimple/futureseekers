@@ -139,4 +139,26 @@ class MyProfileApplicant extends BaseController
       }
     }
   }
+
+  public function deleteProfile()
+  {
+      session();
+      session()->regenerate();
+      $user_id = session()->get('user_id');
+
+      $UserAccountM = new \App\Models\userAccountModel();
+      $queryuser = $UserAccountM->query("Update user_account
+                                          Set status = 3 
+                                          where id = $user_id");
+       return redirect()->to('Home/logout')->with('fail', 'Your Profile is deleted');;
+      if (!$queryuser) {
+        //echo "fail";
+      
+
+    }
+
+
+
+  }
+
 }
