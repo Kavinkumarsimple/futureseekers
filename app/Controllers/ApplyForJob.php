@@ -128,7 +128,7 @@ class ApplyForJob extends BaseController
         }
 
 
-        return redirect()->to('ApplicantHome')->with('success', 'You Applied for this Job');
+        return redirect()->to('ApplicantHome')->with('success', 'You have successfully applied for this job. The Employer will receive a notification shortly.');
       }
     } else {
       return redirect()->to('ApplicantHome')->with('fail', 'You have already applied for this position');

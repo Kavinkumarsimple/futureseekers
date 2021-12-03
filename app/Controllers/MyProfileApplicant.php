@@ -11,14 +11,14 @@ class MyProfileApplicant extends BaseController
   }
   public function index()
   {
-    if(session()->get('user_id')== null || session()->get('user_type') == "employer"){
+    if (session()->get('user_id') == null || session()->get('user_type') == "employer") {
       return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
     }
     return view('MyProfileApplicant/index');
   }
   public function editProfile()
   {
-    if(session()->get('user_id')== null || session()->get('user_type') == "employer"){
+    if (session()->get('user_id') == null || session()->get('user_type') == "employer") {
       return redirect()->to('Home/index')->with('fail', 'You must be logged in..');;
     }
     $validation = $this->validate([
@@ -69,14 +69,15 @@ class MyProfileApplicant extends BaseController
         'rules' => 'required',
         'errors' => [
           'required' => 'Password is Required'
-        ]],
-     'CV' => [
-          'rules' => 'max_size[CV, 5000]|ext_in[CV,pdf]',
-          'errors' => [
-            'ext_in' => 'Invalid File format'
-          ]
         ]
-      
+      ],
+      'CV' => [
+        'rules' => 'max_size[CV, 5000]|ext_in[CV,pdf]',
+        'errors' => [
+          'ext_in' => 'Invalid File format'
+        ]
+      ]
+
     ]);
 
     if (!$validation) {
@@ -92,9 +93,13 @@ class MyProfileApplicant extends BaseController
       $username = $this->request->getPost('username');
       $password = $this->request->getPost('password');
       $cvFile = $this->request->getFile('CV');
-      $cvname = $cvFile->getRandomName();
 
-     
+      $cvname = $cvFile->getRandomName();
+      if ($cvFile->isValid() && !$cvFile->hasMoved()) {
+
+        $cvFile->move('cvfiles/', $cvname);
+      }
+
 
       session();
       session()->regenerate();
