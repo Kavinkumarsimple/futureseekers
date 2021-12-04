@@ -132,31 +132,49 @@
       </div>
     </section>
 
+
+
     <section id="counts" class="counts">
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Happy Clients</p>
+          <?php 
+          $UserAccount = new \App\Models\userAccountModel();
+          $numberofemployees = 0;
+          $query = $UserAccount->query("Select id from user_account where status = 1 and type = 'applicant'");
+          foreach ($query->getResult() as $row) {
+            $numberofemployees++;
+          }
+          echo  "<div class=\"col-lg-3 col-md-6\">
+            <div class=\"count-box\">
+              <i class=\"bi bi-emoji-smile\"></i>
+         <span data-purecounter-start=\"0\" data-purecounter-end=$numberofemployees data-purecounter-duration=\"1\" class=\"purecounter\"></span>";
+          ?>
+              <p>Jobseekers</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
             <div class="count-box">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
+              <?php
+              $jobs = new \App\Models\jobDetailsModel();
+              $numberofjobs = 0;
+              $query2 = $jobs->query("Select id from job_details where status = 1");
+              foreach ($query2->getResult() as $row2) {
+                $numberofjobs++;
+              }
+
+        echo    "<i class=\"bi bi-journal-richtext\"></i>
+              <span data-purecounter-start=\"0\" data-purecounter-end=$numberofjobs data-purecounter-duration=\"1\" class=\"purecounter\"></span>";
+             ?>
+              <p>Job Offers</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
               <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
               <p>Hours Of Support</p>
             </div>
           </div>
@@ -164,8 +182,28 @@
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
               <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hard Workers</p>
+              <?php
+              $employersM = new \App\Models\employerModel();
+              $usersM = new \App\Models\userAccountModel();
+              $companiesM = new \App\Models\companyModel();
+              $companiesN = 0;
+               $query3 = $usersM->query("Select * from user_account where status = 1 and type = 'employer'");
+               foreach ($query3->getResult() as $row3){
+                $uid = $row3->id;
+                $query4 = $employersM->query("Select * from employer where user_account_id = $uid");
+                foreach ($query4->getResult() as $row4){
+                  $cid = $row4->company_id; 
+                  $query5 = $companiesM->query("Select * from company where id = $cid");
+                  foreach ($query5->getResult() as $row5){
+                    $companiesN++;
+                  }
+                }
+               }
+
+
+          echo  "<span data-purecounter-start=\"0\" data-purecounter-end=$companiesN data-purecounter-duration=\"1\" class=\"purecounter\"></span>";
+              ?>
+              <p>Companies</p>
             </div>
           </div>
 
@@ -187,27 +225,27 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+              <h4><a href="">Apply for Jobs</a></h4>
+              <p>Browse through hundreds of jobs and apply for them</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Sed ut perspiciatis</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+              <h4><a href="">Post Advertisements</a></h4>
+              <p>Post Job adverts attract new employees for your company.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+              <h4><a href="">Keep you informed</a></h4>
+              <p>You won't have to turn on website notofocations, we will contact you through your email to keep you informed.</p>
             </div>
           </div>
-
+<!-- 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-world"></i></div>
@@ -230,7 +268,7 @@
               <h4><a href="">Divera don</a></h4>
               <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
-          </div>
+          </div> -->
 
         </div>
 

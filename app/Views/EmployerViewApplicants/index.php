@@ -27,7 +27,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery.min.js"></script>
-  <title>Future Seekers.lk | Employer Portal</title>
+  <title>Future Seekers.lk | Applicants for this Job</title>
 </head>
 
 <body>
@@ -83,48 +83,37 @@
 
       <div class="shadow-lg mb-5 bg-white rounded card" style="margin-left:auto;margin-right:auto; width:1200px">
     <div class="card-header bg-primary" style="color:white">
-      Job Adverts
+      Applicants for <?php echo $jobdata['jobtitle'];?>
+      
     </div>
     <div class="card-body" style="padding-left: 0px !important; padding-right: 0px; padding-bottom: 5px !important;">
     <?php
+    $jobid = $jobdata['id'];
+    $jobseekerjobdetailsM = new \App\Models\jobSeekerJobDetailsModel();
     $JobAdvert = new \App\Models\jobDetailsModel();
-    $Employer = new \App\Models\employerModel();
+    $jobseekerM = new \App\Models\jobSeekerModel();
     $UserAccount = new \App\Models\userAccountModel();
     $Company = new \App\Models\companyModel();
 
-    $query = $UserAccount->query("Select * from user_account where status = 1");
+    $query = $jobseekerjobdetailsM->query("Select * from jobseeker_jobdetails where job_details_id = $jobid");
     foreach ($query->getResult() as $row) {
-        $userId = $row->id;
+        $jobSeekerId = $row->job_seeker_id;
         
-        $query2 = $Employer->query("select * from employer where user_account_id = $userId");
+        $query2 = $jobseekerM->query("select * from job_seeker where id = $jobSeekerId");
         foreach ($query2->getResult() as $row2){
-            $companyId = $row2->company_id;
-            $employerId = $row2->id;
-            $employerEmail = $row2->email;
+            $jname = $row2->name;
+            $jaddress = $row2->address;
+            $jdob = $row2->dob;
+            $jemail = $row2->email;
+            $jcontact = $row2->contactNo;
+            $jcurrentjob = $row2->currentJobTitle;
+            $jcvname = $row2->cv_file_dir;
 
-            $query3 = $Company->query("select * from company where id = $companyId");
-            foreach ($query3->getResult() as $row3){
-                $companyName = $row3->name;
-                $companyNo = $row3->contactNo;
-                $companyEmail = $row3->email;
-                $logo = $row3->logo_dir;
-
-                $query4 = $JobAdvert->query("Select * from job_details where status = 1 and employer_id = $employerId");
-                foreach ($query4->getResult() as $row4) {
-                    $jobId = $row4->id;
-                    $jobTitle = $row4->jobtitle;
-                    $jobCategory = $row4->jobCategory;
-                    $pDate = $row4->dateTime;
-                    $cDate = $row4->closingDate;
-                    $employerId = $row4->employer_id;
-                    $pdfname = $row4->description;
-                    $typeofemployment = $row4->typeOfEmployment;
-                    $jobtime = $row4->experience;
-                    $joblocation = $row4->location;
+           
 
                     echo "<div class=\"ratt \" >
                 <div class=\"jobs_img_container\" style=\"width: 100px\">
-                    <img class=\"jobs_img\" src='" . base_url() . "/logo/" . $logo . "'>
+                    <img class=\"jobs_img\" src='" . base_url() . "/images/applicant.jpg" ."'>
                 </div>
         
                 <div style=\"flex-grow: 8\">
@@ -133,49 +122,29 @@
         
                         <div class=\"d-flex w-100 justify-content-between\">
         
-                            <h5 class=\"mb-1\" >$jobTitle</h5>
-        
-                            <!-- <small> $cDate </small> -->
-        
+                            <h5 class=\"mb-1\" >$jname</h5>
+             
                         </div>
         
-                        <p class=\"mb-1 company_name\">$companyName</p>
+                        <p class=\"mb-1 company_name\">$jcurrentjob</p>
         
                         <div class=\"flex-container2\" style=\"margin-top: 10px !important;\">
         
                             <div class=\" mb-1 cat_container badge badge-primary badge-pill\">
         
-                                <small \">$jobCategory</small>
+                                <small \">Date of Birth : $jdob</small>
         
-                            </div>
-              
-                            <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-primary\">
-        
-                            <div class=\"img_and_element_holder\">
-                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/typeofemployment.png" . "'></span><small style=\"font-size:13px \">$typeofemployment</small>
-                            </div>
-                            </div>
-                            <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-secondary\">
-        
-                                <div class=\"img_and_element_holder\">
-                                    <span> <img class=\"span_img2\" src='" . base_url() . "/images/clock_timer.png" . "'></span><small style=\"font-size:13px \">$cDate</small>
-                                </div>
                             </div>
 
-                            <div class=\" mb-1 cat_container2 badge  badge-pill border border-secondary\" style=\"background-color:#c9c8cf !important; color:black !important \">
-        
-                            <div class=\"img_and_element_holder\">
-                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/performance.png" . "'></span><small style=\"font-size:13px \">$jobtime</small>
-                            </div>
-                            </div>
+
         
                         
         
                                 <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-secondary\">
                                 <div class=\"img_and_element_holder\">
-                                    <a href='" . base_url() . "/ApplicantHome/downloadPdf/$pdfname" . "'>
+                                    <a href='" . base_url() . "/MyJobsEmployer/downloadPdf/$jcvname" . "'>
                                 
-                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:13px\">Download Advert</small> </span>
+                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:13px\">Download CV</small> </span>
         
                                     </a>
                                     </div>
@@ -194,19 +163,19 @@
         
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small style=\"font-size: 14px\"> $companyNo</small>
+                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small style=\"font-size: 14px\"> $jcontact</small>
         
                             </div>
         
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.png" . "'></span><small style=\"font-size: 14px\"> $companyEmail</small>
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.png" . "'></span><small style=\"font-size: 14px\"> $jemail</small>
         
                             </div>
 
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/location.png" . "'></span><small style=\"font-size: 14px\"> $joblocation</small>
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/location.png" . "'></span><small style=\"font-size: 14px\"> $jaddress</small>
         
                             </div>
         
@@ -227,10 +196,11 @@
         
                     <div class=\"job_option_holder\">
         
-                       
+                        <a href=\"#\" class=\"btn btn-primary btn-sm\" >Schedule Interview</a>
                         
+                        <p></p>
                         
-                        <a href='" . base_url() . "/adverts/$pdfname" . "' target='_blank' class=\"btn btn-secondary btn-sm\">View Advert</a>
+                        <a href='" . base_url() . "/cvfiles/$jcvname" . "' target='_blank' class=\"btn btn-secondary btn-sm\">View CV</a>
      
         
                     </div>
@@ -246,8 +216,8 @@
 
             }
         }
-    }
-}
+    
+
     ?>
 
     </div>
@@ -256,3 +226,6 @@
 </body>
 
 </html>
+
+
+

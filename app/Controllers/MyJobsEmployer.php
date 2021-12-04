@@ -15,6 +15,35 @@ class MyJobsEmployer extends BaseController
     return view('MyJobsEmployer/index');
   }
 
+  public function showapplicants($jobID){
+   
+    $jobM = new \App\Models\jobDetailsModel();
+    $id = $jobID;
+    $jobdata = $jobM->find($id);
+
+
+    $data = ['jobid' => $jobID,
+             'jobdata' => $jobdata];
+    return view('EmployerViewApplicants/index.php', $data);
+    
+  }
+
+  public function downloadPdf($jcvname){
+    // echo $data;
+     
+    header("Content-type: application/pdf");
+    header("Content-Disposition: attachment;filename=$jcvname");
+    header("Content-Transfer-Encoding: binary");
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    set_time_limit(0);
+    ob_clean();
+    flush();
+    readfile('cvfiles/'.$jcvname);
+ 
+ 
+   }
+
   public function logout()
   {
     $session = session();
