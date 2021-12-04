@@ -94,10 +94,12 @@
     $jobseekerM = new \App\Models\jobSeekerModel();
     $UserAccount = new \App\Models\userAccountModel();
     $Company = new \App\Models\companyModel();
+    $applicantcount = 0;
 
     $query = $jobseekerjobdetailsM->query("Select * from jobseeker_jobdetails where job_details_id = $jobid");
     foreach ($query->getResult() as $row) {
         $jobSeekerId = $row->job_seeker_id;
+        $applicantcount = 1;
         
         $query2 = $jobseekerM->query("select * from job_seeker where id = $jobSeekerId");
         foreach ($query2->getResult() as $row2){
@@ -215,6 +217,10 @@
 
 
             }
+        }
+
+        if($applicantcount == 0){
+            echo "<b><p style=\"text-align:center;\">Looks Like no one has applied for this job offer yet</p></b>";
         }
     
 

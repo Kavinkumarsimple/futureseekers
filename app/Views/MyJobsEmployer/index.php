@@ -106,6 +106,7 @@ use CodeIgniter\Session\Session;
     $Employer = new \App\Models\employerModel();
     $UserAccount = new \App\Models\userAccountModel();
     $Company = new \App\Models\companyModel();
+    $checkJob = 0;
 
    
         $query2 = $Employer->query("select * from employer where user_account_id = $user_id");
@@ -133,6 +134,8 @@ use CodeIgniter\Session\Session;
                     $typeofemployment = $row4->typeOfEmployment;
                     $jobtime = $row4->experience;
                     $joblocation = $row4->location;
+
+                    $checkJob = 1;
 
                     echo "<div class=\"ratt \" >
                 <div class=\"jobs_img_container\" style=\"width: 100px\">
@@ -259,6 +262,10 @@ use CodeIgniter\Session\Session;
 
             }
         }
+    }
+
+    if($checkJob == 0){
+      echo "<b><p style=\"text-align:center;\">Looks Like You haven't Posted any Advertisements</p></b>";
     }
 
     ?>
