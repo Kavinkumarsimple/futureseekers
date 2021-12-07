@@ -19,7 +19,7 @@
         <div class="col-md-4 py-5 text-white text-center leftholder">
           <div class="">
             <div class="card-body">
-              <!-- <img src="http://www.ansonika.com/mavia/img/registration_bg.svg" style="width:30%"> -->
+              <!-- Image on page -->
               <img src="<?= base_url('Images/fslogo.webp') ?>" style="width:40%; padding-bottom:20px">
               <h2 class="py-3">Employer Registration</h2>
               <p class="notepara">
@@ -44,13 +44,13 @@
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
           <?php endif ?>
+            <!-- form begins here -->
           <form  action="<?php echo site_url('/RegisterEmployer/createProfile') ?>" method="POST">
             <div class="form-row">
               <div class="form-group col">
                 <label>Full Name</label>
                 <input class="form-control" type="text" placeholder="Eg. Alex Hunter" name="name" id="name" value="<?= set_value('name'); ?>">
                 <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small>
-                <!-- <input id="Full Name" name="Full Name" placeholder="Full Name" class="form-control" type="text"> -->
               </div>
             </div>
             <div class="form-row">
@@ -89,19 +89,6 @@
                 <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small>
               </div>
             </div>
-            <!-- <div class="form-row">
-              <div class="form-group">
-                <div class="form-group">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                    <label class="form-check-label" for="invalidCheck2">
-                      <small>By clicking Submit, you agree to our Terms & Conditions, Visitor Agreement and Privacy Policy.</small>
-                    </label>
-                  </div>
-                </div>
-
-              </div>
-            </div> -->
             <br>
             <div class="form-row">
               <button type="submit" class="btn btn-primary btnlogin">Register Now</button>     
@@ -109,6 +96,7 @@
             </div>
             
           </form>
+          <!-- form ends here -->
         </div>
       </div>
     </div>

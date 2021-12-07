@@ -106,10 +106,7 @@ class PostAdvertEmployer extends BaseController
 
     } else {
 
-      // $timezone = date_default_timezone_get();
-      // date_default_timezone_set($timezone);
-      // $date = date('m/d/Y h:i:s', time());
-      // echo $date;
+     
 
 
       $employer_id = $emp_id;
@@ -125,9 +122,7 @@ class PostAdvertEmployer extends BaseController
        if ($description->isValid() && !$description->hasMoved()) {
               
                $description->move('adverts/', $pdfname);}
-      //  if (!$description->isValid()) {
-      //   throw new \RuntimeException($description->getErrorString() . '(' . $description->getError() . ')');
-      // }
+     
        
        $status = 0;
 
@@ -141,7 +136,7 @@ class PostAdvertEmployer extends BaseController
         'experience'=> $experience,
         'typeOfEmployment' => $typeOfEmployment,
         'description'=> $pdfname,
-        //'dateTime'=> $date,
+       
         'status' => $status
 ];
 
@@ -159,20 +154,6 @@ class PostAdvertEmployer extends BaseController
       }
 
 
-
-      // echo $typeOfEmployment;
-      // echo $experience;
-
-     
-      
-      
-
-      // $newAdvert = new \App\Models\jobDetailsModel();
-      
-     
-
-
- //}
 
 
 

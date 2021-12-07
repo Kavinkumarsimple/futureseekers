@@ -2,9 +2,7 @@
 
 use CodeIgniter\Session\Session;
 
-// if(session()->get('user_id')== null){
-//   return redirect()->to('http://localhost:8080/Home');
-// }
+
 
 ?>
 
@@ -45,7 +43,7 @@ use CodeIgniter\Session\Session;
   <div class="header">
     <div class="menu-bar">
       <nav class="navbar navbar-expand-lg navbar-light ">
-        <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.jpg') ?>"></a>
+        <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.webp') ?>"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,17 +61,13 @@ use CodeIgniter\Session\Session;
             <li class="nav-item">
               <a class="nav-link" href="<?php echo site_url('MyProfileEmployer/index') ?>">My Profile</a>
             </li>
-            <!-- Enter PHP code to check if the user is logged in or not in order to show login button -->
-            <!-- <li class="nav-item">
-                            <a class="nav-link btn btn btn-primary logoutbtn" href="#">Sign in / Register</a>
-                        </li> -->
+            
+           
             <li class="nav-item">
-              <!-- For blue button: btn btn-primary -->
+             
               <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
-            <!-- <li class="nav-item mobile_logout">
-                            <a class="nav-link mobileloginbtn" href="#">Sign in / Register</a>
-                        </li>      -->
+          
             <li class="nav-item mobile_logout">
               <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
@@ -167,20 +161,20 @@ use CodeIgniter\Session\Session;
                             <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-primary\">
         
                             <div class=\"img_and_element_holder\">
-                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/typeofemployment.png" . "'></span><small style=\"font-size:13px \">$typeofemployment</small>
+                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/typeofemployment.webp" . "'></span><small style=\"font-size:13px \">$typeofemployment</small>
                             </div>
                             </div>
                             <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-secondary\">
         
                                 <div class=\"img_and_element_holder\">
-                                    <span> <img class=\"span_img2\" src='" . base_url() . "/images/clock_timer.png" . "'></span><small style=\"font-size:13px \">$cDate</small>
+                                    <span> <img class=\"span_img2\" src='" . base_url() . "/images/clock_timer.webp" . "'></span><small style=\"font-size:13px \">$cDate</small>
                                 </div>
                             </div>
 
                             <div class=\" mb-1 cat_container2 badge  badge-pill border border-secondary\" style=\"background-color:#c9c8cf !important; color:black !important \">
         
                             <div class=\"img_and_element_holder\">
-                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/performance.png" . "'></span><small style=\"font-size:13px \">$jobtime</small>
+                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/performance.webp" . "'></span><small style=\"font-size:13px \">$jobtime</small>
                             </div>
                             </div>
         
@@ -190,7 +184,7 @@ use CodeIgniter\Session\Session;
                                 <div class=\"img_and_element_holder\">
                                     <a href='" . base_url() . "/ApplicantHome/downloadPdf/$pdfname" . "'>
                                 
-                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:13px\">Download Advert</small> </span>
+                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.webp" . "' <small style=\"font-size:13px\">Download Advert</small> </span>
         
                                     </a>
                                     </div>
@@ -209,19 +203,19 @@ use CodeIgniter\Session\Session;
         
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small style=\"font-size: 14px\"> $companyNo</small>
+                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.webp" . "'></span><small style=\"font-size: 14px\"> $companyNo</small>
         
                             </div>
         
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.png" . "'></span><small style=\"font-size: 14px\"> $companyEmail</small>
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.webp" . "'></span><small style=\"font-size: 14px\"> $companyEmail</small>
         
                             </div>
 
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/location.png" . "'></span><small style=\"font-size: 14px\"> $joblocation</small>
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/location.webp" . "'></span><small style=\"font-size: 14px\"> $joblocation</small>
         
                             </div>
         

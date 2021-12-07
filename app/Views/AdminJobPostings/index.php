@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" name="This is the admin portal page of FutureSeekers.lk, Admins can control the profiles, job adverts and web page from here">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>" />
@@ -19,15 +19,15 @@
 
   <!-- Scripts for Navbar -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <!-- <link rel="stylesheet" href="<?= base_url('bootstrap/css/login_styles.css') ?>" /> -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <title>Future Seekers.lk | Admin Job Postings</title>
 </head>
 
 <body>
-<div class="header">
+  <div class="header">
     <div class="menu-bar">
       <nav class="navbar navbar-expand-lg navbar-light ">
         <a class="navbar-brand" href="#"><span class="badge badge-primary admin_badge">ADMIN</span></a>
@@ -80,7 +80,7 @@
     <div class="card-body">
       <h3 class="card-title">Advertisement Requests</h3>
       <form action="<?php echo site_url('/AdminJobPostings/verify') ?>" method="POST">
-      <div class="form-inline">
+        <div class="form-inline">
           <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Selected Advert ID: </label>
           <input name="jobidfield" id="jobidfield" type="text" readonly placeholder="Select Row" class="form-control my-1 mr-sm-2" />
           <button class="btn btn-success my-1 acceptbtn_admin" type="submit" id="ajob" name="ajob">Accept</button>
@@ -106,7 +106,7 @@
               </tr>
             </thead>
             <tbody>
-            <?php
+              <?php
               $Employer = new \App\Models\employerModel();
               $UserAccount = new \App\Models\userAccountModel();
               $Company = new \App\Models\companyModel();
@@ -121,7 +121,7 @@
                 $cDate = $row->closingDate;
                 $employerId = $row->employer_id;
                 $pdfname = $row->description;
-               
+
                 $query_employer = $Employer->query("Select * from employer where id = $employerId");
                 foreach ($query_employer->getResult() as $row2) {
                   $companyID = $row2->company_id;
@@ -143,7 +143,7 @@
                       <td><?php echo $row2->company_id; ?></td>
                       <td><?php echo $row3->name; ?></td>
                       <td><?php echo $row3->email; ?></td>
-                      
+
                     </tr>
                   <?php
                   }
@@ -168,7 +168,7 @@
     <div class="card-body">
       <h3 class="card-title">Accepted Advertisements</h3>
       <form action="<?php echo site_url('/AdminJobPostings/verify') ?>" method="POST">
-      <div class="form-inline">
+        <div class="form-inline">
           <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Selected Advert ID: </label>
           <input name="jobidfield" id="ajobidfield" type="text" readonly placeholder="Select Row" class="form-control my-1 mr-sm-2" />
           <button class="btn btn-danger my-1 rejectbtn_admin" type="submit" id="djob" name="djob">Reject</button>
@@ -193,7 +193,7 @@
               </tr>
             </thead>
             <tbody>
-            <?php
+              <?php
               $Employer = new \App\Models\employerModel();
               $UserAccount = new \App\Models\userAccountModel();
               $Company = new \App\Models\companyModel();
@@ -208,7 +208,7 @@
                 $cDate = $row->closingDate;
                 $employerId = $row->employer_id;
                 $pdfname = $row->description;
-               
+
                 $query_employer = $Employer->query("Select * from employer where id = $employerId");
                 foreach ($query_employer->getResult() as $row2) {
                   $companyID = $row2->company_id;
@@ -230,7 +230,7 @@
                       <td><?php echo $row2->company_id; ?></td>
                       <td><?php echo $row3->name; ?></td>
                       <td><?php echo $row3->email; ?></td>
-                   
+
                     </tr>
                   <?php
                   }
@@ -255,7 +255,7 @@
     <div class="card-body">
       <h3 class="card-title">Rejected Advertisements</h3>
       <form action="<?php echo site_url('/AdminJobPostings/verify') ?>" method="POST">
-      <div class="form-inline">
+        <div class="form-inline">
           <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Selected Advert ID: </label>
           <input name="jobidfield" id="rjobidfield" type="text" readonly placeholder="Select Row" class="form-control my-1 mr-sm-2" />
           <button class="btn btn-info" type="submit" id="vjob" name="vjob">Download PDF</button>
@@ -279,7 +279,7 @@
               </tr>
             </thead>
             <tbody>
-            <?php
+              <?php
               $Employer = new \App\Models\employerModel();
               $UserAccount = new \App\Models\userAccountModel();
               $Company = new \App\Models\companyModel();
@@ -294,7 +294,7 @@
                 $cDate = $row->closingDate;
                 $employerId = $row->employer_id;
                 $pdfname = $row->description;
-               
+
                 $query_employer = $Employer->query("Select * from employer where id = $employerId");
                 foreach ($query_employer->getResult() as $row2) {
                   $companyID = $row2->company_id;
@@ -316,7 +316,7 @@
                       <td><?php echo $row2->company_id; ?></td>
                       <td><?php echo $row3->name; ?></td>
                       <td><?php echo $row3->email; ?></td>
-                   
+
                     </tr>
                   <?php
                   }
@@ -343,69 +343,7 @@
 
 
 
-  <script>
-    var table = document.getElementById('unverified_job_tbl'),
-      rIndex;
-    for (var i = 1; i < table.rows.length; i++) {
-      table.rows[i].onclick = function() {
-        //Gets the row index
-        rIndex = this.rowIndex;
-        // console.log(rIndex);
-        document.getElementById('jobidfield').value = this.cells[0].innerHTML;
-      }
-    }
-    var table2 = document.getElementById('accepted_job_tbl'),
-      rIndex;
-    for (var i = 1; i < table2.rows.length; i++) {
-      table2.rows[i].onclick = function() {
-        //Gets the row index
-        rIndex = this.rowIndex;
-        // console.log(rIndex);
-        document.getElementById('ajobidfield').value = this.cells[0].innerHTML;
-      }
-     }
-     var table3 = document.getElementById('rejected_job_tbl'),
-      rIndex;
-    for (var i = 1; i < table3.rows.length; i++) {
-      table3.rows[i].onclick = function() {
-        //Gets the row index
-        rIndex = this.rowIndex;
-        // console.log(rIndex);
-        document.getElementById('rjobidfield').value = this.cells[0].innerHTML;
-      }
-     }
-    // document.querySelector('#verified_profile_tbl').addEventListener('click', function(e) {
-    //   var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
-    //     activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
-
-    //   closestCell.classList.add('selected'); // add the "selected" class to the clicked td
-    //   if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
-    // })
-
-    document.querySelector('#unverified_job_tbl').addEventListener('click', function(e) {
-      var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
-        activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
-
-      closestCell.classList.add('selected'); // add the "selected" class to the clicked td
-      if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
-    })
-
-    // document.querySelector('#accepted_job_tbl').addEventListener('click', function(e) {
-    //   var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
-    //     activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
-
-    //   closestCell.classList.add('selected'); // add the "selected" class to the clicked td
-    //   if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
-    // })
-
-    // document.querySelector('#rejected_job_tbl').addEventListener('click', function(e) {
-    //   var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
-    //     activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
-
-    //   closestCell.classList.add('selected'); // add the "selected" class to the clicked td
-    //   if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
-    // })
-  </script>
+  <script src= "<?= base_url('bootstrap/js/adminjobpostings.js') ?>"></script>
 
 </body>
 

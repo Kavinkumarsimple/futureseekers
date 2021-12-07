@@ -17,10 +17,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&family=Raleway:wght@300&display=swap" rel="stylesheet">
 
     <!-- Scripts for Navbar -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="<?= base_url('bootstrap/js/modalstuff.js') ?>" ></script>
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   
+<script src="<?= base_url('bootstrap/js/modalstuff.js') ?>" ></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -34,7 +35,7 @@
 <div class="header">
         <div class="menu-bar">
             <nav class="navbar navbar-expand-lg navbar-light ">
-                <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.jpg') ?>"></a>
+                <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.webp') ?>"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -54,16 +55,12 @@
                             <a class="nav-link" href="<?php echo site_url('MyProfileEmployer/index') ?>">My Profile</a>
                         </li>
                         <!-- Enter PHP code to check if the user is logged in or not in order to show login button -->
-                        <!-- <li class="nav-item">
-                            <a class="nav-link btn btn btn-primary logoutbtn" href="#">Sign in / Register</a>
-                        </li> -->
+                       
                         <li class="nav-item">
-                            <!-- For blue button: btn btn-primary -->
+                            
                             <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
                         </li>            
-                        <!-- <li class="nav-item mobile_logout">
-                            <a class="nav-link mobileloginbtn" href="#">Sign in / Register</a>
-                        </li>      -->
+                       
                         <li class="nav-item mobile_logout">
                             <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
                         </li>
@@ -115,7 +112,7 @@
 
                     echo "<div class=\"ratt \" >
                 <div class=\"jobs_img_container\" style=\"width: 100px\">
-                    <img class=\"jobs_img\" src='" . base_url() . "/images/applicant.jpg" ."'>
+                    <img class=\"jobs_img\" src='" . base_url() . "/images/applicant.webp" ."'>
                 </div>
         
                 <div style=\"flex-grow: 8\">
@@ -146,7 +143,7 @@
                                 <div class=\"img_and_element_holder\">
                                     <a href='" . base_url() . "/MyJobsEmployer/downloadPdf/$jcvname" . "'>
                                 
-                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.png" . "' <small style=\"font-size:13px\">Download CV</small> </span>
+                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.webp" . "' <small style=\"font-size:13px\">Download CV</small> </span>
         
                                     </a>
                                     </div>
@@ -165,19 +162,19 @@
         
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.png" . "'></span><small style=\"font-size: 14px\"> $jcontact</small>
+                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.webp" . "'></span><small style=\"font-size: 14px\"> $jcontact</small>
         
                             </div>
         
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.png" . "'></span><small style=\"font-size: 14px\"> $jemail</small>
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.webp" . "'></span><small style=\"font-size: 14px\"> $jemail</small>
         
                             </div>
 
                             <div style=\"margin-right:20px !important\">
         
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/location.png" . "'></span><small style=\"font-size: 14px\"> $jaddress</small>
+                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/location.webp" . "'></span><small style=\"font-size: 14px\"> $jaddress</small>
         
                             </div>
         

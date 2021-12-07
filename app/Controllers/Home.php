@@ -66,16 +66,14 @@ class Home extends BaseController
 			$user_info = $userAccountModel->where('username', $username)->first();
 
 			if ($user_info != null && $user_info['password'] == $password && $user_info['status'] != 2 && $user_info['status'] != 3) {
-				// $session = session();
-				// $session->regenerate();
+			
 				session()->set('user_id', $user_info['id']);
 				session()->set('user_type', $user_info['type']);
 				
 			
 
 				$user_id = session()->get('user_id');
-			//	$userAccountModel = new \App\Models\userAccountModel();
-			//	$user_type = $userAccountModel->where('id', $user_id)->first();
+			
 
 			
 				
@@ -92,16 +90,11 @@ class Home extends BaseController
 			} else {
 				session()->setFlashdata('fail', 'Incorrect Password!');
 				return redirect()->to('/Home')->withInput();
-				//return redirect()->to("/Home/loginFailed")->with('info', 'Given Name or Password is not correct, try again');
+				
 			}
 		}
 	}
 
-	// public function loginFailed()
-	// {
-	// 	$session = session();
-	// 	$session->setFlashdata('fail', 'Incorrect Password!');
-	// }
 
 	public function logout()
 	{
@@ -110,8 +103,6 @@ class Home extends BaseController
 			session()->remove('user_type');
 			return redirect()->to('Home/index')->with('fail', 'You are Logged out');
 		  }
-		// $session = session();
-		// $session->destroy();
-		// return redirect()->to('Home/index')->with('fail', 'You are Logged out');
+		
 	}
 }

@@ -48,7 +48,7 @@ use CodeIgniter\Session\Session;
   <div class="header">
     <div class="menu-bar">
       <nav class="navbar navbar-expand-lg navbar-light ">
-        <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.jpg') ?>"></a>
+        <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.webp') ?>"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -67,9 +67,6 @@ use CodeIgniter\Session\Session;
               <a class="nav-link" href="<?php echo site_url('MyProfileEmployer/index') ?>">My Profile</a>
             </li>
             <!-- Enter PHP code to check if the user is logged in or not in order to show login button -->
-            <!-- <li class="nav-item">
-                            <a class="nav-link btn btn btn-primary logoutbtn" href="#">Sign in / Register</a>
-                        </li> -->
             <li class="nav-item">
               <!-- For blue button: btn btn-primary -->
               <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
@@ -111,7 +108,6 @@ use CodeIgniter\Session\Session;
           </div>
           <div class="form-group col-md-4">
             <label>Job Category</label>
-            <!-- <input class="form-control" type="text" name="jobCategory" value="<?= set_value('jobCategory'); ?>"> -->
             <select style="width:200px" name="jobCategory" id="getCategory" value="<?= set_value('jobCategory'); ?>">
               <option value="IT">IT</option>
               <option value="Management">Management</option>
@@ -224,21 +220,6 @@ use CodeIgniter\Session\Session;
 
 
     </div>
-    <script>
-      $(document).ready(function() {
-        $("#getCategory").select2({
-          theme: "bootstrap",
-          width: "resolve"
-        });
-      });
-
-      $(document).ready(function() {
-        $("#getLocation").select2({
-          theme: "bootstrap",
-          width: "resolve"
-        });
-      });
-    </script>
+    <script src= "<?= base_url('bootstrap/js/postadvert.js') ?>"></script>
 </body>
-  <!-- tatatatatata -->
 </html>

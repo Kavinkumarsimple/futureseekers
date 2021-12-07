@@ -29,7 +29,7 @@
   <div class="header">
     <div class="menu-bar">
       <nav class="navbar navbar-expand-lg navbar-light ">
-        <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.jpg') ?>"></a>
+        <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.webp') ?>"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,16 +48,12 @@
               <a class="nav-link" href="">About Us</a>
             </li>
             <!-- Enter PHP code to check if the user is logged in or not in order to show login button -->
-            <!-- <li class="nav-item">
-                            <a class="nav-link btn btn btn-primary logoutbtn" href="#">Sign in / Register</a>
-                        </li> -->
+           
             <li class="nav-item">
               <!-- For blue button: btn btn-primary -->
               <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
-            <!-- <li class="nav-item mobile_logout">
-                            <a class="nav-link mobileloginbtn" href="#">Sign in / Register</a>
-                        </li>      -->
+           
             <li class="nav-item mobile_logout">
               <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
@@ -177,7 +173,7 @@
           <div class="form-row">
             <button type="submit" class="btn btn-primary btnlogin" <?php if ($status == 0) { ?> disabled <?php } ?>>Save Changes</button>
             <button style="margin-left:15px;" type="button" class="btn btn-danger btnlogin" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Delete Profile</button>
-            <!-- <button id="loginbtn" class="btn btn-primary btnlogin">Register</button><br> -->
+          
           </div>
    
       </form>
@@ -207,15 +203,7 @@
   </div>
 </div>
   </div>
-
-  
-
-
-
-  <!-- <a href="<?php echo site_url('Home/logout') ?>"><button>Logout</button></a> -->
-  <?php
-
-  ?>
+ 
 </body>
 
 </html>

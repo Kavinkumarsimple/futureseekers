@@ -50,8 +50,7 @@ class Admin extends BaseController
       $user_info = $userAccountModel->where('username', $username)->first();
 
       if ($user_info != null && $user_info['password'] == $password && $user_info['type'] == "admin") {
-        // $session = session();
-        // $session->regenerate();
+    
     
         session()->set('admin_id', $user_info['id']);
 
@@ -59,7 +58,7 @@ class Admin extends BaseController
       } else {
         session()->setFlashdata('fail', 'Incorrect Password!');
         return redirect()->to('/Admin/index')->withInput();
-        //return redirect()->to("/Home/loginFailed")->with('info', 'Given Name or Password is not correct, try again');
+      
       }
     }
   }
@@ -69,8 +68,5 @@ class Admin extends BaseController
       session()->remove('admin_id');
       return redirect()->to('/Admin/index')->with('fail','Logged out');
     }
-		// $session = session();
-		// $session->destroy();
-		// return redirect()->to('Admin/index')->with('fail', 'You are Logged out');
 	}
 }

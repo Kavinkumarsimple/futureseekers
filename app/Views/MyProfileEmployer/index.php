@@ -2,9 +2,6 @@
 
 use CodeIgniter\Session\Session;
 
-// if(session()->get('user_id')== null){
-//   return redirect()->to('http://localhost:8080/Home');
-// }
 
 ?>
 
@@ -38,7 +35,7 @@ use CodeIgniter\Session\Session;
   <div class="header">
     <div class="menu-bar">
       <nav class="navbar navbar-expand-lg navbar-light ">
-        <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.jpg') ?>"></a>
+        <a class="navbar-brand" href=""><img class="websitelogo" src="<?= base_url('Images/logo4.webp') ?>"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,16 +54,9 @@ use CodeIgniter\Session\Session;
               <a class="nav-link" href="<?php echo site_url('MyProfileEmployer/index') ?>">My Profile</a>
             </li>
             <!-- Enter PHP code to check if the user is logged in or not in order to show login button -->
-            <!-- <li class="nav-item">
-                            <a class="nav-link btn btn btn-primary logoutbtn" href="#">Sign in / Register</a>
-                        </li> -->
             <li class="nav-item">
-              <!-- For blue button: btn btn-primary -->
               <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
-            <!-- <li class="nav-item mobile_logout">
-                            <a class="nav-link mobileloginbtn" href="#">Sign in / Register</a>
-                        </li>      -->
             <li class="nav-item mobile_logout">
               <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
@@ -84,7 +74,7 @@ use CodeIgniter\Session\Session;
     </div>
     <div class="card-body">
     <h5 class="card-title">Employer Details</h5>
-    <!-- <p class="card-text" style="color:#787878">Click on the save changes to update your record</p> -->
+    
     
     <?php if (!empty(session()->getFlashdata('fail'))) : ?>
           <div style="margin-top:5px" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
@@ -93,6 +83,7 @@ use CodeIgniter\Session\Session;
         <?php if (!empty(session()->getFlashdata('success'))) : ?>
           <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
         <?php endif ?>
+        <!-- Form starts here -->
         <form action="<?php echo site_url('/MyProfileEmployer/editProfile') ?>" method="POST" enctype="multipart/form-data">
           <?php
           session();
@@ -195,7 +186,6 @@ use CodeIgniter\Session\Session;
           <div class="form-row">
           <button type="submit" class="btn btn-primary btnlogin" <?php if ($status == 0) { ?> disabled <?php } ?>>Save Changes</button>
          
-            <!-- <button id="loginbtn" class="btn btn-primary btnlogin">Register</button><br> -->
           </div>
           <button style="margin-left:15px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Delete Profile</button>
     </div>
@@ -227,100 +217,7 @@ use CodeIgniter\Session\Session;
 </div>
 
 
-  <!-- <div class="container">
-    <h1>My Profile</h1>
-    <div class="row">
-      <?php if (!empty(session()->getFlashdata('fail'))) : ?>
-        <div style="margin-top:5px" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
-      <?php endif ?>
 
-      <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
-      <?php endif ?>
-      <form action="<?php echo site_url('/MyProfileEmployer/editProfile') ?>" method="POST" enctype="multipart/form-data">
-        <div class="col-6">
-          <h3>Employer Details</h3>
-
-          <?php
-          session();
-          session()->regenerate();
-          $user_id = session()->get('user_id');
-          $EmployerM = new \App\Models\employerModel();
-          $CompanyM = new \App\Models\companyModel();
-          $UserAccountM = new \App\Models\userAccountModel();
-          $employer_info = $EmployerM->where('user_account_id', $user_id)->first();
-
-          $query_employer = $EmployerM->query("Select * from employer where user_account_id = $user_id");
-          foreach ($query_employer->getResult() as $row) {
-            $name = $row->name;
-            $contactNo = $row->contactNo;
-            $jobPosition = $row->jobPosition;
-            $email = $row->email;
-            $companyid = $row->company_id;
-
-            $query_company = $CompanyM->query("Select * from company where id = $companyid");
-            foreach ($query_company->getResult() as $row2) {
-              $cname = $row2->name;
-              $ccontactNo = $row2->contactNo;
-              $cemail = $row2->email;
-
-              $query_useraccount = $UserAccountM->query("Select * from user_account where id = $user_id");
-              foreach ($query_useraccount->getResult() as $row3) {
-                $username = $row3->username;
-                $password = $row3->password;
-                $status = $row3->status;
-              }
-            }
-          }
-
-          ?>
-
-          <input type="text" placeholder="Full Name" name="name" id="name" value="<?= set_value('name');
-                                                                                  echo $name ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'name') : '' ?></small><br>
-
-          <input type="tel" placeholder="Contact No" name="contactNo" id="contactNo" value="<?= set_value('contactNo');
-                                                                                            echo $contactNo ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'contactNo') : '' ?></small><br>
-
-          <input type="text" placeholder="Job Position" name="jobPosition" id="jobPosition" value="<?= set_value('jobPosition');
-                                                                                                    echo $jobPosition ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'jobPosition') : '' ?></small><br>
-
-          <input type="email" placeholder="Email" name="email" id="email" value="<?= set_value('email');
-                                                                                  echo $email ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'email') : '' ?></small><br>
-
-          <input type="text" placeholder="Username" name="username" id="username" value="<?= set_value('username');
-                                                                                          echo $username ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'username') : '' ?></small><br>
-
-          <input type="password" placeholder="Password" name="password" id="password" value="<?= set_value('password');
-                                                                                              echo $password ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'password') : '' ?></small><br>
-        </div>
-        <div class="col-6">
-          <h3>Company Details</h3>
-          <input type="text" placeholder="Company Name" name="cname" id="cname" value="<?= set_value('cname');
-                                                                                        echo $cname ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'cname') : '' ?></small><br>
-
-          <input type="tel" placeholder="Contact No" name="ccontactNo" id="ccontactNo" value="<?= set_value('ccontactNo');
-                                                                                              echo $cemail ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'ccontactNo') : '' ?></small><br>
-
-          <input type="email" placeholder="Company Email" name="cemail" id="cemail" value="<?= set_value('cemail');
-                                                                                            echo $cemail ?>" <?php if ($status == 0) { ?> readonly <?php } ?>><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'cemail') : '' ?></small><br>
-
-          <label for='proimg'>Upload picture</label><br>
-          <input type="file" name='logo' value="<?= set_value('logo'); ?>" <?php if ($status == 0) { ?> readonly <?php } ?> /><br>
-          <small><?= isset($validation) ? show_validation_error($validation, 'logo') : '' ?></small><br>
-        </div>
-        <button type="submit" class="btn btn-primary btnlogin" <?php if ($status == 0) { ?> disabled <?php } ?>>Make Changes</button>
-      </form>
-    </div>
-  </div> -->
 
 </body>
 

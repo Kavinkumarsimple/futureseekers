@@ -122,7 +122,7 @@ class MyProfileEmployer extends BaseController
       
       
       $UserAccountM = new \App\Models\userAccountModel();
-      // $queryUser = $UserAccountM->set($valuesUser)->where('id', $user_id);
+     
       $queryUser = $UserAccountM->query("Update user_account
                                           Set username = '$username',
                                               password = '$password'
@@ -140,8 +140,7 @@ class MyProfileEmployer extends BaseController
       
 
       
-      
-      // // $queryCom = $CompanyM->set($valuesCom)->where('name', $cname);
+     
       $queryCom = $CompanyM->query("Update company
                                     Set name = '$cname',
                                         contactNo = '$ccontactNo',
@@ -153,7 +152,7 @@ class MyProfileEmployer extends BaseController
       }
 
      
-      // $queryEmp = $EmployerM->set($valuesEmp)->where('user_account_id', $user_id);
+    
       $queryEmp = $EmployerM->query("Update employer
                                       Set name = '$name',
                                           contactNo = $contactNo,

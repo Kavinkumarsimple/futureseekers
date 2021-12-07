@@ -105,13 +105,7 @@ class MyProfileApplicant extends BaseController
       session()->regenerate();
       $user_id = session()->get('user_id');
 
-      // echo $user_id;
-      // echo $name;
-      // echo $address;
-      // echo $email;
-      // echo $dob;
-      // echo $contactNo;
-      // echo $currentJobTitle;
+     
 
       $UserAccountM = new \App\Models\userAccountModel();
       $queryuser = $UserAccountM->query("Update user_account

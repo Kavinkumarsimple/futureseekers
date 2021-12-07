@@ -141,57 +141,7 @@ class RegisterApplicant extends BaseController
       }
     }
 
-    // //getting values from form
-    // $name = $this->request->getPost('name');                    //jobseeker
-    // $address = $this->request->getPost('address');              //jobseeker
-    // $email = $this->request->getPost('email');                  //jobseeker
-    // $contactNo = $this->request->getPost('contactNo');          //jobseeker
-    // $dob = $this->request->getPost('dob');                      //jobseeker
-    // $currentJobTitle = $this->request->getPost('currentJobTitle');  //jobseeker
-    // $username = $this->request->getPost('username');            //useraccount
-    // $password = $this->request->getPost('password');            //useraccount
-
-    // //useraccount table info
-    // $valuesUser = [
-    //                 'username' => $username,
-    //                 'password' => $password,
-    //                 'type' => "applicant"
-    // ];
-
-    // $userAccountModel = new \App\Models\userAccountModel();
-    
-    // //inserting info to db table
-    // $queryUser = $userAccountModel->insert($valuesUser);
-    // if(!$queryUser){
-    //   // return redirect()->back()->with('fail', 'Please try again later..');
-    // }
-    // else{
-    //   // return redirect()->to('Register')->with('success', 'User Registration Successful');
-     
-    // }
-
-    // //jobseeker table info
-    // $valuesSeeker = [
-    //                   'name' => $name,
-    //                   'address' => $address,
-    //                   'email' => $email,
-    //                   'contactNo' => $contactNo,
-    //                   'dob' => $dob,
-    //                   'currentJobTitle' => $currentJobTitle,
-    //                   'user_account_id' => $queryUser
-    // ];
-
-    // $jobSeekerModel = new \App\Models\jobSeekerModel();
-
-    // //inserting info to db table
-    // $querySeeker = $jobSeekerModel->insert($valuesSeeker);
-    // if(!$querySeeker){
-    //   return redirect()->back()->with('fail', 'Please try again later..');
-    // }
-    // else{
-    //   return redirect()->to('Register')->with('success', 'User Registration Successful');
-     
-    // }
+  
   }
 
 }

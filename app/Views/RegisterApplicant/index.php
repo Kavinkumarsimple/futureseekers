@@ -18,7 +18,7 @@
         <div class="col-md-4 py-5 text-white text-center leftholder">
           <div class="">
             <div class="card-body">
-              <!-- <img src="http://www.ansonika.com/mavia/img/registration_bg.svg" style="width:30%"> -->
+              <!-- Futureseekers logo in the registration page -->
               <img src="<?= base_url('Images/fslogo.webp') ?>" style="width:40%; padding-bottom:20px">
               <h2 class="py-3">Applicant Registration</h2>
               <p class="notepara">
@@ -36,13 +36,15 @@
         </div>
         <div class="col-md-8 py-5 border regformholder">
           <h4 class="pb-4">Create New Account</h4>
+           <!-- Error Message when trying to register -->
           <?php if (!empty(session()->getFlashdata('fail'))) : ?>
             <div style="margin-top:5px" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
           <?php endif ?>
-
+            <!-- Syccess Message after registering -->
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
             <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
           <?php endif ?>
+          <!-- Registration form begins here -->
           <form action="<?php echo site_url('/RegisterApplicant/createprofile') ?>" method="POST">
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -99,6 +101,7 @@
             </div>
 
           </form>
+          <!-- Registration form ends here -->
         </div>
       </div>
     </div>

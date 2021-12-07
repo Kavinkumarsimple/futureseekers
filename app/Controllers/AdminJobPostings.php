@@ -44,26 +44,13 @@ class AdminJobPostings extends BaseController
     }
 
     if (isset($_POST['vjob'])) {
+      //when this button is clicked it will take the id which is in input field get the name of the file from the database with that id
       $jobid = $this->request->getPost('jobidfield');
       $jobdetails = new \App\Models\jobDetailsModel();
       $filenameq = $jobdetails->query("Select description from job_details where id = $jobid");
       foreach ($filenameq->getResult() as $yt) {
         $filename = $yt->description;
-        //$Vdata = file_get_contents('adverts/'.$filename);
-     
-
-
-
-        //header('Content-type: application/pdf');
-  
-        //header('Content-Disposition: inline; filename="' . $filename . '"');
-  
-// // header('Content-Transfer-Encoding: binary');
-  
-// // header('Accept-Ranges: bytes');
-  
-// // // Read the file
-// // @readfile($filename);
+        //assigning the name of the file to a variable
 
 
 
@@ -76,17 +63,10 @@ class AdminJobPostings extends BaseController
         ob_clean();
         flush();
         readfile('adverts/'.$filename);
+          
+        //line 57 to 65 is used to specify what kind of file we are trying to download and seeting the download path 
 
-
-        // $file = $_GET[$filename];
-        //  $filepath = 'adevert/'. $filename;
-        //  if (file_exists($filepath) && is_readable($filepath) && preg_match('/\.pdf$/',$filepath)) {
-        //    header('Content-Type: application/pdf');
-        //    header("Content-Disposition: attachment; filename=\"$filepath\"");
-        //    readfile($filepath);
-        //    return redirect()->to("//AdminJobPostings/index")->with('info', 'Downloaded');
-        // }
-        //  else{echo "not working";}
+       
       }
     }
   }

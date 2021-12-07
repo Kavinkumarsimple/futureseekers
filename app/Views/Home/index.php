@@ -38,11 +38,11 @@
             <button id="loginbtn" class="btn btn-primary btnlogin">Login</button><br>
           </div>
           <?php if (!empty(session()->getFlashdata('fail'))) : ?>
-            <div style="margin-top:5px" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
+            <div class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
           <?php endif ?>
 
           <?php if (!empty(session()->getFlashdata('success'))) : ?>
-            <div style="margin-top:5px" class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
+            <div class="alert alert-success text-muted"> <?= session()->getFlashdata('success'); ?> </div>
           <?php endif ?>
           <div class="form-group">
             <div class="mb-2 text-muted">Are you an Employer? <a href="<?php echo site_url('RegisterEmployer/Index/') ?>">Register Now</a> </div>

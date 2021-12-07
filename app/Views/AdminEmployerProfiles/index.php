@@ -19,9 +19,10 @@
 
   <!-- Scripts for Navbar -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <!-- <link rel="stylesheet" href="<?= base_url('bootstrap/css/login_styles.css') ?>" /> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <title>Future Seekers.lk | Admin Portal</title>
 </head>
@@ -47,7 +48,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="<?php echo site_url('AdminEmployerProfiles/index') ?>">Company Profiles</a>
                 <a class="dropdown-item" href="<?php echo site_url('AdminApplicantProfiles/index') ?>">Applicant Profiles</a>
-                <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+            
               </div>
             </li>
             <li class="nav-item active">
@@ -57,7 +58,7 @@
               <a class="nav-link" href="#">Manage Admins</a>
             </li>
             <li class="nav-item">
-              <!-- For blue button: btn btn-primary -->
+             
               <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
             <li class="nav-item mobile_logout">
@@ -92,6 +93,7 @@
         </div>
         <br>
         <div class="table-responsive">
+          <!-- new unverified profile table -->
           <table id="unverified_profile_tbl" class="table table-hover" style="width:100% !important">
 
             <thead style="background-color:#007BFF;color:#FFFFFF">
@@ -102,7 +104,7 @@
                 <th>JobPosition</th>
                 <th>Email</th>
                 <th>Username</th>
-                <!-- <th>Password</th> -->
+               
                 <th>Company ID</th>
                 <th>Company Name</th>
                 <th>Company Contact No</th>
@@ -138,8 +140,7 @@
                       <td><?php echo $row->jobPosition; ?></td>
                       <td><?php echo $row->email; ?></td>
                       <td><?php echo $username; ?></td>
-                      <!-- <td><?php // echo $password; 
-                                ?></td> -->
+                     
                       <td><?php echo $companyid; ?></td>
                       <td><?php echo $companyname; ?></td>
                       <td><?php echo $companycno; ?></td>
@@ -173,11 +174,12 @@
         <div class="form-inline">
           <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Selected User ID: </label>
           <input name="account_id1" id="account_id1" type="text" readonly placeholder="Select Row" class="form-control my-1 mr-sm-2" />
-          <!-- <button class="btn btn-success my-1 acceptbtn_admin" type="submit" id="auser" name="auser">Accept</button> -->
+        
           <button class="btn btn-danger my-1 rejectbtn_admin" type="submit" id="duser" name="duser">Delete Profile</button>
         </div>
         <br>
         <div class="table-responsive">
+          <!-- verified profile table -->
           <table id="verified_profile_tbl" class="table table-hover" style="width:100% !important">
 
             <thead style="background-color:#007BFF;color:#FFFFFF">
@@ -188,7 +190,7 @@
                 <th>JobPosition</th>
                 <th>Email</th>
                 <th>Username</th>
-                <!-- <th>Password</th> -->
+                
                 <th>Company ID</th>
                 <th>Company Name</th>
                 <th>Company Contact No</th>
@@ -224,8 +226,7 @@
                       <td><?php echo $row->jobPosition; ?></td>
                       <td><?php echo $row->email; ?></td>
                       <td><?php echo $username; ?></td>
-                      <!-- <td><?php // echo $password; 
-                                ?></td> -->
+                     
                       <td><?php echo $companyid; ?></td>
                       <td><?php echo $companyname; ?></td>
                       <td><?php echo $companycno; ?></td>
@@ -258,6 +259,7 @@
 
       <br>
       <div class="table-responsive">
+        <!-- Rejected profile tables -->
         <table class="table" style="width:100% !important">
 
           <thead style="background-color:#007BFF;color:#FFFFFF">
@@ -268,7 +270,7 @@
               <th>JobPosition</th>
               <th>Email</th>
               <th>Username</th>
-              <!-- <th>Password</th> -->
+          
               <th>Company ID</th>
               <th>Company Name</th>
               <th>Company Contact No</th>
@@ -304,8 +306,7 @@
                     <td><?php echo $row->jobPosition; ?></td>
                     <td><?php echo $row->email; ?></td>
                     <td><?php echo $username; ?></td>
-                    <!-- <td><?php // echo $password; 
-                              ?></td> -->
+                   
                     <td><?php echo $companyid; ?></td>
                     <td><?php echo $companyname; ?></td>
                     <td><?php echo $companycno; ?></td>
@@ -339,6 +340,7 @@
 
       <br>
       <div class="table-responsive">
+        <!-- Deleted profile table -->
         <table class="table" style="width:100% !important">
 
           <thead style="background-color:#007BFF;color:#FFFFFF">
@@ -349,7 +351,7 @@
               <th>JobPosition</th>
               <th>Email</th>
               <th>Username</th>
-              <!-- <th>Password</th> -->
+              
               <th>Company ID</th>
               <th>Company Name</th>
               <th>Company Contact No</th>
@@ -385,8 +387,7 @@
                     <td><?php echo $row->jobPosition; ?></td>
                     <td><?php echo $row->email; ?></td>
                     <td><?php echo $username; ?></td>
-                    <!-- <td><?php // echo $password; 
-                              ?></td> -->
+                    
                     <td><?php echo $companyid; ?></td>
                     <td><?php echo $companyname; ?></td>
                     <td><?php echo $companycno; ?></td>
@@ -408,43 +409,7 @@
     </div>
   </div>
 
-  <script>
-    var table = document.getElementById('unverified_profile_tbl'),
-      rIndex;
-    for (var i = 1; i < table.rows.length; i++) {
-      table.rows[i].onclick = function() {
-        //Gets the row index
-        rIndex = this.rowIndex;
-        // console.log(rIndex);
-        document.getElementById('account_id').value = this.cells[0].innerHTML;
-      }
-    }
-    var table = document.getElementById('verified_profile_tbl'),
-      rIndex;
-    for (var i = 1; i < table.rows.length; i++) {
-      table.rows[i].onclick = function() {
-        //Gets the row index
-        rIndex = this.rowIndex;
-        // console.log(rIndex);
-        document.getElementById('account_id1').value = this.cells[0].innerHTML;
-      }
-    }
-    document.querySelector('#verified_profile_tbl').addEventListener('click', function(e) {
-      var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
-        activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
-
-      closestCell.classList.add('selected'); // add the "selected" class to the clicked td
-      if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
-    })
-
-    document.querySelector('#unverified_profile_tbl').addEventListener('click', function(e) {
-      var closestCell = e.target.closest('tr'), // identify the closest td when the click occured
-        activeCell = e.currentTarget.querySelector('tr.selected'); // identify the already selected td
-
-      closestCell.classList.add('selected'); // add the "selected" class to the clicked td
-      if (activeCell) activeCell.classList.remove('selected'); // remove the "selected" class from the previously selected td
-    })
-  </script>
+  <script src= "<?= base_url('bootstrap/js/adminemployerprofile.js') ?>"></script>
 </body>
 
 </html>

@@ -14,7 +14,7 @@ class ApplyForJob extends BaseController
   public function index($jobid)
   {
 
-    // echo $jobid;
+   
     $job_detail_id = $jobid;
 
     if (session()->get('user_id') == null || session()->get('user_type') == "employer" || session()->get('user_type') == "admin") {
@@ -88,7 +88,7 @@ class ApplyForJob extends BaseController
       $queryEmp = $jobdetailsM->insert($values);
       if ($queryEmp) {
         return redirect()->back()->with('fail', 'Please try again later..');
-      } else {
+      } else { //sending an email to the relevant employer
         $to = $employer_email;
 
         $subject = "$jobseeker_name has applied for $jobtitle Posititon";
@@ -107,7 +107,7 @@ class ApplyForJob extends BaseController
 
         $email->setTo($to);
 
-        // $email->setFrom('Info@gophp.in', 'Info');
+       
         $email->setFrom('futureseekersnew@gmail.com', 'FutureSeekers');
 
         $email->setSubject($subject);
@@ -118,7 +118,7 @@ class ApplyForJob extends BaseController
 
         if ($email->send()) {
 
-          // echo "Email Sent";
+         
 
         } else {
 
@@ -133,9 +133,7 @@ class ApplyForJob extends BaseController
     } else {
       return redirect()->to('ApplicantHome')->with('fail', 'You have already applied for this position');
     }
-    // echo $jobdetailsid;
-
-    // echo "Doesnt exist";
+   
 
 
 
