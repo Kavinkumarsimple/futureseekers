@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- CSS stylesheet for navigation bar -->
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/navbar.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('bootstrap/css/register_employerStyles.css') ?>" />
 
     <!-- For the Font Library -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,23 +19,27 @@
 
     <!-- Scripts for Navbar -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="<?= base_url('bootstrap/js/modalstuff.js') ?>" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="<?= base_url('bootstrap/js/modalstuff.js') ?>"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery.min.js"></script>
-    
-    
+    <!--Styles for dropdown with search-->
+    <link rel="stylesheet" href="<?= base_url('bootstrap/css/select2-bootstrap.css') ?>" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-
+    <!--Scripts for dropdown with search-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <title>Future Seekers.lk | Applicant Portal</title>
+
+    <style>
+       
+    </style>
 </head>
 
 <body>
@@ -61,12 +66,16 @@
                             <a class="nav-link" href="">About Us</a>
                         </li>
                         <!-- Enter PHP code to check if the user is logged in or not in order to show login button -->
-                       
+                        <!-- <li class="nav-item">
+                            <a class="nav-link btn btn btn-primary logoutbtn" href="#">Sign in / Register</a>
+                        </li> -->
                         <li class="nav-item">
-                            
+                            <!-- For blue button: btn btn-primary -->
                             <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
                         </li>
-                        
+                        <!-- <li class="nav-item mobile_logout">
+                            <a class="nav-link mobileloginbtn" href="#">Sign in / Register</a>
+                        </li>      -->
                         <li class="nav-item mobile_logout">
                             <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
                         </li>
@@ -75,197 +84,363 @@
             </nav>
         </div>
     </div>
-    <br/>
+    <br />
+    <!-- <h2 class="card-header">New Job Advertisements</h2> -->
 
-      <?php if (!empty(session()->getFlashdata('fail'))) : ?>
-        <div style="margin-top:35px; width:1200px; margin-left: auto; margin-right: auto;" id="failMsgFlash" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
-      <?php endif ?>
+    <div style="margin-top:35px; width:1200px; margin-left: auto; margin-right: auto; display: none;" id="failMsgFlash" class="alert alert-danger text-muted"> You have already Applied for this Job </div>
 
-      <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
-      <?php endif ?>
+    <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto; display: none;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> Successfully Applied </div>
+    <div class="shadow-lg mb-5 bg-white rounded card" style="margin-left:auto;margin-right:auto; width:1200px">
+        <div class="card-header bg-primary" style="color:white">
+            Job Adverts
+        </div>
+        <form action="<?php echo site_url('/ApplicantHome/index') ?>" method="POST">
+            <div class="card ml-4 mr-4 mt-4">
+                <div class="card">
+                    <h6 class="card-header">
+                        Search your dream Job!
+                    </h6>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input name="search_input" type="search" class="form-control rounded" placeholder="Search for a Job Position" aria-label="Search" aria-describedby="search-addon" value="<?= set_value('search_input'); ?>" />
 
-      <div class="shadow-lg mb-5 bg-white rounded card" style="margin-left:auto;margin-right:auto; width:1200px">
-    <div class="card-header bg-primary" style="color:white">
-      Job Adverts
-    </div>
-    <div class="card-body" style="padding-left: 0px !important; padding-right: 0px; padding-bottom: 5px !important;">
-    <?php
-    $JobAdvert = new \App\Models\jobDetailsModel();
-    $Employer = new \App\Models\employerModel();
-    $UserAccount = new \App\Models\userAccountModel();
-    $Company = new \App\Models\companyModel();
+                            <button type="submit" class="btn btn-outline-primary">Search</button>
 
-    $query = $UserAccount->query("Select * from user_account where status = 1");
-    foreach ($query->getResult() as $row) {
-        $userId = $row->id;
-        
-        $query2 = $Employer->query("select * from employer where user_account_id = $userId");
-        foreach ($query2->getResult() as $row2){
-            $companyId = $row2->company_id;
-            $employerId = $row2->id;
-            $employerEmail = $row2->email;
-
-            $query3 = $Company->query("select * from company where id = $companyId");
-            foreach ($query3->getResult() as $row3){
-                $companyName = $row3->name;
-                $companyNo = $row3->contactNo;
-                $companyEmail = $row3->email;
-                $logo = $row3->logo_dir;
-
-                $query4 = $JobAdvert->query("Select * from job_details where status = 1 and employer_id = $employerId");
-                foreach ($query4->getResult() as $row4) {
-                    $jobId = $row4->id;
-                    $jobTitle = $row4->jobtitle;
-                    $jobCategory = $row4->jobCategory;
-                    $pDate = $row4->dateTime;
-                    $cDate = $row4->closingDate;
-                    $employerId = $row4->employer_id;
-                    $pdfname = $row4->description;
-                    $typeofemployment = $row4->typeOfEmployment;
-                    $jobtime = $row4->experience;
-                    $joblocation = $row4->location;
-
-                    echo "<div class=\"ratt \" >
-                <div class=\"jobs_img_container\" style=\"width: 100px\">
-                    <img class=\"jobs_img\" src='" . base_url() . "/logo/" . $logo . "'>
-                </div>
-        
-                <div style=\"flex-grow: 8\">
-        
-                    <div style=\"border: none !important\" class=\"list-group-item flex-column align-items-start\">
-        
-                        <div class=\"d-flex w-100 justify-content-between\">
-        
-                            <h5 class=\"mb-1\" >$jobTitle</h5>
-        
-                            <!-- <small> $cDate </small> -->
-        
                         </div>
-        
-                        <p class=\"mb-1 company_name\">$companyName</p>
-        
-                        <div class=\"flex-container2\" style=\"margin-top: 10px !important;\">
-        
-                            <div class=\" mb-1 cat_container badge badge-primary badge-pill\">
-        
-                                <small \">$jobCategory</small>
-        
-                            </div>
-              
-                            <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-primary\">
-        
-                            <div class=\"img_and_element_holder\">
-                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/typeofemployment.webp" . "'></span><small style=\"font-size:13px \">$typeofemployment</small>
-                            </div>
-                            </div>
-                            <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-secondary\">
-        
-                                <div class=\"img_and_element_holder\">
-                                    <span> <img class=\"span_img2\" src='" . base_url() . "/images/clock_timer.webp" . "'></span><small style=\"font-size:13px \">$cDate</small>
-                                </div>
-                            </div>
 
-                            <div class=\" mb-1 cat_container2 badge  badge-pill border border-secondary\" style=\"background-color:#c9c8cf !important; color:black !important \">
-        
-                            <div class=\"img_and_element_holder\">
-                                <span> <img class=\"span_img2\" src='" . base_url() . "/images/performance.webp" . "'></span><small style=\"font-size:13px \">$jobtime</small>
-                            </div>
-                            </div>
-        
-                        
-        
-                                <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-secondary\">
-                                <div class=\"img_and_element_holder\">
-                                    <a href='" . base_url() . "/ApplicantHome/downloadPdf/$pdfname" . "'>
-                                
-                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.webp" . "' <small style=\"font-size:13px\">Download Advert</small> </span>
-        
-                                    </a>
+                        <a href="#" class="btn btn-primary btn-sm collapsed mt-3" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Advanced Search</a>
+                        <a href="<?php echo site_url('/ApplicantHome/index') ?>" class="btn btn-danger btn-sm collapsed mt-3 ml-2">Clear Filters</a>
+                        <span class="badge badge-primary float-right mt-3"> <?php echo count($jobRecords) ?> Jobs Found </span>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body mt-3 p-0">
+
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 m-0">
+                                        <label>Company</label>
+                                        <input class="form-control form-control-sm" type="text" id="company" name="company" value="<?= set_value('company'); ?>">
+                                        <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'company') : '' ?></small>
                                     </div>
-        
+                                    <div class="form-group col-md-4 m-0">
+                                        <label for="experience">Experience in the Field:</label>
+                                        <select name="experience" id="experience" class="form-select form-control-sm form-select-lg mb-3" style="font-size:15px !important" value="<?= set_value('experience'); ?>">
+                                            <option value="Select All">Select All</option>
+                                            <option value="Below 2 years" <?php echo set_select('experience', 'Below 2 years', (!empty($data) && $data == "Below 2 years" ? TRUE : FALSE)); ?>>Below 2 years</option>
+                                            <option value="2+ years" <?php echo set_select('experience', '2+ years', (!empty($data) && $data == "2+ years" ? TRUE : FALSE)); ?>>2+ years</option>
+                                            <option value="5+ years" <?php echo set_select('experience', '5+ years', (!empty($data) && $data == "5+ years" ? TRUE : FALSE)); ?>>5+ years</option>
+                                            <option value="10+ years" <?php echo set_select('experience', '10+ years', (!empty($data) && $data == "10+ years" ? TRUE : FALSE)); ?>>10+ years</option>
+
+                                        </select>
+                                    </div>
+
                                 </div>
-        
-                           
-        
-                            <!-- <small> Closing Date: 2021-06-07 03:55</small> -->
-        
-                        </div>
-        
-         
-        
-                        <div class=\"flex-container2\" style=\"margin-top: 10px !important;\">
-        
-                            <div style=\"margin-right:20px !important\">
-        
-                                <span> <img class=\"span_img\" src='" . base_url() . "/images/contact.webp" . "'></span><small style=\"font-size: 14px\"> $companyNo</small>
-        
-                            </div>
-        
-                            <div style=\"margin-right:20px !important\">
-        
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/email.webp" . "'></span><small style=\"font-size: 14px\"> $companyEmail</small>
-        
+
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-4 m-0">
+                                        <label>Min Salary</label>
+                                        <input class="form-control form-control-sm" type="number" name="minsalary" id="minsalary" value="<?= set_value('minsalary'); ?>">
+                                        <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'minsalary') : '' ?></small>
+                                    </div>
+
+                                    <div class="form-group col-md-4 m-0">
+                                        <label>Max Salary</label>
+                                        <input class="form-control form-control-sm" type="number" name="maxsalary" id="maxsalary" value="<?= set_value('maxsalary'); ?>">
+                                        <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'maxsalary') : '' ?></small>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-4 mt-2">
+                                        <label>Job Category</label>
+                                        <select style="width: 100%;" name="jobCategory" id="getCategory" value="<?= set_value('jobCategory'); ?>">
+                                            <option value="Select All">Select All</option>
+                                            <option value="IT" <?php echo set_select('jobCategory', 'IT', (!empty($data) && $data == "IT" ? TRUE : FALSE)); ?>>IT</option>
+                                            <option value="Management" <?php echo set_select('jobCategory', 'Management', (!empty($data) && $data == "Management" ? TRUE : FALSE)); ?>>Management</option>
+                                            <option value="Healthcare" <?php echo set_select('jobCategory', 'Healthcare', (!empty($data) && $data == "Healthcare" ? TRUE : FALSE)); ?>>Healthcare</option>
+                                            <option value="Law" <?php echo set_select('jobCategory', 'Law', (!empty($data) && $data == "Law" ? TRUE : FALSE)); ?>>Law</option>
+                                            <option value="Agriculture" <?php echo set_select('jobCategory', 'Agriculture', (!empty($data) && $data == "Agriculture" ? TRUE : FALSE)); ?>>Agriculture</option>
+                                            <option value="Accounting" <?php echo set_select('jobCategory', 'Accounting', (!empty($data) && $data == "Accounting" ? TRUE : FALSE)); ?>>Accounting</option>
+                                            <option value="Media" <?php echo set_select('jobCategory', 'Media', (!empty($data) && $data == "Media" ? TRUE : FALSE)); ?>>Media</option>
+                                            <option value="Security" <?php echo set_select('jobCategory', 'Security', (!empty($data) && $data == "Security" ? TRUE : FALSE)); ?>>Security</option>
+                                            <option value="Banking" <?php echo set_select('jobCategory', 'Banking', (!empty($data) && $data == "Banking" ? TRUE : FALSE)); ?>>Banking</option>
+                                            <option value="Clothing" <?php echo set_select('jobCategory', 'Clothing', (!empty($data) && $data == "ClothingT" ? TRUE : FALSE)); ?>>Clothing</option>
+                                            <option value="Marketing" <?php echo set_select('jobCategory', 'Marketing', (!empty($data) && $data == "Marketing" ? TRUE : FALSE)); ?>>Marketing</option>
+                                            <option value="Tourism" <?php echo set_select('jobCategory', 'Tourism', (!empty($data) && $data == "Tourism" ? TRUE : FALSE)); ?>>Tourism</option>
+                                            <option value="HR" <?php echo set_select('jobCategory', 'HR', (!empty($data) && $data == "HR" ? TRUE : FALSE)); ?>>HR</option>
+                                            <option value="Logistics" <?php echo set_select('jobCategory', 'Logistics', (!empty($data) && $data == "Logistics" ? TRUE : FALSE)); ?>>Logistics</option>
+                                            <option value="Sports" <?php echo set_select('jobCategory', 'Sports', (!empty($data) && $data == "Sports" ? TRUE : FALSE)); ?>>Sports</option>
+                                            <option value="Academic" <?php echo set_select('jobCategory', 'Academic', (!empty($data) && $data == "Academic" ? TRUE : FALSE)); ?>>Academic</option>
+                                        </select>
+                                        <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobCategory') : '' ?></small>
+                                    </div>
+
+
+
+
+                                    <div class="form-group col-md-4  mt-2">
+                                        <label>Job Location</label>
+                                        <!-- <input class="form-control" type="text" name="jobCategory" value="<?= set_value('jobCategory'); ?>"> -->
+                                        <select style="width:100%" name="jobLocation" id="getLocation" value="<?= set_value('jobLocation'); ?>">
+                                            <option value="Select All">Select All</option>
+                                            <option value="Jaffna" <?php echo set_select('jobLocation', 'Jaffna', (!empty($data) && $data == "Jaffna" ? TRUE : FALSE)); ?>>Jaffna</option>
+                                            <option value="Kilinochchi" <?php echo set_select('jobLocation', 'Kilinochchi', (!empty($data) && $data == "Kilinochchi" ? TRUE : FALSE)); ?>>Kilinochchi</option>
+                                            <option value="Mannar" <?php echo set_select('jobLocation', 'Mannar', (!empty($data) && $data == "Mannar" ? TRUE : FALSE)); ?>>Mannar</option>
+                                            <option value="Mullaitivu" <?php echo set_select('jobLocation', 'Mullaitivu', (!empty($data) && $data == "Mullaitivu" ? TRUE : FALSE)); ?>>Mullaitivu</option>
+                                            <option value="Vavuniya" <?php echo set_select('jobLocation', 'Vavuniya', (!empty($data) && $data == "Vavuniya" ? TRUE : FALSE)); ?>>Vavuniya</option>
+                                            <option value="Puttalam" <?php echo set_select('jobLocation', 'Puttalam', (!empty($data) && $data == "Puttalam" ? TRUE : FALSE)); ?>>Puttalam</option>
+                                            <option value="Kurunegala" <?php echo set_select('jobLocation', 'Kurunegala', (!empty($data) && $data == "Kurunegala" ? TRUE : FALSE)); ?>>Kurunegala</option>
+                                            <option value="Gampaha" <?php echo set_select('jobLocation', 'Gampaha', (!empty($data) && $data == "Gampaha" ? TRUE : FALSE)); ?>>Gampaha</option>
+                                            <option value="Colombo" <?php echo set_select('jobLocation', 'Colombo', (!empty($data) && $data == "Colombo" ? TRUE : FALSE)); ?>>Colombo</option>
+                                            <option value="Kalutara" <?php echo set_select('jobLocation', 'Kalutara', (!empty($data) && $data == "Kalutara" ? TRUE : FALSE)); ?>>Kalutara</option>
+                                            <option value="Anuradhapura" <?php echo set_select('jobLocation', 'Anuradhapura', (!empty($data) && $data == "Anuradhapura" ? TRUE : FALSE)); ?>>Anuradhapura</option>
+                                            <option value="Polonnaruwa" <?php echo set_select('jobLocation', 'Polonnaruwa', (!empty($data) && $data == "Polonnaruwa" ? TRUE : FALSE)); ?>>Polonnaruwa</option>
+                                            <option value="Matale" <?php echo set_select('jobLocation', 'Matale', (!empty($data) && $data == "Matale" ? TRUE : FALSE)); ?>>Matale</option>
+                                            <option value="Kandy" <?php echo set_select('jobLocation', 'Kandy', (!empty($data) && $data == "Kandy" ? TRUE : FALSE)); ?>>Kandy</option>
+                                            <option value=" Nuwara Eliya" <?php echo set_select('jobLocation', 'Nuwara Eliya', (!empty($data) && $data == "Nuwara Eliya" ? TRUE : FALSE)); ?>> Nuwara Eliya </option>
+                                            <option value="Kegalle" <?php echo set_select('jobLocation', 'Kegalle', (!empty($data) && $data == "Kegalle" ? TRUE : FALSE)); ?>>Kegalle</option>
+                                            <option value="Ratnapura" <?php echo set_select('jobLocation', 'Ratnapura', (!empty($data) && $data == "Ratnapura" ? TRUE : FALSE)); ?>>Ratnapura</option>
+                                            <option value="Trincomalee" <?php echo set_select('jobLocation', 'Trincomalee', (!empty($data) && $data == "Trincomalee" ? TRUE : FALSE)); ?>>Trincomalee</option>
+                                            <option value="Batticaloa" <?php echo set_select('jobLocation', 'Batticaloa', (!empty($data) && $data == "Batticaloa" ? TRUE : FALSE)); ?>>Batticaloa</option>
+                                            <option value="Ampara" <?php echo set_select('jobLocation', 'Ampara', (!empty($data) && $data == "Ampara" ? TRUE : FALSE)); ?>>Ampara</option>
+                                            <option value=" Badulla	Uva" <?php echo set_select('jobLocation', 'Badulla	Uva', (!empty($data) && $data == "Badulla	Uva" ? TRUE : FALSE)); ?>> Badulla Uva</option>
+                                            <option value="Monaragala" <?php echo set_select('jobLocation', 'Monaragala', (!empty($data) && $data == "Monaragala" ? TRUE : FALSE)); ?>>Monaragala</option>
+                                            <option value="Hambantota" <?php echo set_select('jobLocation', 'Hambantota', (!empty($data) && $data == "Hambantota" ? TRUE : FALSE)); ?>>Hambantota</option>
+                                            <option value="Matara" <?php echo set_select('jobLocation', 'Matara', (!empty($data) && $data == "Matara" ? TRUE : FALSE)); ?>>Matara</option>
+                                            <option value="Galle" <?php echo set_select('jobLocation', 'Galle', (!empty($data) && $data == "Galle" ? TRUE : FALSE)); ?>>Galle</option>
+                                        </select>
+                                        <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobLocation') : '' ?></small>
+                                    </div>
+
+                                </div>
+
                             </div>
 
-                            <div style=\"margin-right:20px !important\">
-        
-                                <span> <img style=\"width: 13px\" class=\"span_img\" src='" . base_url() . "/images/location.webp" . "'></span><small style=\"font-size: 14px\"> $joblocation</small>
-        
-                            </div>
-        
-                           
+                            <button type="submit" class="btn btn-success btn-sm mt-3">Apply Filter</button>
                         </div>
-        
-         
-        
                     </div>
-        
                 </div>
-        
-         
-        
-                <div style=\"width: 200px\">
-        
-         
-        
-                    <div class=\"job_option_holder\">
-        
-                       
-                        <a href='" . base_url() . "/ApplyForJob/index/$jobId" . "' class=\"btn btn-primary btn-sm\" >Apply Now</a>
-        
-                        <p></p>
-                        
-                        <a href='" . base_url() . "/adverts/$pdfname" . "' target='_blank' class=\"btn btn-secondary btn-sm\">View Advert</a>
-        
-                        <!-- <p></p>
-        
-                        <button type=\"button\" class=\"btn btn-secondary btn-sm\">Download Advert</button> -->
-        
-         
-        
-                    </div>
-        
-                </div>
-        
             </div>
-
-            <hr class=\"my-4 bg-primary\">
-            ";
+        </form>
 
 
 
+        <div class="card-body" style="padding-left: 0px !important; padding-right: 0px; padding-bottom: 5px !important;">
+
+            <?php
+
+            if (count($jobRecords) <= 0) {
+
+            ?>
+
+                <div style="margin-top:35px; max-width:400px !important; margin-left: auto; margin-right: auto; display: block; text-align: center;" id="failMsgFlash2" class="alert alert-danger text-muted"> No Jobs Available! </div>
+            <?php
             }
-        }
-    }
-}
-    ?>
 
+            ?>
+
+            <?php
+            for ($i = 0; $i < count($jobRecords); $i++) {
+            ?>
+
+                <div class="card-body" style="padding-left: 0px !important; padding-right: 0px; padding-bottom: 5px !important;">
+
+                    <div class="ratt ">
+                        <div class="jobs_img_container" style="width: 100px">
+                            <?php echo " <img class=\"jobs_img\" src='" . base_url() . "/logo/" . $jobRecords[$i]["logo"] . "'>" ?>
+                        </div>
+
+
+                        <div style="flex-grow: 8">
+
+                            <div style="border: none !important" class="list-group-item flex-column align-items-start">
+
+                                <div class="d-flex w-100 justify-content-between">
+
+                                    <h5 class="mb-1"> <?= $jobRecords[$i]['jobtitle'] ?> </h5>
+
+                                </div>
+
+                                <p class="mb-1 company_name"> <?= $jobRecords[$i]['companyname'] ?> </p>
+
+                                <div class="flex-container2" style="margin-top: 10px !important;">
+
+                                    <div class=" mb-1 cat_container badge badge-primary badge-pill">
+
+                                        <small> <?= $jobRecords[$i]['jobcategory'] ?> </small>
+
+                                    </div>
+
+                                    <div class=" mb-1 cat_container2 badge badge-light badge-pill border border-primary">
+                                        <div class="img_and_element_holder">
+                                            <span> <img class="span_img2" src="<?= base_url('/images/typeofemployment.webp') ?>"> </span> <small style="font-size:13px "> <?= $jobRecords[$i]['typeofemp'] ?> </small>
+                                        </div>
+                                    </div>
+                                    <div class=" mb-1 cat_container2 badge badge-light badge-pill border border-secondary">
+
+                                        <div class="img_and_element_holder">
+                                            <span> <img class="span_img2" src="<?= base_url('/images/clock_timer.webp') ?>"> </span> <small style="font-size:13px "> <?= $jobRecords[$i]['cdate'] ?> </small>
+                                        </div>
+                                    </div>
+                                    <div class=" mb-1 cat_container2 badge  badge-pill border border-secondary" style="background-color:#c9c8cf !important; color:black !important ">
+
+                                        <div class="img_and_element_holder">
+
+                                            <span> <img class="span_img2" src="<?= base_url('/images/performance.webp') ?>"> </span><small style="font-size:13px "> <?= $jobRecords[$i]['jobtime'] ?> </small>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class=" mb-1 cat_container2 badge badge-light badge-pill border border-secondary">
+                                        <div class="img_and_element_holder">
+                                            <?php echo " <a href='" . base_url() . "/ApplicantHome/downloadPdf/" . $jobRecords[$i]['pdfname'] . "'>" ?>
+                                            <span> <img class="span_img2" src="<?= base_url('/images/download.webp') ?>"> <small style="font-size:13px">Download Advert</small> </span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="flex-container2" style="margin-top: 10px !important;">
+
+                                    <div style="margin-right:20px !important">
+
+                                        <span> <img class="span_img" src="<?= base_url('/images/contact.webp') ?>"> </span> <small style="font-size: 14px"> <?= $jobRecords[$i]['companyno'] ?> </small>
+
+                                    </div>
+
+                                    <div style="margin-right:20px !important">
+
+                                        <span> <img class="span_img" src="<?= base_url('/images/email.webp') ?>"></span><small style="font-size: 14px"> <?= $jobRecords[$i]['companyemail'] ?> </small>
+
+                                    </div>
+                                    <div style="margin-right:20px !important">
+
+                                        <span> <img class="span_img" src="<?= base_url('/images/location.webp') ?>"> </span><small style="font-size: 14px"> <?= $jobRecords[$i]['joblocation'] ?> </small>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div style="width: 200px">
+
+
+
+                            <div class="job_option_holder">
+                                <button class="btn btn-primary btn-sm" onclick="ApplyJob(<?= $jobRecords[$i]['jobid'] ?>)"> Apply Now</button>
+
+                                <p></p>
+                                <?php echo " <a class=\"btn btn-secondary btn-sm\" target='_blank' href='" . base_url() . "/adverts/" . $jobRecords[$i]['pdfname'] . "'> View Advert </a>" ?>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <?php
+            }
+
+            ?>
+
+        </div>
     </div>
-      </div>
+
+
+    <script>
+        function ApplyJob($jobid) {
+            document.getElementById("successMsgFlash").style.display = "none";
+            document.getElementById("failMsgFlash").style.display = "none";
+            $.ajax({
+                url: '<?php echo base_url('ApplicantHome/ApplyForJob'); ?>',
+                type: "post",
+                dataType: 'json',
+                data: {
+                    jobID: $jobid,
+                },
+                beforeSend: function() {
+                    
+                    console.log('Loading');
+                },
+                success: function(result) {
+                    $res = result.result;
+                    if ($res == '1') {
+                        document.getElementById("successMsgFlash").style.display = "block";
+                        document.getElementById("successMsgFlash").innerHTML = "You have successfully applied for this job. The Employer will receive a notification shortly.";
+                    } else if ($res == '2') {
+                        document.getElementById("failMsgFlash").style.display = "block";
+                        document.getElementById("failMsgFlash").innerHTML = "You have already applied for this position";
+                    } else if ($res == '3') {
+                        document.getElementById("failMsgFlash").style.display = "block";
+                        document.getElementById("failMsgFlash").innerHTML = "Please update your profile details by providing your CV";
+                    } else if ($res == '4') {
+                        document.getElementById("failMsgFlash").style.display = "block";
+                        document.getElementById("failMsgFlash").innerHTML = "Something went wrong. Please try again later..";
+                    }
+                    document.documentElement.scrollTop = 0;
+                },
+                complete: function() {
+                    console.log('Completed');
+                }
+
+            });
+        }
 
 
 
+        // For Search Bar
+        const searchFocus = document.getElementById('search-focus');
+        const keys = [{
+                keyCode: 'AltLeft',
+                isTriggered: false
+            },
+            {
+                keyCode: 'ControlLeft',
+                isTriggered: false
+            },
+        ];
+
+        window.addEventListener('keydown', (e) => {
+            keys.forEach((obj) => {
+                if (obj.keyCode === e.code) {
+                    obj.isTriggered = true;
+                }
+            });
+
+            const shortcutTriggered = keys.filter((obj) => obj.isTriggered).length === keys.length;
+
+            if (shortcutTriggered) {
+                searchFocus.focus();
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            keys.forEach((obj) => {
+                if (obj.keyCode === e.code) {
+                    obj.isTriggered = false;
+                }
+            });
+        });
+    </script>
+    <script src="<?= base_url('bootstrap/js/postadvert.js') ?>"></script>
 </body>
 
 </html>

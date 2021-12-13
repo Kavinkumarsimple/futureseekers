@@ -40,8 +40,7 @@ class MyJobsEmployer extends BaseController
     ob_clean();
     flush();
     readfile('cvfiles/'.$jcvname);
- 
- 
+
    }
 
   public function logout()
