@@ -16,3 +16,19 @@ Main connection [MySQLi]: Connection refused
 #12 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/Commands/Server/rewrite.php(45): require_once('/Applications/X...')
 #13 {main}
 ERROR - 2021-12-13 02:38:47 --> Email: sendWithSmtp throwed fsockopen(): Unable to connect to tls://smtp.gmail.com:465 (Operation timed out)
+CRITICAL - 2021-12-13 02:51:13 --> Too few arguments to function App\Controllers\MyJobsEmployer::showapplicants(), 0 passed in /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/CodeIgniter.php on line 928 and exactly 1 expected
+#0 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/CodeIgniter.php(928): App\Controllers\MyJobsEmployer->showapplicants()
+#1 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\MyJobsEmployer))
+#2 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/Commands/Server/rewrite.php(45): require_once('/Applications/X...')
+#5 {main}
+CRITICAL - 2021-12-13 02:51:59 --> Too few arguments to function App\Controllers\MyJobsEmployer::showapplicants(), 0 passed in /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/CodeIgniter.php on line 928 and exactly 1 expected
+#0 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/CodeIgniter.php(928): App\Controllers\MyJobsEmployer->showapplicants()
+#1 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/CodeIgniter.php(436): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\MyJobsEmployer))
+#2 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/CodeIgniter.php(336): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/public/index.php(37): CodeIgniter\CodeIgniter->run()
+#4 /Applications/XAMPP/xamppfiles/htdocs/futureseekerslk/system/Commands/Server/rewrite.php(45): require_once('/Applications/X...')
+#5 {main}
+ERROR - 2021-12-13 21:19:22 --> Email: sendWithSmtp throwed fsockopen(): Unable to connect to tls://smtp.gmail.com:465 (Operation timed out)
+ERROR - 2021-12-13 21:20:17 --> Email: sendWithSmtp throwed fsockopen(): Unable to connect to tls://smtp.gmail.com:465 (Operation now in progress)

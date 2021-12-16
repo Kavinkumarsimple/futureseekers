@@ -8,7 +8,8 @@ class jobSeekerJobDetailsModel extends \CodeIgniter\Model {
                               'job_seeker_id',
                               'job_details_id',
                               'dateTime',
-                              'cv_name'
+                              'cv_name',
+                              'is_scheduled'
                             ];
 }
 
