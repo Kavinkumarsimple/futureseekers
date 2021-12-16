@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>" />
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/applicant_home.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('bootstrap/css/employerviewprofiles.css') ?>" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- CSS stylesheet for navigation bar -->
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/navbar.css') ?>" />
@@ -30,64 +31,6 @@
     <!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
     <title>Future Seekers.lk | Applicants for this Job</title>
 
-    <style>
-        #exampleModal {
-            overflow-y: scroll;
-        }
-
-        .loader {
-            width: 100%;
-        }
-
-        .loader-wheel {
-            animation: spin 1s infinite linear;
-            border: 2px solid rgba(30, 30, 30, 0.5);
-            border-left: 4px solid black;
-            border-radius: 50%;
-            height: 50px;
-            margin-bottom: 10px;
-            width: 50px;
-        }
-
-        .loader-text {
-            color: black;
-            font-family: arial, sans-serif;
-        }
-
-        .loader-text:after {
-            content: 'Sending Invitation';
-            animation: load 2s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes load {
-            0% {
-                content: 'Sending Invitation';
-            }
-
-            33% {
-                content: 'Sending Invitation.';
-            }
-
-            67% {
-                content: 'Sending Invitation..';
-            }
-
-            100% {
-                content: 'Sending Invitation...';
-            }
-        }
-    </style>
-
 </head>
 
 <body>
@@ -106,6 +49,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('MyJobsEmployer/index') ?>">My Jobs</a>
                         </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('PostAdvertEmployer/index') ?>">Post an Advert</a>
                         </li>

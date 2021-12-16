@@ -150,7 +150,7 @@ class MyJobsEmployer extends BaseController
 
 
 
-    $to = "mkavinkumarnaidu@gmail.com";
+    $to = "$applicantemail";
 
     $subject = "Congratulations! You have been selected for an Interview by $rowData->CompanyName for the position of $rowData->JobTitle";
 
