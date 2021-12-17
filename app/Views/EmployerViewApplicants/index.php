@@ -95,7 +95,7 @@
             $Company = new \App\Models\companyModel();
             $applicantcount = 0;
 
-            $query = $jobseekerjobdetailsM->query("Select * from jobseeker_jobdetails where job_details_id = $jobid order by is_scheduled");
+            $query = $jobseekerjobdetailsM->query("Select * from jobseeker_jobdetails where job_details_id = $jobid order by is_scheduled desc");
             foreach ($query->getResult() as $row) {
                 $jobSeekerId = $row->job_seeker_id;
                 $applicantcount = 1;
