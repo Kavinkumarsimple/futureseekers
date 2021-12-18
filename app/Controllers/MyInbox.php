@@ -82,11 +82,10 @@ class MyInbox extends BaseController
 
       if ($is_shortlisted == 'Yes') {
         $interview_invitation = $this->GenerateInvitation($row);
-      }
-      else {
+      } else {
         $interview_invitation = "";
       }
-     
+
 
       $jobDet = array(
         "logo" => $logo,
@@ -108,18 +107,33 @@ class MyInbox extends BaseController
       array_push($jobrecords, $jobDet);
     }
 
+    $queryCountStatus = $db->query(
+      "SELECT COUNT(status) unreadcount
+      FROM shared_advert
+      WHERE shared_advert.status = 0        
+      "
+    );
+
+    $countUnread = $queryCountStatus->getRow()->unreadcount;
+
     $db->close();
+
+
+    $sharedJobs = $this->ShowNotifications();
 
     $data = [
       'title' => 'AllData',
-      'jobRecords' => $jobrecords
+      'jobRecords' => $jobrecords,
+      'sharedJobs' => $sharedJobs,
+      'unreadCount' => $countUnread
     ];
 
     return $data;
   }
 
 
-  private function GenerateInvitation($row) {
+  private function GenerateInvitation($row)
+  {
     $jobTitle = $row->JobTitle;
     $companyName = $row->CompanyName;
     $companyNo = $row->CompanyContact;
@@ -143,8 +157,7 @@ class MyInbox extends BaseController
 
     if ($additional_notes == NULL || $additional_notes == "") {
       $additional_notes = "";
-    }
-    else {
+    } else {
       $temp2 = "<br><br> <b> Notes: $additional_notes</b>";
       $interview_invitation = $interview_invitation . $temp2;
     }
@@ -158,5 +171,91 @@ class MyInbox extends BaseController
     $session = session();
     $session->destroy();
     return redirect()->to('Home/index')->with('fail', 'You are Logged out');
+  }
+
+  public function ShowNotifications()
+  {
+
+    $notificationRecords = array();
+
+    $user_id = session()->get('user_id');
+
+    $db = db_connect();
+
+    $queryNotifications = $db->query(
+      "SELECT 
+      job_details.id as AdvertID,
+      job_details.jobtitle as JobTitle,
+      job_details.description as PDFName,
+      company.name as CompanyName,
+      shared_advert.sender_id as SenderID,
+      shared_advert.status as NotificationStatus,
+      shared_advert.id as SharedAdID
+      from user_account
+      join job_seeker on job_seeker.user_account_id = user_account.id
+      join shared_advert on shared_advert.receiver_id = job_seeker.id
+      join job_details on job_details.id = shared_advert.job_details_id
+      join employer on employer.id = job_details.employer_id
+      join company on company.id = employer.company_id
+      where user_account.id = $user_id
+      "
+    );
+
+    foreach ($queryNotifications->getResult() as $row) {
+      $advert_id = $row->AdvertID;
+      $jobTitle = $row->JobTitle;
+      $pdfname = $row->PDFName;
+      $companyName = $row->CompanyName;
+      $senderID = $row->SenderID;
+      $noti_status = $row->NotificationStatus;
+      $sharedaddid = $row->SharedAdID;
+
+      $querySenderDetails = $db->query(
+        "SELECT job_seeker.name from job_seeker
+        where job_seeker.id = $senderID
+        "
+      );
+
+      
+      $senderName = $querySenderDetails->getRow()->name;
+ 
+      if ($noti_status == 0) {
+        $jobDet = array(
+          "advert_id" => $advert_id,
+          "jobtitle" => $jobTitle,
+          "pdfname" => $pdfname,
+          "companyName" => $companyName,
+          "senderName" => $senderName,
+          "status" => $noti_status,
+          "shared_id" => $sharedaddid,
+        );
+  
+        array_push($notificationRecords, $jobDet);
+      }
+    }
+
+
+
+    $db->close();
+
+    $notificationData = [
+      'title' => 'AllSharedData',
+      'sharedJobs' => $notificationRecords
+    ];
+
+    return $notificationData;
+  }
+
+  public function RemoveNotification()
+  {
+    $shared_id = $_POST['shareID'];
+    $db = db_connect();
+    $db->query(
+      "UPDATE shared_advert
+       set shared_advert.status = 1
+       where shared_advert.id = $shared_id 
+      "
+    );
+    $db->close();
   }
 }

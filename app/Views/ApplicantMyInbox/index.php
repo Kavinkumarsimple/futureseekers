@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- CSS stylesheet for navigation bar -->
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/navbar.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('bootstrap/css/employerviewprofiles.css') ?>" />
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/register_employerStyles.css') ?>" />
 
     <!-- For the Font Library -->
@@ -99,23 +100,47 @@
                 <div class="card">
                     <h6 class="card-header">
                         <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Notifications <span class="badge badge-light">4</span>
+                            Notifications 
+                            <span class="badge badge-light"> <?= count($sharedJobs['sharedJobs']) ?></span>
                         </button>
                     </h6>
 
-
-
-                    <div class="card-body">
+                    <div class="card-body ">
                         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+                            <?php
+                            if (count($sharedJobs['sharedJobs']) <= 0) {
+                                echo "You have no notifications available";
+                            } else {
+
+                                for ($i = 0; $i < count($sharedJobs['sharedJobs']); $i++) {
+                                    if ($sharedJobs['sharedJobs'][$i]['status'] == 0) {
+
+                            ?>
+                                        <div class="p-2">
+                                            <div class="d-flex flex-row align-items-center mb-1">
+                                                <img class="mr-2" src="<?= base_url('/images/notification.png') ?>" style="width: 20px;">
+                                                <a target='_blank' href="<?= base_url() . '/adverts/' . $sharedJobs['sharedJobs'][$i]['pdfname'] ?>">
+                                                    <h5 class="card-title text-center mb-0" style="font-size: 1.1em;"> <b> <?= $sharedJobs['sharedJobs'][$i]['senderName'] ?> </b> has shared a Job Advertisement!</h5>
+                                                </a>
+                                                <!-- <img class="ml-2" src="<?= base_url('/images/close.png') ?>" style="width: 15px;"> -->
+                                            </div>
+
+                                            <p class="card-text company_name mb-1" style="font-size: 0.9em;"> <?= $sharedJobs['sharedJobs'][$i]['jobtitle'] ?> : <?= $sharedJobs['sharedJobs'][$i]['companyName'] ?></p>
+                                            <button type="button" class="btn btn-primary btn-sm rounded-pill pl-3 pr-3" style="font-size: 0.7em;" onclick="ApplyJob(<?= $sharedJobs['sharedJobs'][$i]['advert_id'] ?>)"> Apply</button>
+                                            <button type="button" class="btn btn-danger btn-sm rounded-pill pl-3 pr-3 ml-2" style="font-size: 0.7em;" onclick="RemoveNotification(<?= $sharedJobs['sharedJobs'][$i]['shared_id'] ?>)"> Remove</button>
+                                        </div>
+                                        <br>
+                            <?php
+                                    }
+                                }
+                                // var_dump($sharedJobs);
+                            }
+                            ?>
+
+
+
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -313,6 +338,29 @@
 
 
     <script>
+        function RemoveNotification($share_id) {
+            console.log("Shared id is " + $share_id);
+            $.ajax({
+                url: '<?php echo base_url('MyInbox/RemoveNotification'); ?>',
+                type: "post",
+                dataType: 'json',
+                data: {
+                    shareID: $share_id,
+                },
+                beforeSend: function() {
+
+                    console.log('Loading');
+                },
+                success: function(result) {
+                    location.reload();
+                },
+                complete: function() {
+                    location.reload();
+                    console.log('Completed');
+                }
+
+            });
+        }
         function ApplyJob($jobid) {
             document.getElementById("successMsgFlash").style.display = "none";
             document.getElementById("failMsgFlash").style.display = "none";

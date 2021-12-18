@@ -192,7 +192,7 @@ class ApplicantHome extends BaseController
     return $resultquery;
   }
 
-  public function ApplyForJob() 
+  public function ApplyForJob()
   {
     $jobid = $_POST['jobID'];
 
@@ -203,25 +203,24 @@ class ApplicantHome extends BaseController
     $session->regenerate();
     $user_id = session()->get('user_id');
 
-    
+
     $jobdetailM = new \App\Models\jobDetailsModel();
 
     $query_jdetail = $jobdetailM->query("Select * from job_details where id = $jobid");
     foreach ($query_jdetail->getResult() as $row4) {
       $emp_id = $row4->employer_id;
       $jobtitle = $row4->jobtitle;
-   
-    } 
+    }
 
-     $employerM = new \App\Models\employerModel();
+    $employerM = new \App\Models\employerModel();
 
-     $query_employer = $employerM->query("Select * from employer where id = $emp_id");
-     foreach ($query_employer->getResult() as $row3) {
-       $employer_email = $row3->email;
-     } 
+    $query_employer = $employerM->query("Select * from employer where id = $emp_id");
+    foreach ($query_employer->getResult() as $row3) {
+      $employer_email = $row3->email;
+    }
 
 
-    
+
 
 
 
@@ -229,7 +228,7 @@ class ApplicantHome extends BaseController
 
 
     $jobseekerM = new \App\Models\jobSeekerModel();
-    
+
 
 
 
@@ -250,7 +249,7 @@ class ApplicantHome extends BaseController
       'cv_name' => $jobseeker_cv
     ];
 
-    if($jobseeker_cv == null){
+    if ($jobseeker_cv == null) {
       echo json_encode(array("result" => '3'));
       //return redirect()->to('ApplicantHome')->with('fail', 'Please update your profile details by providing your CV');
     }
@@ -281,14 +280,14 @@ class ApplicantHome extends BaseController
                     <li>Email: $jobseeker_email</li>
                     <li>Phone number: $jobseeker_contact</li>
                     </ul>  ";
-        
+
         $filepath = "cvfiles/$jobseeker_cv";
 
         $email = \config\Services::email();
 
         $email->setTo($to);
 
-       
+
         $email->setFrom('futureseekersnew@gmail.com', 'FutureSeekers');
 
         $email->setSubject($subject);
@@ -298,9 +297,6 @@ class ApplicantHome extends BaseController
         $email->attach($filepath);
 
         if ($email->send()) {
-
-         
-
         } else {
 
           $error = $email->printDebugger(['headers']);
@@ -309,14 +305,82 @@ class ApplicantHome extends BaseController
         }
 
         echo json_encode(array("result" => '1'));
-       // return redirect()->to('ApplicantHome')->with('success', 'You have successfully applied for this job. The Employer will receive a notification shortly.');
+        // return redirect()->to('ApplicantHome')->with('success', 'You have successfully applied for this job. The Employer will receive a notification shortly.');
       }
     } else {
       echo json_encode(array("result" => '2'));
       // return redirect()->to('ApplicantHome')->with('fail', 'You have already applied for this position');
     }
-   
+
 
     // testing 
   }
+
+  public function ShareJobAdvertisement()
+  {
+    $user_id = session()->get('user_id');
+    $jobid = $_POST['jobID'];
+    $to_email = $_POST['recepientEmail'];
+    $notes = $_POST['notes'];
+
+    $db = db_connect();
+
+
+    $queryReceiverData = $db->query(
+      "SELECT job_seeker.id FROM job_seeker
+      where job_seeker.email = '$to_email'
+      "
+    );
+
+    if ($queryReceiverData->getNumRows() == 0) {
+      echo json_encode(array("result" => '2')); // This user does not exist in the system
+    }
+    else {
+       $queryJobDetails = $db->query(
+      "SELECT
+      jb.location as JobLocation,
+             jb.id as AdvertID,
+             jb.jobtitle as JobTitle,
+             jb.closingDate as ClosingDate,
+             jb.jobCategory as JobCategory,
+             jb.typeOfEmployment as TypeofEmp,
+             jb.experience as JobExp,
+             jb.description as PDFName,
+             com.logo_dir as CompLogo,
+             com.name as CompanyName,
+             com.contactNo as CompanyContact,
+             com.email as CompanyEmail
+     
+     FROM job_details jb
+     join employer on employer.id = jb.employer_id
+     join company com on com.id = employer.company_id
+     where jb.id = $jobid
+      "
+    );
+
+    $querySenderDetails = $db->query(
+      "SELECT job_seeker.name, job_seeker.id FROM user_account
+      join job_seeker on job_seeker.user_account_id = user_account.id
+      where user_account.id = $user_id
+      "
+    );
+
+    $a_id = $queryJobDetails->getRow()->AdvertID;
+    $s_id = $querySenderDetails->getRow()->id;
+    $r_id = $queryReceiverData->getRow()->id;
+    $queryAddtoSharedTable = $db->query(
+      "INSERT INTO shared_advert (job_details_id, sender_id, receiver_id, status, message)
+      VALUES ($a_id, $s_id, $r_id, 0, '$notes');
+      "
+    );
+
+    // $sharedAdvertsModel = new \App\Models\sharedadvert();
+    // $addSharedAdvert = $sharedAdvertsModel->insert($valuesSharedAdvert);
+    echo json_encode(array("result" => '1')); // Exists in the system
+    }
+   
+
+    $db->close();
+  }
+
 }

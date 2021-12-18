@@ -11,6 +11,7 @@
     <!-- CSS stylesheet for navigation bar -->
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/navbar.css') ?>" />
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/register_employerStyles.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('bootstrap/css/employerviewprofiles.css') ?>" />
 
     <!-- For the Font Library -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +28,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery.min.js"></script> -->
     <!--Styles for dropdown with search-->
     <link rel="stylesheet" href="<?= base_url('bootstrap/css/select2-bootstrap.css') ?>" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -38,7 +39,7 @@
     <title>Future Seekers.lk | Applicant Portal</title>
 
     <style>
-       
+
     </style>
 </head>
 
@@ -259,10 +260,11 @@
 
                             <div style="border: none !important" class="list-group-item flex-column align-items-start">
 
-                                <div class="d-flex w-100 justify-content-between">
+                                <div class="d-flex w-100 justify-content-start">
 
                                     <h5 class="mb-1"> <?= $jobRecords[$i]['jobtitle'] ?> </h5>
 
+                                    <a class="ml-3" href="#" data-toggle="modal" data-target="#shareModal" data-whatever="@fat" onclick="ShareAdvertisement_OpenModal(<?= htmlentities(json_encode($jobRecords[$i])) ?>)"> <img src="<?= base_url('/images/share.png') ?>" style="height: 20px; width: 20px;"> </img> </a>
                                 </div>
 
                                 <p class="mb-1 company_name"> <?= $jobRecords[$i]['companyname'] ?> </p>
@@ -362,10 +364,103 @@
             ?>
 
         </div>
+        <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="shareModal">Share Advertisement</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="s_jobid" class="col-form-label">Job ID:</label>
+                                <input id="s_jobid" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipientEmail" class="col-form-label">Recipient Email Address:</label>
+                                <input id="recipientEmail" type="text" placeholder="e.g alexhunter@gmail.com" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="recipientNotes" class="col-form-label">Message:</label>
+                                <textarea id="recipientNotes" class="form-control" placeholder="Optional"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="loading_sending_invite" class="loader d-none">
+                        <div class="loader-wheel"></div>
+                        <div class="loader-text"></div>
+                    </div>
+                    <div style=" max-width:1200px; margin-left: auto; margin-right: auto; display: none;" id="failMsgFlash2" class="alert alert-danger text-muted"> </div>
+                    <div style=" max-width:1200px; margin-left: auto; margin-right: auto; display: none;" class="alert alert-success text-muted" id="successMsgFlash2"> <?= session()->getFlashdata('success'); ?> </div>
+                    <div class="modal-footer">
+
+                        <button id="closesharebtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="shareaddbtn" type="button" class="btn btn-primary" onclick="ShareAdvertisement()">Share Advertisement</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
     <script>
+        $('#shareModal').on('hidden.bs.modal', function() {
+            //remove the backdrop
+            $('.modal-backdrop').remove();
+        });
+
+        function ShareAdvertisement_OpenModal(row) {
+            document.getElementById("s_jobid").value = row["jobid"];
+        }
+
+        function ShareAdvertisement() {
+            var jobID = document.getElementById("s_jobid").value;
+            var recepientEmail = document.getElementById("recipientEmail").value;
+            var notes = document.getElementById("recipientNotes").value;
+            $.ajax({
+                url: '<?php echo base_url('ApplicantHome/ShareJobAdvertisement'); ?>',
+                type: "post",
+                dataType: 'json',
+                data: {
+                    jobID: jobID,
+                    recepientEmail: recepientEmail,
+                    notes: notes
+                },
+                beforeSend: function() {
+                    document.getElementById("shareaddbtn").style.display = "none";
+                    document.getElementById("closesharebtn").style.display = "none";
+                    document.getElementById("loading_sending_invite").classList.remove("d-none");
+                    console.log('Loading');
+                },
+                success: function(result) {
+                    document.getElementById("loading_sending_invite").classList.add("d-none");
+                    $res = result.result;
+                    if ($res == '1') {
+                        document.getElementById("successMsgFlash2").style.display = "block";
+                        document.getElementById("successMsgFlash2").innerHTML = "Advertisement Shared Successfully!";
+                    } else {
+                        document.getElementById("failMsgFlash2").style.display = "block";
+                        document.getElementById("failMsgFlash2").innerHTML = "This Applicant does not exist in the system!";
+                    }
+                },
+                complete: function() {
+                    document.getElementById("loading_sending_invite").classList.add("d-none");
+                    setTimeout(() => {
+                        document.getElementById("shareaddbtn").style.display = "block";
+                        document.getElementById("closesharebtn").style.display = "block";
+                        $('#shareModal').modal('hide');
+                        location.reload();
+                    }, 3000);
+                    // location.reload();
+                    console.log('Completed');
+                }
+
+            });
+        }
+
         function ApplyJob($jobid) {
             document.getElementById("successMsgFlash").style.display = "none";
             document.getElementById("failMsgFlash").style.display = "none";
@@ -377,7 +472,7 @@
                     jobID: $jobid,
                 },
                 beforeSend: function() {
-                    
+
                     console.log('Loading');
                 },
                 success: function(result) {
@@ -400,7 +495,6 @@
                 complete: function() {
                     console.log('Completed');
                 }
-
             });
         }
 
