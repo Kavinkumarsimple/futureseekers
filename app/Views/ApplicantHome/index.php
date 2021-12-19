@@ -230,6 +230,157 @@
 
 
 
+        <div class="card ml-4 mr-4 mt-4">
+            <div class="card">
+                <h6 class="card-header">
+
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseRecommendations" aria-expanded="false" aria-controls="collapseRecommendations">
+                        Jobs that may interest you <span class="badge badge-light"> <?= count($recommendedJobRecords) ?></span>
+                    </button>
+                </h6>
+                <div class="card-body bg-light">
+
+                    <div id="collapseRecommendations" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body p-0">
+
+                            <?php
+                            if (count($recommendedJobRecords) <= 0) {
+                            ?>
+                                You have no recommendations
+                            <?php
+                            } else {
+                            ?>
+                                <?php
+                                for ($i = 0; $i < count($recommendedJobRecords); $i++) {
+                                ?>
+
+                                    <div class="card-body" style="padding-left: 0px !important; padding-right: 0px; padding-bottom: 5px !important">
+
+                                        <div class="ratt">
+                                            <div class="jobs_img_container" style="width: 100px">
+                                                <?php echo " <img class=\"jobs_img\" src='" . base_url() . "/logo/" . $recommendedJobRecords[$i]["logo"] . "'>" ?>
+                                            </div>
+
+
+                                            <div style="flex-grow: 8">
+
+                                                <div style="border: none !important" class="list-group-item flex-column align-items-start">
+
+                                                    <div class="d-flex w-100 justify-content-start">
+
+                                                        <h5 class="mb-1"> <?= $recommendedJobRecords[$i]['jobtitle'] ?> </h5>
+
+                                                        <a class="ml-3" href="#" data-toggle="modal" data-target="#shareModal" data-whatever="@fat" onclick="ShareAdvertisement_OpenModal(<?= htmlentities(json_encode($recommendedJobRecords[$i])) ?>)"> <img src="<?= base_url('/images/share.png') ?>" style="height: 20px; width: 20px;"> </img> </a>
+                                                    </div>
+
+                                                    <p class="mb-1 company_name"> <?= $recommendedJobRecords[$i]['companyname'] ?> </p>
+
+                                                    <div class="flex-container2" style="margin-top: 10px !important;">
+
+                                                        <div class=" mb-1 cat_container badge badge-primary badge-pill">
+
+                                                            <small> <?= $recommendedJobRecords[$i]['jobcategory'] ?> </small>
+
+                                                        </div>
+
+                                                        <div class=" mb-1 cat_container2 badge badge-light badge-pill border border-primary">
+                                                            <div class="img_and_element_holder">
+                                                                <span> <img class="span_img2" src="<?= base_url('/images/typeofemployment.webp') ?>"> </span> <small style="font-size:13px "> <?= $recommendedJobRecords[$i]['typeofemp'] ?> </small>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" mb-1 cat_container2 badge badge-light badge-pill border border-secondary">
+
+                                                            <div class="img_and_element_holder">
+                                                                <span> <img class="span_img2" src="<?= base_url('/images/clock_timer.webp') ?>"> </span> <small style="font-size:13px "> <?= $recommendedJobRecords[$i]['cdate'] ?> </small>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" mb-1 cat_container2 badge  badge-pill border border-secondary" style="background-color:#c9c8cf !important; color:black !important ">
+
+                                                            <div class="img_and_element_holder">
+
+                                                                <span> <img class="span_img2" src="<?= base_url('/images/performance.webp') ?>"> </span><small style="font-size:13px "> <?= $recommendedJobRecords[$i]['jobtime'] ?> </small>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class=" mb-1 cat_container2 badge badge-light badge-pill border border-secondary">
+                                                            <div class="img_and_element_holder">
+                                                                <?php echo " <a href='" . base_url() . "/ApplicantHome/downloadPdf/" . $recommendedJobRecords[$i]['pdfname'] . "'>" ?>
+                                                                <span> <img class="span_img2" src="<?= base_url('/images/download.webp') ?>"> <small style="font-size:13px">Download Advert</small> </span>
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                    <div class="flex-container2" style="margin-top: 10px !important;">
+
+                                                        <div style="margin-right:20px !important">
+
+                                                            <span> <img class="span_img" src="<?= base_url('/images/contact.webp') ?>"> </span> <small style="font-size: 14px"> <?= $recommendedJobRecords[$i]['companyno'] ?> </small>
+
+                                                        </div>
+
+                                                        <div style="margin-right:20px !important">
+
+                                                            <span> <img class="span_img" src="<?= base_url('/images/email.webp') ?>"></span><small style="font-size: 14px"> <?= $recommendedJobRecords[$i]['companyemail'] ?> </small>
+
+                                                        </div>
+                                                        <div style="margin-right:20px !important">
+
+                                                            <span> <img class="span_img" src="<?= base_url('/images/location.webp') ?>"> </span><small style="font-size: 14px"> <?= $recommendedJobRecords[$i]['joblocation'] ?> </small>
+
+                                                        </div>
+
+
+                                                    </div>
+
+
+
+                                                </div>
+
+                                            </div>
+
+
+
+                                            <div style="width: 200px">
+
+
+
+                                                <div class="job_option_holder">
+                                                    <button class="btn btn-primary btn-sm" onclick="ApplyJob(<?= $recommendedJobRecords[$i]['jobid'] ?>)"> Apply Now</button>
+
+                                                    <p></p>
+                                                    <?php echo " <a class=\"btn btn-secondary btn-sm\" target='_blank' href='" . base_url() . "/adverts/" . $recommendedJobRecords[$i]['pdfname'] . "'> View Advert </a>" ?>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                <?php
+                                }
+                                ?>
+                            <?php
+                            }
+                            ?>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
         <div class="card-body" style="padding-left: 0px !important; padding-right: 0px; padding-bottom: 5px !important;">
 
             <?php

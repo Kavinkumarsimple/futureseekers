@@ -53,6 +53,7 @@ class ApplicantHome extends BaseController
     $finalStr = $str1 . $str2 . $str3 . $str4 . $str5 . $str6 . $str7;
 
     $data = $this->viewAdvertisements($finalStr);
+
     return view("ApplicantHome/index", $data);
   }
 
@@ -122,15 +123,107 @@ class ApplicantHome extends BaseController
 
     $db->close();
 
+    $user_id = session()->get('user_id');
+    $recommededJobAdverts = $this->viewRecommendations($user_id);
+
     $data = [
       'title' => 'AllData',
-      'jobRecords' => $jobrecords
+      'jobRecords' => $jobrecords,
+      'recommendedJobRecords' => $recommededJobAdverts
     ];
 
     return $data;
   }
 
 
+  private function viewRecommendations($user_id)
+  {
+    $recommendedjobrecords = array();
+    $db = db_connect();
+
+    $getApplicantID = $db->query(
+      "SELECT job_seeker.id from user_account
+      join job_seeker on user_account.id = job_seeker.user_account_id
+      where user_account.id = $user_id
+      "
+    );
+
+    $jobseeker_id = $getApplicantID->getRow()->id;
+
+    $recommendedCategory = $db->query(
+      "SELECT
+      jb.location as JobLocation,
+      jb.id as AdvertID,
+      jb.jobtitle as JobTitle,
+      jb.closingDate as ClosingDate,
+      jb.jobCategory as JobCategory,
+      jb.typeOfEmployment as TypeofEmp,
+      jb.experience as JobExp,
+      jb.description as PDFName,
+      com.logo_dir as CompLogo,
+      com.name as CompanyName,
+      com.contactNo as CompanyContact,
+      com.email as CompanyEmail
+      FROM job_details jb 
+      join employer emp 
+      on jb.employer_id = emp.id 
+      join user_account useracc 
+      on useracc.id = emp.user_account_id 
+      join company com 
+      on com.id = emp.company_id 
+      where jb.status = '1' 
+      and useracc.status = '1' 
+      and jb.jobCategory 
+      IN (select distinct Category from
+(
+SELECT
+jd.jobCategory as Category,
+COUNT(distinct jj.job_details_id) as No_of_Applys
+FROM jobseeker_jobdetails jj
+join job_details jd 
+ON jj.job_details_id = jd.id
+where jj.job_seeker_id = $jobseeker_id
+group by jd.jobCategory
+order by COUNT(distinct jj.job_details_id) desc
+)tab1) limit 5
+      "
+    );
+
+    foreach ($recommendedCategory->getResult() as $row) {
+      $logo = $row->CompLogo;
+      $jobTitle = $row->JobTitle;
+      $cDate = $row->ClosingDate;
+      $companyName = $row->CompanyName;
+      $jobCategory = $row->JobCategory;
+      $typeofemployment = $row->TypeofEmp;
+      $jobtime = $row->JobExp;
+      $pdfname = $row->PDFName;
+      $companyNo = $row->CompanyContact;
+      $companyEmail = $row->CompanyEmail;
+      $joblocation = $row->JobLocation;
+      $jobId = $row->AdvertID;
+
+      $jobDet = array(
+        "logo" => $logo,
+        "jobtitle" => $jobTitle,
+        "cdate" => $cDate,
+        "companyname" => $companyName,
+        "jobcategory" => $jobCategory,
+        "typeofemp" => $typeofemployment,
+        "jobtime" => $jobtime,
+        "pdfname" => $pdfname,
+        "companyno" => $companyNo,
+        "companyemail" => $companyEmail,
+        "joblocation" => $joblocation,
+        "jobid" => $jobId,
+      );
+
+      array_push($recommendedjobrecords, $jobDet);
+    }
+    $db->close();
+
+    return $recommendedjobrecords;
+  }
 
 
   public function downloadPdf($data)
@@ -334,10 +427,9 @@ class ApplicantHome extends BaseController
 
     if ($queryReceiverData->getNumRows() == 0) {
       echo json_encode(array("result" => '2')); // This user does not exist in the system
-    }
-    else {
-       $queryJobDetails = $db->query(
-      "SELECT
+    } else {
+      $queryJobDetails = $db->query(
+        "SELECT
       jb.location as JobLocation,
              jb.id as AdvertID,
              jb.jobtitle as JobTitle,
@@ -356,31 +448,30 @@ class ApplicantHome extends BaseController
      join company com on com.id = employer.company_id
      where jb.id = $jobid
       "
-    );
+      );
 
-    $querySenderDetails = $db->query(
-      "SELECT job_seeker.name, job_seeker.id FROM user_account
+      $querySenderDetails = $db->query(
+        "SELECT job_seeker.name, job_seeker.id FROM user_account
       join job_seeker on job_seeker.user_account_id = user_account.id
       where user_account.id = $user_id
       "
-    );
+      );
 
-    $a_id = $queryJobDetails->getRow()->AdvertID;
-    $s_id = $querySenderDetails->getRow()->id;
-    $r_id = $queryReceiverData->getRow()->id;
-    $queryAddtoSharedTable = $db->query(
-      "INSERT INTO shared_advert (job_details_id, sender_id, receiver_id, status, message)
+      $a_id = $queryJobDetails->getRow()->AdvertID;
+      $s_id = $querySenderDetails->getRow()->id;
+      $r_id = $queryReceiverData->getRow()->id;
+      $queryAddtoSharedTable = $db->query(
+        "INSERT INTO shared_advert (job_details_id, sender_id, receiver_id, status, message)
       VALUES ($a_id, $s_id, $r_id, 0, '$notes');
       "
-    );
+      );
 
-    // $sharedAdvertsModel = new \App\Models\sharedadvert();
-    // $addSharedAdvert = $sharedAdvertsModel->insert($valuesSharedAdvert);
-    echo json_encode(array("result" => '1')); // Exists in the system
+      // $sharedAdvertsModel = new \App\Models\sharedadvert();
+      // $addSharedAdvert = $sharedAdvertsModel->insert($valuesSharedAdvert);
+      echo json_encode(array("result" => '1')); // Exists in the system
     }
-   
+
 
     $db->close();
   }
-
 }
