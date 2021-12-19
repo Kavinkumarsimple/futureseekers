@@ -41,4 +41,46 @@ class AdminApplicantProfiles extends BaseController
       return redirect()->to("//AdminApplicantProfiles/index")->with('info', 'Changes Made Succesfully');
     }
   }
+
+
+  public function GetAllReports() {
+    $applicant_id = $_POST['applicant_uid'];
+    $complaintsArray = array();
+    $db = db_connect();
+    $queryReports = $db->query(
+      "SELECT reported_accounts.remarks FROM `reported_accounts`
+      WHERE user_account_id = $applicant_id
+      "
+    );
+
+    foreach ($queryReports->getResult() as $row) {
+      $complaint = $row->remarks;
+      array_push($complaintsArray, $complaint);
+    }
+
+    $db->close();
+
+    $db->close();
+    echo json_encode($complaintsArray);
+  }
+
+  public function DeactivateAccount() {
+    $applicant_uid = $_POST['applicant_uid'];
+
+    $db = db_connect();
+    $deactivateAccount = $db->query(
+      "UPDATE job_seeker
+      join user_account on user_account.id = job_seeker.user_account_id
+      set user_account.status = 5
+      where user_account.id = $applicant_uid
+      "
+    );
+
+    if($deactivateAccount) {
+      echo json_encode( array("result" => '1'));
+    }
+    else {
+      echo json_encode( array("result" => '2'));
+    }
+  }
 }

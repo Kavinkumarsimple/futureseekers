@@ -65,7 +65,7 @@ class Home extends BaseController
 			$userAccountModel = new \App\Models\userAccountModel();
 			$user_info = $userAccountModel->where('username', $username)->first();
 
-			if ($user_info != null && $user_info['password'] == $password && $user_info['status'] != 2 && $user_info['status'] != 3) {
+			if ($user_info != null && $user_info['password'] == $password && $user_info['status'] == 1) {
 			
 				session()->set('user_id', $user_info['id']);
 				session()->set('user_type', $user_info['type']);
@@ -88,8 +88,16 @@ class Home extends BaseController
 					session()->setFlashdata('fail', 'Incorrect Password!');
 				}
 			} else {
-				session()->setFlashdata('fail', 'Incorrect Password!');
-				return redirect()->to('/Home')->withInput();
+
+				if($user_info['status'] == 5){
+					session()->setFlashdata('fail', 'Your Account has been temporarily suspended');
+					return redirect()->to('/Home')->withInput();
+				}else{
+					session()->setFlashdata('fail', 'Incorrect Password!');
+					return redirect()->to('/Home')->withInput();
+				}
+
+				
 				
 			}
 		}
