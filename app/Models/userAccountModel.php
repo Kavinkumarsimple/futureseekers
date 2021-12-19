@@ -9,6 +9,7 @@ class userAccountModel extends \CodeIgniter\Model {
                               'username',
                               'password',
                               'status',
+                              'remarks',
                               'type'
                             ];
 }

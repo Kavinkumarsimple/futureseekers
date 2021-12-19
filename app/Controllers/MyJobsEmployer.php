@@ -97,13 +97,10 @@ class MyJobsEmployer extends BaseController
                                         Where job_seeker_id = $applicantid and job_details_id = $jobid");
         if ($queryUpdateIsScheduled) {
           $this->SendEmailToApplicant($emailData);
-        }
-        else {
+        } else {
           echo json_encode(array("result" => '3'));
         }
-        
-      }
-      else {
+      } else {
         echo json_encode(array("result" => '3'));
       }
     }
@@ -221,5 +218,47 @@ class MyJobsEmployer extends BaseController
     $session = session();
     $session->destroy();
     return redirect()->to('Home/index')->with('fail', 'You are Logged out');
+  }
+
+
+  public function ReportApplicant()
+  {
+    $sender_userID = session()->get('user_id');
+    $applicantID = $_POST['applicantID'];
+    $reportContent = $_POST['reportCat'];
+
+    $db = db_connect();
+    $changeStatusQuery = $db->query(
+      "UPDATE job_seeker
+      join user_account on user_account.id = job_seeker.user_account_id
+      set user_account.status = 4
+      where job_seeker.id = $applicantID
+      "
+    );
+
+    $getApplicantID = $db->query(
+      "SELECT user_account.id from user_account
+      join job_seeker on job_seeker.user_account_id = user_account.id
+      where job_seeker.id = $applicantID      
+      "
+    );
+
+    $getApplicantID = $getApplicantID->getRow()->id;
+
+    if ($changeStatusQuery) {
+      $addComplaint = $db->query(
+        "INSERT INTO reported_accounts (user_account_id, reported_user_id, remarks)
+        VALUES ($getApplicantID, $sender_userID, '$reportContent');
+        "
+      );
+      echo json_encode(array("result" => '1'));
+    } else {
+      echo json_encode(array("result" => '2'));
+    }
+
+
+    $db->close();
+
+
   }
 }

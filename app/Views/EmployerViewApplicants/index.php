@@ -49,7 +49,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('MyJobsEmployer/index') ?>">My Jobs</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo site_url('PostAdvertEmployer/index') ?>">Post an Advert</a>
                         </li>
@@ -111,10 +111,12 @@
                     $jcurrentjob = $row2->currentJobTitle;
                     $jcvname = $row2->cv_file_dir;
 
+                    $queryUserStatus = $UserAccount->query("SELECT user_account.status from user_account join job_seeker on user_account.id = job_seeker.user_account_id WHERE job_seeker.id = $jobSeekerId");
+                    $userAccountStatus = $queryUserStatus->getRow()->status;
 
+                    if ($userAccountStatus != 5) {
 
-
-                    echo "<div class=\"ratt \" >
+                        echo "<div class=\"ratt \" >
                 <div class=\"jobs_img_container\" style=\"width: 100px\">
                     <img class=\"jobs_img\" src='" . base_url() . "/images/applicant.webp" . "'>
                 </div>
@@ -142,19 +144,17 @@
 
 
         
-                        
-        
                                 <div class=\" mb-1 cat_container2 badge badge-light badge-pill border border-secondary\">
-                                <div class=\"img_and_element_holder\">
-                                    <a href='" . base_url() . "/MyJobsEmployer/downloadPdf/$jcvname" . "'>
+                                    <div class=\"img_and_element_holder\">
+                                        <a href='" . base_url() . "/MyJobsEmployer/downloadPdf/$jcvname" . "'>
                                 
-                                        <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.webp" . "' <small style=\"font-size:13px\">Download CV</small> </span>
-        
-                                    </a>
+                                            <span> <img class=\"span_img2\" src='" . base_url() . "/images/download.webp" . "' <small style=\"font-size:13px\">Download CV</small> </span>
+                                        </a>
                                     </div>
         
                                 </div>
-        
+                                <button class=\"btn btn-light border border-dark btn-sm mb-1 ml-4\" data-toggle=\"modal\" data-target=\"#reportModal\"  onclick=\"PopulateReportData('$jobSeekerId', '$jname')\" > <span> <img class=\"span_img\" style='width:15px !important;' src='" . base_url() . "/images/info.png" . "'><span> Report</button>
+
                            
         
                             <!-- <small> Closing Date: 2021-06-07 03:55</small> -->
@@ -215,6 +215,7 @@
 
             <hr class=\"my-4 bg-primary\">
             ";
+                    }
                 }
             }
 
@@ -298,13 +299,13 @@
                             <span class="align-baseline "> Sending Invite ...</span>
                         </div> -->
 
-                            <div id="loading_sending_invite" class="loader d-none">
-                                <div class="loader-wheel"></div>
-                                <div class="loader-text"></div>
-                            </div>
+                        <div id="loading_sending_invite" class="loader d-none">
+                            <div class="loader-wheel"></div>
+                            <div class="loader-text"></div>
+                        </div>
 
-                            <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto; display: none;" id="failMsgFlash" class="alert alert-danger text-muted"> </div>
-                            <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto; display: none;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
+                        <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto; display: none;" id="failMsgFlash" class="alert alert-danger text-muted"> </div>
+                        <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto; display: none;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
 
 
                         <!-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" id="submit_invitation" onclick="SendInvitation()">
@@ -321,8 +322,119 @@
     </div>
 
 
+    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="r_applicant_id" class="col-form-label">Applicant ID:</label>
+                            <input type="text" class="form-control" id="r_applicant_id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="report_category">Tell us the reason:</label>
+                            <select onchange="HideReportTextBox()" name="report_category" id="report_category" class="form-select form-select-lg mb-3" style="font-size:15px !important">
+                                <option value="This Person does not represent a real individual">This Person does not represent a real individual</option>
+                                <option value="This person is impersonating someone">This person is impersonating someone</option>
+                                <option value="This account seems to be suspicious">This account seems to be suspicious</option>
+                                <option value="This Account seems to be hacked">This Account seems to be hacked </option>
+                                <option value="Other">Other </option>
+                            </select>
+                        </div>
+                        <div id="message_div" class="form-group d-none">
+                            <label for="r_message" class="col-form-label">Enter your reason</label>
+                            <textarea class="form-control" id="r_message"></textarea>
+                        </div>
+                    </form>
+
+                    <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto; display: none;" id="report_failMsgFlash" class="alert alert-danger text-muted"> </div>
+                    <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto; display: none;" class="alert alert-success text-muted" id="report_successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="ReportApplicant()">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <script>
+        function PopulateReportData($jobSeekerId, $applicant_name) {
+            document.getElementById("r_applicant_id").value = $jobSeekerId;
+            document.getElementById("reportModalLabel").innerHTML = "Report " + $applicant_name;
+        }
+
+        function ReportApplicant() {
+            $jobSeekerId = document.getElementById("r_applicant_id").value;
+
+            $reportCategory = document.getElementById("report_category").value;
+
+            if ($reportCategory == "Other") {
+                $reportCategory = document.getElementById("r_message").value;
+            }
+
+            $.ajax({
+                url: '<?php echo base_url('MyJobsEmployer/ReportApplicant'); ?>',
+                type: "post",
+                dataType: 'json',
+                data: {
+                    applicantID: $jobSeekerId,
+                    reportCat: $reportCategory
+                },
+                beforeSend: function() {
+                    // document.getElementById("submit_invitation").style.display = "none";
+                    // document.getElementById("loading_sending_invite").classList.remove("d-none");
+                    console.log('Loading');
+                },
+                success: function(result) {
+                    // document.getElementById("loading_sending_invite").classList.add("d-none");
+                    // document.getElementById("loading_sending_invite").style.display = "block !important";
+                    // document.getElementById("exampleModal").modal('hide');
+
+                    $res = result.result;
+                    if ($res == '1') {
+                        console.log("Report has been sent");
+                        document.getElementById("report_successMsgFlash").style.display = "block";
+                        document.getElementById("report_successMsgFlash").innerHTML = "Your report is successfully submitted!";
+                    } else if ($res == '2') {
+                        console.log("Failed to Send report");
+                        document.getElementById("report_failMsgFlash").style.display = "block";
+                        document.getElementById("report_failMsgFlash").innerHTML = "Something went wrong. Try Again later!";
+                    }
+                    // document.documentElement.scrollTop = 0;
+                },
+                complete: function() {
+                    // document.getElementById("loading_sending_invite").classList.add("d-none");
+                    setTimeout(() => {
+                        // document.getElementById("submit_invitation").style.display = "block";
+                        $('#reportModal').modal('hide');
+                        location.reload();
+                    }, 3000);
+                    // location.reload();
+                    console.log('Completed');
+                }
+
+            });
+        }
+
+        function HideReportTextBox() {
+            var selected_val = document.getElementById("report_category").value;
+            if (selected_val == "Other") {
+                document.getElementById("message_div").classList.remove("d-none");
+            } else {
+                document.getElementById("message_div").classList.add("d-none");
+            }
+
+        }
+
         function HideMeetingLinkBox() {
             var selected_val = document.getElementById("interview_type").value;
             if (selected_val == "Virtual Interview") {
@@ -333,6 +445,11 @@
 
         }
         $('#exampleModal').on('hidden.bs.modal', function() {
+            //remove the backdrop
+            $('.modal-backdrop').remove();
+        });
+
+        $('#reportModal').on('hidden.bs.modal', function() {
             //remove the backdrop
             $('.modal-backdrop').remove();
         });
@@ -395,11 +512,11 @@
                     }
                     // document.documentElement.scrollTop = 0;
                 },
-                complete: function() {     
+                complete: function() {
                     document.getElementById("loading_sending_invite").classList.add("d-none");
-                    setTimeout(() => { 
+                    setTimeout(() => {
                         document.getElementById("submit_invitation").style.display = "block";
-                        $('#exampleModal').modal('hide'); 
+                        $('#exampleModal').modal('hide');
                         location.reload();
                     }, 3000);
                     // location.reload();
