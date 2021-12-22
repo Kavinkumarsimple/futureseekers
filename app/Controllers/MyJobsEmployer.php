@@ -258,7 +258,126 @@ class MyJobsEmployer extends BaseController
 
 
     $db->close();
+  }
 
 
+  public function GenerateReports()
+  {
+    $job_seekersArray = array();
+    $db = db_connect();
+    $query_jobs = $db->query(
+      "SELECT jobCategory,COUNT(jobCategory) as catcount FROM job_details group by jobCategory
+      "
+    );
+
+    foreach ($query_jobs->getResult() as $row) {
+      $jobCategory = $row->jobCategory;
+      $categoryCount = $row->catcount;
+
+      $jobSeeker = array(
+        "jobCategory" => $jobCategory,
+        "categoryCount" => $categoryCount
+      );
+
+      array_push($job_seekersArray, $jobSeeker);
+    }
+    
+
+    $db->close();
+
+    echo json_encode($job_seekersArray);
+  }
+
+  public function GenerateMostAppliedJobAdvertReport()
+  {
+    $most_applied_adverts = array();
+    $db = db_connect();
+    $queryResult = $db->query(
+      "SELECT Title, JobID, Category, location, COUNT(JobID) Applicant_Count
+      FROM
+      (
+      SELECT  
+          job_details.jobtitle as Title, 
+          job_details.id as JobID,
+          job_details.jobCategory as Category,
+          job_details.location as Location
+          FROM jobseeker_jobdetails 
+      join job_details on job_details.id = jobseeker_jobdetails.job_details_id
+      join employer on job_details.employer_id = employer.id
+      join user_account on user_account.id = employer.user_account_id
+      where user_account.id = 47)
+      tab1
+      GROUP by Title
+      LIMIT 5
+      "
+    );
+
+    if ($queryResult) {
+      foreach ($queryResult->getResult() as $row) {
+        $title = $row->Title;
+        $applicantCount = $row->Applicant_Count;
+        $jobid = $row->JobID;
+        $category = $row->Category;
+        $location = $row->Location;
+
+        $jobAdvert = array(
+          "title" => $title,
+          "applicantCount" => $applicantCount,
+          "jobid" => $jobid,
+          "category" => $category,
+          "location" => $location
+        );
+
+        array_push($most_applied_adverts, $jobAdvert);
+      }
+
+      echo json_encode($most_applied_adverts);
+    }
+    else {
+      echo json_encode(array("result" => 'Error'));
+    }
+
+    $db->close();
+  }
+
+  public function GenerateMostPreferredJobCategoryReport()
+  {
+    $most_preferred_categories = array();
+    $db = db_connect();
+    $queryResult = $db->query(
+      "SELECT Category, COUNT(id) Applicant_Count
+      FROM
+      (
+      SELECT  job_details.jobCategory as Category, job_details.id  FROM jobseeker_jobdetails 
+      join job_details on job_details.id = jobseeker_jobdetails.job_details_id
+      join employer on job_details.employer_id = employer.id
+      join user_account on user_account.id = employer.user_account_id
+      where user_account.id = 47)
+      tab1
+      GROUP by Category
+      LIMIT 5
+      "
+    );
+
+    if ($queryResult) {
+      foreach ($queryResult->getResult() as $row) {
+        $category = $row->Category;
+        $applicantCount = $row->Applicant_Count;
+
+        $jobCategory = array(
+          "category" => $category,
+          "applicantCount" => $applicantCount
+        );
+
+        array_push($most_preferred_categories, $jobCategory);
+      }
+
+      echo json_encode($most_preferred_categories);
+    }
+    else {
+      echo json_encode(array("result" => 'Error'));
+    }
+
+    $db->close();
   }
 }

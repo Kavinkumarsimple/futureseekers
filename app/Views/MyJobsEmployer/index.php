@@ -11,69 +11,212 @@ use CodeIgniter\Session\Session;
 
 <head>
 
-<!--Load the AJAX API-->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
 
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {
+      'packages': ['bar']
+    });
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawStuff);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
+      // Create the data table.
+      // var data = new google.visualization.DataTable();
+      // data.addColumn('string', 'Topping');
+      // data.addColumn('number', 'Slices');
+      // data.addRows([
+      //   ['Mushrooms', 6],
+      //   ['Onions', 1],
+      //   ['Olives', 1],
+      //   ['Zucchini', 1],
+      //   ['Pepperoni', 2]
+      // ]);
 
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
+      // // Set chart options
+      // var options = {
+      //   'title': 'How Much Pizza I Ate Last Night',
+      //   'width': 400,
+      //   'height': 300
+      // };
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
+      // // Instantiate and draw our chart, passing in some options.
+      // var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      // chart.draw(data, options);
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" name="This is the applicant portal page of FutureSeekers.lk, Applicant can use this page to view and edit their profile, view job adverts and apply for  jobs here">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>" />
-    <link rel="stylesheet" href="<?= base_url('bootstrap/css/applicant_home.css') ?>" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- CSS stylesheet for navigation bar -->
-    <link rel="stylesheet" href="<?= base_url('bootstrap/css/navbar.css') ?>" />
+      $.ajax({
+        url: '<?php echo base_url('MyJobsEmployer/GenerateReports'); ?>',
+        type: "post",
+        dataType: 'json',
+        // data: {
+        //   jobID: jobID,
+        //   recepientEmail: recepientEmail,
+        //   notes: notes
+        // },
+        beforeSend: function() {
 
-    <!-- For the Font Library -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&family=Raleway:wght@300&display=swap" rel="stylesheet">
+        },
+        success: function(result) {
 
-    <!-- Scripts for Navbar -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="<?= base_url('bootstrap/js/modalstuff.js') ?>" ></script>
+          console.log(result.result);
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery.min.js"></script>
+          var gdata = new google.visualization.DataTable();
+          gdata.addColumn('string', 'Job Category');
+          gdata.addColumn('number', 'No of Applications');
+
+          //console.log(result.name);
+          $.each(result, function(index, value) {
+            console.log(value.jobCategory);
+            console.log(value.categoryCount);
+            console.log("--------------------------");
+            gdata.addRow([String(value.jobCategory), Number(value.categoryCount)]);
+          });
+
+
+
+          // Set chart options
+          var options = {
+            'title': 'Job Category vs Job Applications',
+            'width': 400,
+            'height': 300
+          };
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+          chart.draw(gdata, options);
+
+          // console.log(JSON.stringify(result));
+          // console.log("Complaint 1: " + result.length);
+          // for ($i = 0; $i < result.length; $i++) {
+          //   allComp = allComp + ($i + 1) + ") " + result[$i] + "<br>";
+          // }
+          // document.getElementById("allcomp").innerHTML = allComp;
+        },
+        complete: function() {
+
+        }
+
+      });
+
+    }
+
+
+    function drawStuff() {
+      var data = new google.visualization.arrayToDataTable([
+        ['Opening Move', 'Percentage'],
+        ["King's pawn (e4)", 45],
+        ["Queen's pawn (d4)", 31],
+        ["Knight to King 3 (Nf3)", 12],
+        ["Queen's bishop pawn (c4)", 10],
+        ['Other', 3]
+      ]);
+
+      var options = {
+        title: 'Chess opening moves',
+        width: 900,
+        legend: {
+          position: 'none'
+        },
+        chart: {
+          title: 'Chess opening moves',
+          subtitle: 'popularity by percentage'
+        },
+        bars: 'horizontal', // Required for Material Bar Charts.
+        axes: {
+          x: {
+            0: {
+              side: 'top',
+              label: 'Percentage'
+            } // Top x-axis.
+          }
+        },
+        bar: {
+          groupWidth: "90%"
+        }
+      };
+
+      var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+      chart.draw(data, options);
+
+
+      $.ajax({
+        url: '<?php echo base_url('MyJobsEmployer/GenerateMostAppliedJobAdvertReport'); ?>',
+        type: "post",
+        dataType: 'json',
+        beforeSend: function() {
+
+        },
+        success: function(result) {
+
+          var gdata = new google.visualization.DataTable();
+          gdata.addColumn('string', 'Job Category');
+          gdata.addColumn('number', 'No of Applications');
+
+          // $.each(result, function(index, value) {
+          //   console.log(value.jobCategory);
+          //   console.log(value.categoryCount);
+          //   console.log("--------------------------");
+          //   gdata.addRow([String(value.jobCategory), Number(value.categoryCount)]);
+          // });
+
+
+          var options = {
+            'title': 'Job Category vs Job Applications',
+            'width': 400,
+            'height': 300
+          };
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+          chart.draw(gdata, options);
+
+        },
+        complete: function() {
+
+        }
+
+      });
+
+
+    };
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" name="This is the applicant portal page of FutureSeekers.lk, Applicant can use this page to view and edit their profile, view job adverts and apply for  jobs here">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?= base_url('bootstrap/css/bootstrap.min.css') ?>" />
+  <link rel="stylesheet" href="<?= base_url('bootstrap/css/applicant_home.css') ?>" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- CSS stylesheet for navigation bar -->
+  <link rel="stylesheet" href="<?= base_url('bootstrap/css/navbar.css') ?>" />
+
+  <!-- For the Font Library -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&family=Raleway:wght@300&display=swap" rel="stylesheet">
+
+  <!-- Scripts for Navbar -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="<?= base_url('bootstrap/js/modalstuff.js') ?>"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery.min.js"></script>
   <title>Future Seekers.lk | My Jobs</title>
 </head>
 
@@ -100,13 +243,13 @@ use CodeIgniter\Session\Session;
             <li class="nav-item">
               <a class="nav-link" href="<?php echo site_url('MyProfileEmployer/index') ?>">My Profile</a>
             </li>
-            
-           
+
+
             <li class="nav-item">
-             
+
               <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
-          
+
             <li class="nav-item mobile_logout">
               <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
@@ -116,61 +259,61 @@ use CodeIgniter\Session\Session;
     </div>
   </div>
 
-  <br/>
+  <br />
   <?php if (!empty(session()->getFlashdata('fail'))) : ?>
-        <div style="margin-top:35px; width:1200px; margin-left: auto; margin-right: auto;" id="failMsgFlash" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
-      <?php endif ?>
+    <div style="margin-top:35px; width:1200px; margin-left: auto; margin-right: auto;" id="failMsgFlash" class="alert alert-danger text-muted"> <?= session()->getFlashdata('fail'); ?> </div>
+  <?php endif ?>
 
-      <?php if (!empty(session()->getFlashdata('success'))) : ?>
-        <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
-      <?php endif ?>
+  <?php if (!empty(session()->getFlashdata('success'))) : ?>
+    <div style="margin-top:35px; max-width:1200px; margin-left: auto; margin-right: auto;" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
+  <?php endif ?>
 
-      <div class="shadow-lg mb-5 bg-white rounded card" style="margin-left:auto;margin-right:auto; width:1200px">
+  <div class="shadow-lg mb-5 bg-white rounded card" style="margin-left:auto;margin-right:auto; width:1200px">
     <div class="card-header bg-primary" style="color:white">
       My Job Adverts
     </div>
     <div class="card-body" style="padding-left: 0px !important; padding-right: 0px; padding-bottom: 5px !important;">
-    <?php
-    $session = session();
-    $session->regenerate();
-    $user_id = session()->get('user_id');
+      <?php
+      $session = session();
+      $session->regenerate();
+      $user_id = session()->get('user_id');
 
-    $JobAdvert = new \App\Models\jobDetailsModel();
-    $Employer = new \App\Models\employerModel();
-    $UserAccount = new \App\Models\userAccountModel();
-    $Company = new \App\Models\companyModel();
-    $checkJob = 0;
+      $JobAdvert = new \App\Models\jobDetailsModel();
+      $Employer = new \App\Models\employerModel();
+      $UserAccount = new \App\Models\userAccountModel();
+      $Company = new \App\Models\companyModel();
+      $checkJob = 0;
 
-   
-        $query2 = $Employer->query("select * from employer where user_account_id = $user_id");
-        foreach ($query2->getResult() as $row2){
-            $companyId = $row2->company_id;
-            $employerId = $row2->id;
-            $employerEmail = $row2->email;
 
-            $query3 = $Company->query("select * from company where id = $companyId");
-            foreach ($query3->getResult() as $row3){
-                $companyName = $row3->name;
-                $companyNo = $row3->contactNo;
-                $companyEmail = $row3->email;
-                $logo = $row3->logo_dir;
+      $query2 = $Employer->query("select * from employer where user_account_id = $user_id");
+      foreach ($query2->getResult() as $row2) {
+        $companyId = $row2->company_id;
+        $employerId = $row2->id;
+        $employerEmail = $row2->email;
 
-                $query4 = $JobAdvert->query("Select * from job_details where status = 1 and employer_id = $employerId");
-                foreach ($query4->getResult() as $row4) {
-                    $jobId = $row4->id;
-                    $jobTitle = $row4->jobtitle;
-                    $jobCategory = $row4->jobCategory;
-                    $pDate = $row4->dateTime;
-                    $cDate = $row4->closingDate;
-                    $employerId = $row4->employer_id;
-                    $pdfname = $row4->description;
-                    $typeofemployment = $row4->typeOfEmployment;
-                    $jobtime = $row4->experience;
-                    $joblocation = $row4->location;
+        $query3 = $Company->query("select * from company where id = $companyId");
+        foreach ($query3->getResult() as $row3) {
+          $companyName = $row3->name;
+          $companyNo = $row3->contactNo;
+          $companyEmail = $row3->email;
+          $logo = $row3->logo_dir;
 
-                    $checkJob = 1;
+          $query4 = $JobAdvert->query("Select * from job_details where status = 1 and employer_id = $employerId");
+          foreach ($query4->getResult() as $row4) {
+            $jobId = $row4->id;
+            $jobTitle = $row4->jobtitle;
+            $jobCategory = $row4->jobCategory;
+            $pDate = $row4->dateTime;
+            $cDate = $row4->closingDate;
+            $employerId = $row4->employer_id;
+            $pdfname = $row4->description;
+            $typeofemployment = $row4->typeOfEmployment;
+            $jobtime = $row4->experience;
+            $joblocation = $row4->location;
 
-                    echo "<div class=\"ratt \" >
+            $checkJob = 1;
+
+            echo "<div class=\"ratt \" >
                 <div class=\"jobs_img_container\" style=\"width: 100px\">
                     <img class=\"jobs_img\" src='" . base_url() . "/logo/" . $logo . "'>
                 </div>
@@ -290,23 +433,23 @@ use CodeIgniter\Session\Session;
 
             <hr class=\"my-4 bg-primary\">
             ";
-
-
-
-            }
+          }
         }
-    }
+      }
 
-    if($checkJob == 0){
-      echo "<b><p style=\"text-align:center;\">Looks Like You haven't Posted any Advertisements</p></b>";
-    }
+      if ($checkJob == 0) {
+        echo "<b><p style=\"text-align:center;\">Looks Like You haven't Posted any Advertisements</p></b>";
+      }
 
-    ?>
+      ?>
 
     </div>
-      </div>
-<!--Div that will hold the pie chart-->
-<div id="chart_div"></div>
-      </body>
+  </div>
+  <!--Div that will hold the pie chart-->
+  <div id="chart_div"></div>
+
+  <div id="top_x_div" style="width: 100%; height: 500px;"></div>
+
+</body>
 
 </html>
