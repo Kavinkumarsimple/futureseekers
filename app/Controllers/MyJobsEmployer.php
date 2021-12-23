@@ -220,6 +220,10 @@ class MyJobsEmployer extends BaseController
     return redirect()->to('Home/index')->with('fail', 'You are Logged out');
   }
 
+  public function MyReports() {
+    return view('EmployerMyReports/index');
+  }
+
 
   public function ReportApplicant()
   {
@@ -281,7 +285,7 @@ class MyJobsEmployer extends BaseController
 
       array_push($job_seekersArray, $jobSeeker);
     }
-    
+
 
     $db->close();
 
@@ -290,8 +294,12 @@ class MyJobsEmployer extends BaseController
 
   public function GenerateMostAppliedJobAdvertReport()
   {
+    // sleep(3);
+    $uid = session()->get('user_id');
     $most_applied_adverts = array();
     $db = db_connect();
+
+    $datatimepara = $this->ConstructDateTimeParameter($_POST['selected_val']);
     $queryResult = $db->query(
       "SELECT Title, JobID, Category, location, COUNT(JobID) Applicant_Count
       FROM
@@ -305,7 +313,7 @@ class MyJobsEmployer extends BaseController
       join job_details on job_details.id = jobseeker_jobdetails.job_details_id
       join employer on job_details.employer_id = employer.id
       join user_account on user_account.id = employer.user_account_id
-      where user_account.id = 47)
+      where user_account.id = $uid $datatimepara)
       tab1
       GROUP by Title
       LIMIT 5
@@ -331,17 +339,29 @@ class MyJobsEmployer extends BaseController
         array_push($most_applied_adverts, $jobAdvert);
       }
 
+      $db->close();
+
       echo json_encode($most_applied_adverts);
-    }
-    else {
+    } else {
       echo json_encode(array("result" => 'Error'));
     }
 
-    $db->close();
+
+  }
+
+  private function ConstructDateTimeParameter($selected_val) {
+    if($selected_val == "Previous Month") {
+      $para = "and jobseeker_jobdetails.dateTime > CURRENT_DATE()-60 and jobseeker_jobdetails.dateTime < CURRENT_DATE()-30";
+    }
+    else {
+      $para = "";
+    }
+    return $para;
   }
 
   public function GenerateMostPreferredJobCategoryReport()
   {
+    $uid = session()->get('user_id');
     $most_preferred_categories = array();
     $db = db_connect();
     $queryResult = $db->query(
@@ -352,7 +372,7 @@ class MyJobsEmployer extends BaseController
       join job_details on job_details.id = jobseeker_jobdetails.job_details_id
       join employer on job_details.employer_id = employer.id
       join user_account on user_account.id = employer.user_account_id
-      where user_account.id = 47)
+      where user_account.id = $uid)
       tab1
       GROUP by Category
       LIMIT 5
@@ -372,12 +392,171 @@ class MyJobsEmployer extends BaseController
         array_push($most_preferred_categories, $jobCategory);
       }
 
+      $db->close();
+
       echo json_encode($most_preferred_categories);
-    }
-    else {
+    } else {
       echo json_encode(array("result" => 'Error'));
     }
 
+
+  }
+
+  public function GenerateMostSharedJobAdverts()
+  {
+    $uid = session()->get('user_id');
+    $most_shared_jobs = array();
+    $db = db_connect();
+
+    $para = $this->ConstructParamaterforSharedJobs($_POST['selected_val']);
+    $queryResult = $db->query(
+      "SELECT jobtitle, count(id) applicant_count from
+      (SELECT
+      job_details.jobtitle,
+      job_details.id
+      FROM shared_advert
+      join job_details on shared_advert.job_details_id = job_details.id
+      join employer on employer.id = job_details.employer_id
+      join user_account on user_account.id = employer.user_account_id
+      where user_account.id = $uid $para)tab1
+      GROUP by id
+      "
+    );
+
+    if ($queryResult) {
+      foreach ($queryResult->getResult() as $row) {
+        $jobTitle = $row->jobtitle;
+        $applicantCount = $row->applicant_count;
+
+        $jobs = array(
+          "title" => $jobTitle,
+          "applicantCount" => $applicantCount
+        );
+
+        array_push($most_shared_jobs, $jobs);
+      }
+
+      $db->close();
+
+      echo json_encode($most_shared_jobs);
+    } else {
+      echo json_encode(array("result" => 'Error'));
+    }
+
+  }
+
+  private function ConstructParamaterforSharedJobs($selected_val) {
+    if($selected_val == "Previous Month") {
+      $para = "and shared_advert.datetime > CURRENT_DATE()-60 and shared_advert.datetime < CURRENT_DATE()-30";
+    }
+    else {
+      $para = "";
+    }
+    return $para;
+  }
+
+
+  public function JobPostingsVsCategory()
+  {
+    $uid = session()->get('user_id');
+    $all_cat_jobs = array();
+    $db = db_connect();
+    $queryResult = $db->query(
+      "SELECT jobCategory, count(jobCategory) Postings from
+      (SELECT job_details.jobCategory FROM job_details
+      join employer on employer.id = job_details.employer_id
+      join user_account on user_account.id = employer.user_account_id
+      where user_account.id = $uid)tab1
+      group by jobCategory
+      "
+    );
+
+    if ($queryResult) {
+      foreach ($queryResult->getResult() as $row) {
+        $category = $row->jobCategory;
+        $postings = $row->Postings;
+
+        $jobs = array(
+          "category" => $category,
+          "postings" => $postings
+        );
+
+        array_push($all_cat_jobs, $jobs);
+      }
+
+      $db->close();
+
+      echo json_encode($all_cat_jobs);
+    } else {
+      echo json_encode(array("result" => 'Error'));
+    }
+
+
+  }
+
+  public function GetTiledReports()
+  {
+    $uid = session()->get('user_id');
+    $db = db_connect();
+    $queryNoOfPosts = $db->query(
+      "SELECT COUNT(Job_ID) No_of_Posts from
+      (SELECT job_details.id as Job_ID from job_details 
+      JOIN employer on employer.id = job_details.employer_id
+      join user_account on user_account.id = employer.user_account_id
+      where user_account.id = $uid and job_details.status = 1)
+      tab1
+      "
+    );
+
+    $queryNoApplicantsApplied = $db->query(
+      "SELECT COUNT(*) No_of_Applicants_Applied from 
+      (SELECT jobseeker_jobdetails.job_seeker_id, jobseeker_jobdetails.job_details_id from jobseeker_jobdetails
+      join job_details on job_details.id = jobseeker_jobdetails.job_details_id
+      join employer on employer.id = job_details.employer_id
+      join user_account on user_account.id = employer.user_account_id
+      where user_account.id = $uid)tab1
+      "
+    );
+
+    $queryNoShortListedApplicants = $db->query(
+      "SELECT COUNT(*) No_of_Shortlisted_Applicants from (
+        SELECT jobseeker_jobdetails.job_seeker_id, jobseeker_jobdetails.job_details_id from jobseeker_jobdetails
+        join job_details on job_details.id = jobseeker_jobdetails.job_details_id
+        join employer on employer.id = job_details.employer_id
+        join user_account on user_account.id = employer.user_account_id
+        where user_account.id = $uid and jobseeker_jobdetails.is_scheduled='Yes')tab1
+      "
+    );
+
+    $queryNoOfSharedAdverts = $db->query(
+      "SELECT count(id) Shared_Adverts from 
+      (SELECT shared_advert.id FROM shared_advert
+      join job_details on shared_advert.job_details_id = job_details.id
+      join employer on employer.id = job_details.employer_id
+      join user_account on user_account.id = employer.user_account_id
+      where user_account.id = $uid)tab1
+      "
+    );
+
     $db->close();
+
+    if ($queryNoOfPosts && $queryNoApplicantsApplied && $queryNoShortListedApplicants && $queryNoOfSharedAdverts) {
+      $noOfPosts = $queryNoOfPosts->getRow()->No_of_Posts;
+      $noOfApplicantsApplied = $queryNoApplicantsApplied->getRow()->No_of_Applicants_Applied;
+      $noOfShortListedApplicants = $queryNoShortListedApplicants->getRow()->No_of_Shortlisted_Applicants;
+      $noOfSharedAdverts = $queryNoOfSharedAdverts->getRow()->Shared_Adverts;
+
+      $tiledReportArray = array(
+        "noOfPosts" => $noOfPosts,
+        "noOfApplicantsApplied" => $noOfApplicantsApplied,
+        "noOfShortlisted" => $noOfShortListedApplicants,
+        "sharedAdverts" => $noOfSharedAdverts
+      );
+
+      echo json_encode($tiledReportArray);
+    } else {
+      echo json_encode(array("result" => 'Error'));
+    }
+
   }
 }

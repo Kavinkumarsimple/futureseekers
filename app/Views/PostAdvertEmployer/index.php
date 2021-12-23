@@ -29,7 +29,7 @@ use CodeIgniter\Session\Session;
   <!-- Scripts for Navbar -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
 
   <!--Styles for dropdown with search-->
   <link rel="stylesheet" href="<?= base_url('bootstrap/css/select2-bootstrap.css') ?>" />
@@ -37,6 +37,7 @@ use CodeIgniter\Session\Session;
 
   <!--Scripts for dropdown with search-->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 
 
@@ -55,10 +56,17 @@ use CodeIgniter\Session\Session;
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="">Jobs </a>
+              <a class="nav-link" href="<?php echo site_url('EmployerHome/index') ?>">Jobs </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo site_url('MyJobsEmployer/index') ?>">My Jobs</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                My Jobs
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="<?php echo site_url('MyJobsEmployer/index') ?>">Job Postings</a>
+                <a class="dropdown-item" href="<?php echo site_url('MyJobsEmployer/MyReports') ?>">My Reports</a>
+
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo site_url('PostAdvertEmployer/index') ?>">Post an Advert</a>
@@ -67,13 +75,12 @@ use CodeIgniter\Session\Session;
               <a class="nav-link" href="<?php echo site_url('MyProfileEmployer/index') ?>">My Profile</a>
             </li>
             <!-- Enter PHP code to check if the user is logged in or not in order to show login button -->
+
             <li class="nav-item">
-              <!-- For blue button: btn btn-primary -->
+
               <a class="nav-link btn btn-danger logoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
-            <!-- <li class="nav-item mobile_logout">
-                            <a class="nav-link mobileloginbtn" href="#">Sign in / Register</a>
-                        </li>      -->
+
             <li class="nav-item mobile_logout">
               <a class="nav-link mobilelogoutbtn" href="<?php echo site_url('Home/logout') ?>">Log out</a>
             </li>
@@ -99,7 +106,7 @@ use CodeIgniter\Session\Session;
         <div style="margin-top:5px" class="alert alert-success text-muted" id="successMsgFlash"> <?= session()->getFlashdata('success'); ?> </div>
       <?php endif ?>
       <form action="<?php echo site_url('/PostAdvertEmployer/PostAdvert') ?>" method="POST" enctype="multipart/form-data">
-      
+
         <div class="form-column">
           <div class="form-group col-md-4">
             <label>Job Title</label>
@@ -134,31 +141,31 @@ use CodeIgniter\Session\Session;
             <label>Job Location</label>
             <!-- <input class="form-control" type="text" name="jobCategory" value="<?= set_value('jobCategory'); ?>"> -->
             <select style="width:200px" name="jobLocation" id="getLocation" value="<?= set_value('jobLocation'); ?>">
-              <option value="Jaffna">Jaffna</option>	
-              <option value="Kilinochchi">Kilinochchi</option> 	
-               <option value="Mannar">Mannar</option>	
-               <option value="Mullaitivu">Mullaitivu</option> 
-               <option value="Vavuniya">Vavuniya</option> 
-               <option value="Puttalam">Puttalam</option> 
-               <option value="Kurunegala">Kurunegala</option> 
-               <option value="Gampaha">Gampaha</option> 
-               <option value="Colombo">Colombo</option> 		
-               <option value="Kalutara">Kalutara</option>  
-               <option value="Anuradhapura">Anuradhapura</option>  	
-               <option value="Polonnaruwa">Polonnaruwa</option>   	
-               <option value="Matale">Matale</option> 	
-               <option value="Kandy">Kandy</option>  	
-               <option value=" Nuwara Eliya	"> Nuwara Eliya	</option>  
-               <option value="Kegalle">Kegalle</option>   	
-               <option value="Ratnapura">Ratnapura</option>  	
-               <option value="Trincomalee">Trincomalee</option>   	
-               <option value="Batticaloa">Batticaloa</option> 	
-               <option value="Ampara">Ampara</option>  	 
-               <option value=" Badulla	Uva"> Badulla	Uva</option>  	
-               <option value="Monaragala">Monaragala</option>   	
-               <option value="Hambantota">Hambantota</option>   	
-               <option value="Matara">Matara</option>  	
-               <option value="Galle">Galle</option>   	
+              <option value="Jaffna">Jaffna</option>
+              <option value="Kilinochchi">Kilinochchi</option>
+              <option value="Mannar">Mannar</option>
+              <option value="Mullaitivu">Mullaitivu</option>
+              <option value="Vavuniya">Vavuniya</option>
+              <option value="Puttalam">Puttalam</option>
+              <option value="Kurunegala">Kurunegala</option>
+              <option value="Gampaha">Gampaha</option>
+              <option value="Colombo">Colombo</option>
+              <option value="Kalutara">Kalutara</option>
+              <option value="Anuradhapura">Anuradhapura</option>
+              <option value="Polonnaruwa">Polonnaruwa</option>
+              <option value="Matale">Matale</option>
+              <option value="Kandy">Kandy</option>
+              <option value=" Nuwara Eliya	"> Nuwara Eliya </option>
+              <option value="Kegalle">Kegalle</option>
+              <option value="Ratnapura">Ratnapura</option>
+              <option value="Trincomalee">Trincomalee</option>
+              <option value="Batticaloa">Batticaloa</option>
+              <option value="Ampara">Ampara</option>
+              <option value=" Badulla	Uva"> Badulla Uva</option>
+              <option value="Monaragala">Monaragala</option>
+              <option value="Hambantota">Hambantota</option>
+              <option value="Matara">Matara</option>
+              <option value="Galle">Galle</option>
             </select>
             <small class="form-text text-danger"><?= isset($validation) ? show_validation_error($validation, 'jobLocation') : '' ?></small>
           </div>
@@ -178,7 +185,7 @@ use CodeIgniter\Session\Session;
           <div class="form-group col-md-4">
 
             <label for="experience">Experience in the Field:</label>
-            <select name="experience" id="experience" class="form-select form-select-lg mb-3"  style = "font-size:15px !important" value="<?= set_value('experience'); ?>">
+            <select name="experience" id="experience" class="form-select form-select-lg mb-3" style="font-size:15px !important" value="<?= set_value('experience'); ?>">
 
               <option value="Below 2 years">Below 2 years</option>
               <option value="2+ years">2+ years</option>
@@ -192,7 +199,7 @@ use CodeIgniter\Session\Session;
           <div class="form-group col-md-4">
 
             <label for="typeOfEmployment">Type of employment:</label>
-            <select name="typeOfEmployment" id="typeOfEmployment" class="form-select form-select-lg mb-3"  style = "font-size:15px !important"value="<?= set_value('typeOfEmployment'); ?>">
+            <select name="typeOfEmployment" id="typeOfEmployment" class="form-select form-select-lg mb-3" style="font-size:15px !important" value="<?= set_value('typeOfEmployment'); ?>">
 
               <option value="Fulltime">Full-Time</option>
               <option value="Parttime">Part-Time</option>
@@ -220,6 +227,7 @@ use CodeIgniter\Session\Session;
 
 
     </div>
-    <script src= "<?= base_url('bootstrap/js/postadvert.js') ?>"></script>
+    <script src="<?= base_url('bootstrap/js/postadvert.js') ?>"></script>
 </body>
+
 </html>

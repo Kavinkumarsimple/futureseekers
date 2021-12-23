@@ -18,14 +18,15 @@ use CodeIgniter\Session\Session;
     google.charts.load('current', {
       'packages': ['corechart']
     });
-
     google.charts.load('current', {
       'packages': ['bar']
     });
 
+
     // Set a callback to run when the Google Visualization API is loaded.
     google.charts.setOnLoadCallback(drawChart);
-    google.charts.setOnLoadCallback(drawStuff);
+    google.charts.setOnLoadCallback(GenerateMostPreferredJobCategoryReport);
+    google.charts.setOnLoadCallback(GenerateMostAppliedJobAdvertReport);
 
     // Callback that creates and populates a data table,
     // instantiates the pie chart, passes in the data and
@@ -69,7 +70,7 @@ use CodeIgniter\Session\Session;
         },
         success: function(result) {
 
-          console.log(result.result);
+          // console.log(result.result);
 
           var gdata = new google.visualization.DataTable();
           gdata.addColumn('string', 'Job Category');
@@ -77,9 +78,9 @@ use CodeIgniter\Session\Session;
 
           //console.log(result.name);
           $.each(result, function(index, value) {
-            console.log(value.jobCategory);
-            console.log(value.categoryCount);
-            console.log("--------------------------");
+            // console.log(value.jobCategory);
+            // console.log(value.categoryCount);
+            // console.log("--------------------------");
             gdata.addRow([String(value.jobCategory), Number(value.categoryCount)]);
           });
 
@@ -89,7 +90,14 @@ use CodeIgniter\Session\Session;
           var options = {
             'title': 'Job Category vs Job Applications',
             'width': 400,
-            'height': 300
+            'height': 300,
+            is3D: true, //Pie Charts
+            colors: ['#54C492', '#f96302'], //Bar of Pie Charts
+            animation: {
+              duration: 2000,
+              easing: 'out',
+              startup: true
+            },
           };
 
           // Instantiate and draw our chart, passing in some options.
@@ -112,46 +120,82 @@ use CodeIgniter\Session\Session;
     }
 
 
-    function drawStuff() {
-      var data = new google.visualization.arrayToDataTable([
-        ['Opening Move', 'Percentage'],
-        ["King's pawn (e4)", 45],
-        ["Queen's pawn (d4)", 31],
-        ["Knight to King 3 (Nf3)", 12],
-        ["Queen's bishop pawn (c4)", 10],
-        ['Other', 3]
-      ]);
-
-      var options = {
-        title: 'Chess opening moves',
-        width: 900,
-        legend: {
-          position: 'none'
-        },
-        chart: {
-          title: 'Chess opening moves',
-          subtitle: 'popularity by percentage'
-        },
-        bars: 'horizontal', // Required for Material Bar Charts.
-        axes: {
-          x: {
-            0: {
-              side: 'top',
-              label: 'Percentage'
-            } // Top x-axis.
-          }
-        },
-        bar: {
-          groupWidth: "90%"
-        }
-      };
-
-      var chart = new google.charts.Bar(document.getElementById('top_x_div'));
-      chart.draw(data, options);
-
-
+    function GenerateMostAppliedJobAdvertReport() {
       $.ajax({
         url: '<?php echo base_url('MyJobsEmployer/GenerateMostAppliedJobAdvertReport'); ?>',
+        type: "post",
+        dataType: 'json',
+        beforeSend: function() {
+
+        },
+        success: function(result) {
+          var gdata = new google.visualization.DataTable();
+          gdata.addColumn('string', 'Job Title');
+          gdata.addColumn('number', 'No. of Applicants');
+          gdata.addColumn({
+            'type': 'string',
+            'role': 'tooltip',
+            'p': {
+              'html': true
+            }
+          });
+
+          $.each(result, function(index, value) {
+            gdata.addRow([String(value.title), Number(value.applicantCount), GenerateMostAppliedToolTip(value.title, value.applicantCount, value.category, value.location), ]);
+          });
+
+          // Set chart options
+          var options = {
+            tooltip: {
+              isHtml: true
+            },
+            // title: "Most Applied Job Adverts",
+            width: 1000,
+            height: 400,
+            bar: {
+              groupWidth: "40%"
+            },
+            is3D: true, //Pie Charts
+            // colors: ['#54C492', '#f96302'], //Bar of Pie Charts
+            animation: {
+              duration: 2000,
+              easing: 'out',
+              startup: true
+            },
+            vAxis: {
+              format: '0',
+              title: "No: of Applicants"
+            }, //Bar of Pie Charts
+            hAxis: {
+              title: "Job Category"
+            }, //Bar of Pie Charts
+            colorAxis: {
+              colors: ['#54C492', '#cc0000']
+            }, //Geo Charts
+            datalessRegionColor: '#dedede', //Geo Charts
+            defaultColor: '#dedede' //Geo Charts,
+
+          };
+
+          // Instantiate and draw our chart, passing in some options.
+          // var chart = new google.visualization.ColumnChart(document.getElementById('top_x_div'));
+          var chart = new google.visualization.ColumnChart(document.getElementById('most_applied'));
+          chart.draw(gdata, options);
+        },
+        complete: function() {
+
+        }
+
+      });
+    }
+
+    function GenerateMostAppliedToolTip(title, applicantCount, category, location) {
+      return "<div class='p-2'><b>" + title + "</b>" + "<br> Applicants: <b>" + applicantCount + "</b><p> Category: <b>" + category + "</b><br>" + " Location: <b>" + location + "</b> </div>"
+    }
+
+    function GenerateMostPreferredJobCategoryReport() {
+      $.ajax({
+        url: '<?php echo base_url('MyJobsEmployer/GenerateMostPreferredJobCategoryReport'); ?>',
         type: "post",
         dataType: 'json',
         beforeSend: function() {
@@ -163,23 +207,60 @@ use CodeIgniter\Session\Session;
           gdata.addColumn('string', 'Job Category');
           gdata.addColumn('number', 'No of Applications');
 
-          // $.each(result, function(index, value) {
-          //   console.log(value.jobCategory);
-          //   console.log(value.categoryCount);
-          //   console.log("--------------------------");
-          //   gdata.addRow([String(value.jobCategory), Number(value.categoryCount)]);
-          // });
+          $.each(result, function(index, value) {
+            gdata.addRow([String(value.category), Number(value.applicantCount)]);
+          });
 
-
+          // Set chart options
           var options = {
-            'title': 'Job Category vs Job Applications',
-            'width': 400,
-            'height': 300
+            title: "Most Preferred Job Category",
+            width: 600,
+            height: 400,
+            bar: {
+              groupWidth: "40%"
+            },
+            is3D: true, //Pie Charts
+            colors: ['#54C492', '#f96302'], //Bar of Pie Charts
+            animation: {
+              duration: 2000,
+              easing: 'out',
+              startup: true
+            },
+            vAxis: {
+              title: "No: of Applicants"
+            }, //Bar of Pie Charts
+            hAxis: {
+              title: "Job Category"
+            }, //Bar of Pie Charts
+            colorAxis: {
+              colors: ['#54C492', '#cc0000']
+            }, //Geo Charts
+            datalessRegionColor: '#dedede', //Geo Charts
+            defaultColor: '#dedede' //Geo Charts,
+
           };
 
           // Instantiate and draw our chart, passing in some options.
-          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+          // var chart = new google.visualization.ColumnChart(document.getElementById('top_x_div'));
+          var chart = new google.visualization.PieChart(document.getElementById('most_preferred_jobs'));
           chart.draw(gdata, options);
+        },
+        complete: function() {
+
+        }
+
+      });
+    }
+
+    function GetTiledReports() {
+      $.ajax({
+        url: '<?php echo base_url('MyJobsEmployer/GetTiledReports'); ?>',
+        type: "post",
+        dataType: 'json',
+        beforeSend: function() {
+
+        },
+        success: function(result) {
 
         },
         complete: function() {
@@ -187,9 +268,7 @@ use CodeIgniter\Session\Session;
         }
 
       });
-
-
-    };
+    }
   </script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -209,7 +288,7 @@ use CodeIgniter\Session\Session;
   <!-- Scripts for Navbar -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
   <script src="<?= base_url('bootstrap/js/modalstuff.js') ?>"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -234,8 +313,18 @@ use CodeIgniter\Session\Session;
             <li class="nav-item active">
               <a class="nav-link" href="<?php echo site_url('EmployerHome/index') ?>">Jobs </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="<?php echo site_url('MyJobsEmployer/index') ?>">My Jobs</a>
+            </li> -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                My Jobs
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="<?php echo site_url('MyJobsEmployer/index') ?>">Job Postings</a>
+                <a class="dropdown-item" href="<?php echo site_url('MyJobsEmployer/MyReports') ?>">My Reports</a> 
+
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo site_url('PostAdvertEmployer/index') ?>">Post an Advert</a>
@@ -258,6 +347,9 @@ use CodeIgniter\Session\Session;
       </nav>
     </div>
   </div>
+
+
+
 
   <br />
   <?php if (!empty(session()->getFlashdata('fail'))) : ?>
@@ -445,10 +537,7 @@ use CodeIgniter\Session\Session;
 
     </div>
   </div>
-  <!--Div that will hold the pie chart-->
-  <div id="chart_div"></div>
 
-  <div id="top_x_div" style="width: 100%; height: 500px;"></div>
 
 </body>
 
