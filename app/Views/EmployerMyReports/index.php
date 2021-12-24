@@ -65,7 +65,7 @@
                         },
                         // title: "Most Applied Job Adverts",
                         // width: 900,
-                        // height: 300,
+                        height: 400,
                         bar: {
                             groupWidth: "40%"
                         },
@@ -135,8 +135,8 @@
                     // Set chart options
                     var options = {
                         // title: "Most Preferred Job Category",
-                        // width: 370,
-                        // height: 300,
+                        width: 600,
+                        height: 300,
                         bar: {
                             groupWidth: "40%"
                         },
@@ -196,8 +196,8 @@
                     var options = {
                         pieHole: 0.3,
                         // title: "Most Preferred Job Category",
-                        // width: 370,
-                        // height: 300,
+                        width: 600,
+                        height: 300,
                         bar: {
                             groupWidth: "40%"
                         },
@@ -243,7 +243,7 @@
                 url: '<?php echo base_url('MyJobsEmployer/GenerateMostSharedJobAdverts'); ?>',
                 type: "post",
                 data: {
-                    selected_val : $selected_value,
+                    selected_val: $selected_value,
                 },
                 dataType: 'json',
                 beforeSend: function() {
@@ -266,7 +266,7 @@
                         },
                         // title: "Most Preferred Job Category",
                         // width: 1200,
-                        // height: 300,
+                        height: 400,
                         bar: {
                             groupWidth: "40%"
                         },
@@ -297,7 +297,7 @@
 
                     if (result.length > 0) {
                         document.getElementById('most_shared_jobs').innerHTML = "";
-                        var chart = new google.visualization.BarChart(document.getElementById('most_shared_jobs'));
+                        var chart = new google.visualization.ColumnChart(document.getElementById('most_shared_jobs'));
                         chart.draw(gdata, options);
                     } else {
                         document.getElementById('most_shared_jobs').innerHTML = "No data";
@@ -520,7 +520,8 @@
             <div class="row mb-4">
                 <br>
                 <div class="d-flex flex-row">
-                    <div class="card mr-4 shadow bg-white rounded" style="width: 100%; height:300px;">
+
+                    <div class="card mr-4 shadow bg-white rounded" style="width: 100%; height:500px;">
                         <div class="card-header bg-primary d-flex flex-row align-items-center" style="color: white;">
                             <div class="mr-auto"> Most Applied Job Adverts </div>
                             <select onchange="GenerateMostAppliedJobAdvertReport(this.value)" name="most_applied_filter" id="most_applied_filter" class="form-select form-control-sm form-select-lg col-md-3" style="font-size:15px !important" value="<?= set_value('most_applied_filter'); ?>">
@@ -536,42 +537,7 @@
                             <div id="most_applied"></div>
                         </div>
                     </div>
-
-                    <div class="card shadow bg-white rounded" style="width: 50%; height:300px;">
-                        <div class="card-header bg-primary" style="color: white;">
-                            Most Preferred Job Category
-                        </div>
-                        <div class="card-body">
-                            <div id="loading_most_preferred" class="loader">
-                                <div class="loader-wheel"></div>
-                                <div>Building Chart...</div>
-                            </div>
-                            <div id="most_preferred_jobs"></div>
-                        </div>
-                    </div>
-
-                </div>
-                <br>
-
-
-            </div>
-
-            <div class="row mb-4">
-                <br>
-                <div class="d-flex flex-row">
-                    <div class="card mr-4 shadow bg-white rounded" style="width: 50%; height:300px">
-                        <div class="card-header bg-primary" style="color: white;">
-                            Job Category Vs Job Postings
-                        </div>
-                        <div class="card-body">
-                            <div id="loading_cat_posting" class="loader">
-                                <div class="loader-wheel"></div>
-                                <div>Building Chart...</div>
-                            </div>
-                            <div id="cat_vs_postings"></div>
-                        </div>
-                    </div>
-                    <div class="card shadow bg-white rounded" style="width: 100%; height:300px">
+                    <div class="card shadow bg-white rounded" style="width: 100%; height:500px">
                         <div class="card-header bg-primary d-flex flex-row align-items-center" style="color: white;">
                             <div class="mr-auto"> Most Shared Job Adverts </div>
                             <select onchange="GenerateMostSharedJobs(this.value)" name="most_shared_filter" id="most_shared_filter" class="form-select form-control-sm form-select-lg col-md-3" style="font-size:15px !important" value="<?= set_value('most_shared_filter'); ?>">
@@ -588,6 +554,42 @@
                             <div id="most_shared_jobs"></div>
                         </div>
                     </div>
+
+                </div>
+                <br>
+
+
+            </div>
+
+            <div class="row mb-4">
+                <br>
+                <div class="d-flex flex-row">
+                    <div class="card mr-4 shadow bg-white rounded" style="width: 50%; height:400px;">
+                        <div class="card-header bg-primary" style="color: white;">
+                            Most Preferred Job Category
+                        </div>
+                        <div class="card-body">
+                            <div id="loading_most_preferred" class="loader">
+                                <div class="loader-wheel"></div>
+                                <div>Building Chart...</div>
+                            </div>
+                            <div id="most_preferred_jobs"></div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow bg-white rounded" style="width: 50%; height:400px">
+                        <div class="card-header bg-primary" style="color: white;">
+                            Job Category Vs Job Postings
+                        </div>
+                        <div class="card-body">
+                            <div id="loading_cat_posting" class="loader">
+                                <div class="loader-wheel"></div>
+                                <div>Building Chart...</div>
+                            </div>
+                            <div id="cat_vs_postings"></div>
+                        </div>
+                    </div>
+
 
 
 
