@@ -39,7 +39,7 @@
               <a class="nav-link" href="<?php echo site_url('ApplicantHome/index') ?>">Home </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">My Inbox</a>
+              <a class="nav-link" href="<?php echo site_url('MyInbox/index') ?>">My Inbox</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="<?php echo site_url('MyProfileApplicant/index') ?>">My Profile</a>
