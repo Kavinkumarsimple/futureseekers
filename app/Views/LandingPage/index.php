@@ -9,33 +9,33 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  
-  
-  
+
+
+
   <link href="<?= base_url('assets/img/apple-touch-icon.png') ?>" rel="apple-touch-icon">
-  
- 
+
+
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  
+
   <link href="<?= base_url('assets/vendor/aos/aos.css') ?>" rel="stylesheet">
-  <link  href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
-  <link  href="<?= base_url('assets/vendor/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('assets/vendor/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
   <link href="<?= base_url('assets/vendor/boxicons/css/boxicons.min.css') ?>" rel="stylesheet">
   <link href="<?= base_url('assets/vendor/glightbox/css/glightbox.min.css') ?>" rel="stylesheet">
   <link href="<?= base_url('assets/vendor/swiper/swiper-bundle.min.css') ?>" rel="stylesheet">
   <link href="<?= base_url('assets/css/landingpagestyle.css') ?>" rel="stylesheet">
-  
- 
+
+
 </head>
 
 <body>
 
 
-    </div>
+  </div>
   </header>
 
- 
+
   <section id="hero" class="d-flex align-items-center">
     <div class="container" data-aos="zoom-out" data-aos-delay="100">
       <h1>Welcome to <span>FutureSeekers</span></h1>
@@ -47,7 +47,7 @@
   </section>
   <main id="main">
 
-   
+
     <section id="featured-services" class="featured-services">
       <div class="container" data-aos="fade-up">
 
@@ -104,7 +104,7 @@
           <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
             <h3>Find out how FutureSeekers helps with finding your Dream Job.</h3>
             <p class="fst-italic">
-              FutureSeekers has agreements with many companies where they will pay a subscription fee so they can post their advertisements. If 
+              FutureSeekers has agreements with many companies where they will pay a subscription fee so they can post their advertisements. If
               you want to post advertisements for your company.You can register now.
             </p>
             <ul>
@@ -138,7 +138,7 @@
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-          <?php 
+          <?php
           $UserAccount = new \App\Models\userAccountModel();
           $numberofemployees = 0;
           $query = $UserAccount->query("Select id from user_account where status = 1 and type = 'applicant'");
@@ -150,64 +150,64 @@
               <i class=\"bi bi-emoji-smile\"></i>
          <span data-purecounter-start=\"0\" data-purecounter-end=$numberofemployees data-purecounter-duration=\"1\" class=\"purecounter\"></span>";
           ?>
-              <p>Jobseekers</p>
-            </div>
-          </div>
+          <p>Jobseekers</p>
+        </div>
+      </div>
 
-          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-            <div class="count-box">
-              <?php
-              $jobs = new \App\Models\jobDetailsModel();
-              $numberofjobs = 0;
-              $query2 = $jobs->query("Select id from job_details where status = 1");
-              foreach ($query2->getResult() as $row2) {
-                $numberofjobs++;
-              }
+      <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+        <div class="count-box">
+          <?php
+          $jobs = new \App\Models\jobDetailsModel();
+          $numberofjobs = 0;
+          $query2 = $jobs->query("Select id from job_details where status = 1");
+          foreach ($query2->getResult() as $row2) {
+            $numberofjobs++;
+          }
 
-        echo    "<i class=\"bi bi-journal-richtext\"></i>
+          echo    "<i class=\"bi bi-journal-richtext\"></i>
               <span data-purecounter-start=\"0\" data-purecounter-end=$numberofjobs data-purecounter-duration=\"1\" class=\"purecounter\"></span>";
-             ?>
-              <p>Job Offers</p>
-            </div>
-          </div>
+          ?>
+          <p>Job Offers</p>
+        </div>
+      </div>
 
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
-            </div>
-          </div>
+      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+        <div class="count-box">
+          <i class="bi bi-headset"></i>
+          <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
+          <p>Hours Of Support</p>
+        </div>
+      </div>
 
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="bi bi-people"></i>
-              <?php
-              $employersM = new \App\Models\employerModel();
-              $usersM = new \App\Models\userAccountModel();
-              $companiesM = new \App\Models\companyModel();
-              $companiesN = 0;
-               $query3 = $usersM->query("Select * from user_account where status = 1 and type = 'employer'");
-               foreach ($query3->getResult() as $row3){
-                $uid = $row3->id;
-                $query4 = $employersM->query("Select * from employer where user_account_id = $uid");
-                foreach ($query4->getResult() as $row4){
-                  $cid = $row4->company_id; 
-                  $query5 = $companiesM->query("Select * from company where id = $cid");
-                  foreach ($query5->getResult() as $row5){
-                    $companiesN++;
-                  }
-                }
-               }
+      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+        <div class="count-box">
+          <i class="bi bi-people"></i>
+          <?php
+          $employersM = new \App\Models\employerModel();
+          $usersM = new \App\Models\userAccountModel();
+          $companiesM = new \App\Models\companyModel();
+          $companiesN = 0;
+          $query3 = $usersM->query("Select * from user_account where status = 1 and type = 'employer'");
+          foreach ($query3->getResult() as $row3) {
+            $uid = $row3->id;
+            $query4 = $employersM->query("Select * from employer where user_account_id = $uid");
+            foreach ($query4->getResult() as $row4) {
+              $cid = $row4->company_id;
+              $query5 = $companiesM->query("Select * from company where id = $cid");
+              foreach ($query5->getResult() as $row5) {
+                $companiesN++;
+              }
+            }
+          }
 
 
           echo  "<span data-purecounter-start=\"0\" data-purecounter-end=$companiesN data-purecounter-duration=\"1\" class=\"purecounter\"></span>";
-              ?>
-              <p>Companies</p>
-            </div>
-          </div>
-
+          ?>
+          <p>Companies</p>
         </div>
+      </div>
+
+      </div>
 
       </div>
     </section>
@@ -218,7 +218,6 @@
         <div class="section-title">
           <h2>Services</h2>
           <h3>Check our <span>Services</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
         </div>
 
         <div class="row">
@@ -326,25 +325,26 @@
 
       </div>
     </section>
+    
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
 
-        <div class="section-title">
+      <div class="section-title">
           <h2>Contact</h2>
           <h3><span>Contact Us</span></h3>
           <p>You can contact us to provide feedback or solve your problems.</p>
         </div>
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-6">
+          <div class="col-lg-4">
             <div class="info-box mb-4">
               <i class="bx bx-map"></i>
               <h3>Our Address</h3>
-              <p>22/7, Cinnamon Garden, Colombo</p>
+              <p>No. 388 Union Pl, Colombo 00200</p>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-4">
             <div class="info-box  mb-4">
               <i class="bx bx-envelope"></i>
               <h3>Email Us</h3>
@@ -352,44 +352,51 @@
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-4">
             <div class="info-box  mb-4">
               <i class="bx bx-phone-call"></i>
               <h3>Call Us</h3>
-              <p>+94713399187</p>
+              <p>+94 117 675 100</p>
             </div>
           </div>
 
         </div>
 
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="col-lg-12 ">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15843.062630415658!2d79.8612289!3d6.9185953!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2b0ae2edd563a661!2sAsia%20Pacific%20Institute%20of%20Information%20Technology%20(APIIT)!5e0!3m2!1sen!2slk!4v1640696405224!5m2!1sen!2slk" width=100% height="400px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+
+        </div>
 
       </div>
     </section>
   </main>
 
- 
 
-   
 
- 
+
+
+
 
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  
-  <script src="<?= base_url('assets/vendor/purecounter/purecounter.js')?>"></script>
-  <script src="<?= base_url('assets/vendor/aos/aos.js')?>"></script>
-  <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-  <script src="<?= base_url('assets/vendor/glightbox/js/glightbox.min.js')?>"></script>
-  <script src="<?= base_url('assets/vendor/isotope-layout/isotope.pkgd.min.js')?>"></script>
-  <script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js')?>"></script>
-  <script src="<?= base_url('assets/vendor/waypoints/noframework.waypoints.js')?>"></script>
-  <script src= "<?= base_url('assets/vendor/php-email-form/validate.js') ?>"></script>
 
-  
-  <script src= "<?= base_url('assets/js/landingpagescript.js') ?>"></script>
-  
+  <script src="<?= base_url('assets/vendor/purecounter/purecounter.js') ?>"></script>
+  <script src="<?= base_url('assets/vendor/aos/aos.js') ?>"></script>
+  <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+  <script src="<?= base_url('assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
+  <script src="<?= base_url('assets/vendor/isotope-layout/isotope.pkgd.min.js') ?>"></script>
+  <script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
+  <script src="<?= base_url('assets/vendor/waypoints/noframework.waypoints.js') ?>"></script>
+  <script src="<?= base_url('assets/vendor/php-email-form/validate.js') ?>"></script>
+
+
+  <script src="<?= base_url('assets/js/landingpagescript.js') ?>"></script>
+
 </body>
 
 </html>

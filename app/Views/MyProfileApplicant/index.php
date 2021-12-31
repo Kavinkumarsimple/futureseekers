@@ -45,7 +45,7 @@
               <a class="nav-link" href="<?php echo site_url('MyProfileApplicant/index') ?>">My Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">About Us</a>
+              <a class="nav-link" href="<?php echo site_url('AboutUs/index') ?>">About Us</a>
             </li>
             <!-- Enter PHP code to check if the user is logged in or not in order to show login button -->
            
